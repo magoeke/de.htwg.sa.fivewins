@@ -32,7 +32,7 @@ public class TextUI implements IObserver{
 	public void printTUI() {
 		System.out.println(controller.getFieldString());
 		System.out.println(controller.getStatus());
-		System.out.println("Please enter a command( q - quit, u - update, s - solve, r - reset, n - new, 1 - 50 - set size, xy - show candidates at (x,y), xyz - set cell(x,y) to z):");
+		System.out.println("Please enter a command( q - quit, u - update, s - solve, r - reset, n - new, 1 - 50 - set size, x y - show candidates at (x,y), xyz - set cell(x,y) to z):");
 	}
 	
 	public boolean handleInputOrQuit(String line) {
@@ -45,10 +45,10 @@ public class TextUI implements IObserver{
 		}
 
 		// if the command line has the form 123, set the cell (1,2) to value 3
-		if (line.matches("[0-50][0-50][any sign]")){
+		if (line.matches("[0-50][0-50]")){
 			Pattern p = Pattern.compile("[0-50]");
 			Matcher m = p.matcher(line);
-			int[] arg = new int[3];
+			int[] arg = new int[2];
 			for (int i = 0; i < arg.length; i++) {
 				m.find();
 				arg[i] = Integer.parseInt(m.group());
