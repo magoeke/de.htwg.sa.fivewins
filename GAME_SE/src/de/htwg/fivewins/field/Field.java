@@ -4,6 +4,7 @@ public class Field {
 
 	private int size;
 	String[][] gamefield;
+	String newLine = System.getProperty("line.separator");
 	
 	public Field(int size) {
 		this.size = size;
@@ -12,7 +13,7 @@ public class Field {
 		//fill array with default value
 		for(int i = 0; i < size; i++) {
 			for(int a = 0; a < size; a++) {
-				gamefield[i][a] = "0";
+				gamefield[i][a] = "-";
 			}
 		}
 	}
@@ -20,26 +21,26 @@ public class Field {
 	@Override
 	public String toString() {
 		//calculate size for i
-		int end = size*2 +1;
 		StringBuilder s = new StringBuilder();
 		
-		for(int i=0; i < end; i++) {
-			if((i % 2) == 0) {
-				s.append("+-+-+-+-+-+").append( '\n' );
-			} else {
-				for(int a = 0; a < size; a++) {
-					if(gamefield[i][a].equals("0")) {
-						s.append("| |");
-					} else {
-						s.append("|" + gamefield[i][a] + "|");
-					}
-				}
-				s.append( '\n' );
+		for(int i = 0; i < size; i++) {
+			for(int a = 0; a < size; a++) {
+				s.append(" " + gamefield[i][a]);
 			}
+			s.append(newLine);
 		}
 		
 		
 		return s.toString();
+	}
+	
+	public String getCellValue(int column, int row) {
+		//input must be right
+		return gamefield[column][row];
+	}
+	
+	public void setValue(int column, int row, String value) {
+		gamefield[column][row] = value;
 	}
 	
 }
