@@ -53,7 +53,7 @@ public class TextUI implements IObserver{
 				m.find();
 				arg[i] = Integer.parseInt(m.group());
 			} 
-			//controller.setValue(arg[0], arg[1], arg[2]);   
+			controller.setValue(arg[0], arg[1], controller.getPlayerSign());   
 		}
 		
 		return quit;

@@ -13,10 +13,12 @@ public class FiveWinsController extends Observable {
 		this.field = field;
 	}
 	
-	public void setValue(int row, int column, String value) {
+	public void setValue(int column, int row, String value) {
 		//input must be right
-		if (field.getCellValue(column, row).equals("-")) {
-			field.setValue(row, column, value);
+		String cellVal = field.getCellValue(column, row);
+		
+		if(cellVal.equals("-")) {
+			field.setValue(column, row, value);
 			setStatusMessage("The cell "+column+" "+row+" was successfully set");
 		} else {
 			setStatusMessage("The cell "+column+" "+row+" is already set");
@@ -34,5 +36,9 @@ public class FiveWinsController extends Observable {
 
 	public String getFieldString() {
 		return field.toString();
+	}
+	
+	public String getPlayerSign() {
+		return null;
 	}
 }
