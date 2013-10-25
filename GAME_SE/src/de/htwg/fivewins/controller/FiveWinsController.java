@@ -1,5 +1,7 @@
 package de.htwg.fivewins.controller;
 
-public class FiveWinsController {
+import de.htwg.util.observer.Observable;
+
+public class FiveWinsController extends Observable {
 
 }

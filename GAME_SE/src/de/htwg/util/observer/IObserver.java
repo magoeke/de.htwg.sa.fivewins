@@ -1,5 +1,7 @@
 package de.htwg.util.observer;
 
-public class IObserver {
+public interface IObserver {
 
+	void update();
+	
 }
