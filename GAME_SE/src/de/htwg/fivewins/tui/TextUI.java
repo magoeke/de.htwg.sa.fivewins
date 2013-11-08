@@ -13,6 +13,7 @@ public class TextUI implements IObserver{
 	private FiveWinsController controller;
 	Scanner scanner;
 	String line = "";
+	
 
 	public TextUI(FiveWinsController controller){
 		this.controller = controller;
@@ -59,5 +60,7 @@ public class TextUI implements IObserver{
 		return quit;
 	}
 
+	
+	
 
 }
