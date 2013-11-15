@@ -21,12 +21,6 @@ public class TextUITest {
 		tui1 = new TextUI(controller1);
 	}
 
-	@Test
-	public void testHandleInput() {
-		tui1.handleInputOrQuit("00");
-		assertEquals(1,field.getCellValue(0, 0));
-		
-		assertTrue(tui1.handleInputOrQuit("q"));
-	}
+	
 
 }
