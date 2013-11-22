@@ -43,6 +43,7 @@ public class TextUI implements IObserver{
 		}
 		if (line.equalsIgnoreCase("u")) {
 			//Do nothing, just redraw the updated grid
+			quit = false;
 		}
 		if (line.equalsIgnoreCase("n")) {
 			//Restart game

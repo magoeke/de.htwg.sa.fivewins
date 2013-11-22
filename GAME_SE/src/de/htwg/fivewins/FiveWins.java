@@ -4,7 +4,7 @@ import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.field.Field;
 import de.htwg.fivewins.tui.TextUI;
 
-public class FiveWins {
+public final class FiveWins {
 	private FiveWins() { }
 
 	public static void main(String[] args) {
