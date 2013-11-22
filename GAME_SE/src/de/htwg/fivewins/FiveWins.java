@@ -15,7 +15,8 @@ public final class FiveWins {
 		// continue until the user decides to quit
 		boolean quit = false;
 		while (!quit) {
-		    quit = tui.iterate();		
+		    quit = tui.iterate();
+		    
 		}
 
 	}

@@ -33,7 +33,7 @@ public class TextUI implements IObserver{
 	public void printTUI() {
 		System.out.print(controller.getFieldString() + "\n");
 		System.out.print(controller.getStatus() + "\n");
-		System.out.print("Please enter a command( q - quit, u - update, n - new, 1 - 15 - set size, x y - set cell(x,y)):\n");
+		System.out.print("Please enter a command( q - quit, u - update, n - new, 1 - 15 - set size, x,y - set cell(x,y)):\n");
 	}
 	
 	public boolean handleInputOrQuit(String line) {
@@ -43,22 +43,20 @@ public class TextUI implements IObserver{
 		}
 		if (line.equalsIgnoreCase("u")) {
 			//Do nothing, just redraw the updated grid
-			quit = false;
+			update();
 		}
 		if (line.equalsIgnoreCase("n")) {
 			//Restart game
 			new TextUI(new FiveWinsController(new Field(3)));
 		}
 		// if the command line has the form 12, set the cell (1,2) to value 3
-		if (line.matches("[0-9]{1,2} [0-9]{1,2}")){
-			Pattern p = Pattern.compile("[0-50]");
-			Matcher m = p.matcher(line);
-			int[] arg = new int[2];
-			for (int i = 0; i < arg.length; i++) {
-				m.find();
-				arg[i] = Integer.parseInt(m.group());
-			} 
-			controller.setValue(arg[0], arg[1], controller.getPlayerSign());   
+		if (line.matches("[0-9]{1,2}?,[0-9]{1,2}?")){
+			String[] numbers = line.split(",");
+			int arg0 = Integer.parseInt(numbers[0]);
+			int arg1 = Integer.parseInt(numbers[1]);
+			controller.setValue(arg0, arg1, controller.getPlayerSign());
+			controller.countTurn();
+			controller.winRequest();
 		}
 		
 		return quit;

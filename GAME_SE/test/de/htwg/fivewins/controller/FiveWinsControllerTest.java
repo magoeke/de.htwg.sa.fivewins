@@ -34,16 +34,14 @@ public class FiveWinsControllerTest {
 	
 	@Test
 	public void testGetPlayerSign() {
-		assertEquals("X",
-				controller.getPlayerSign());
+		assertEquals("X", controller.getPlayerSign());
+		controller.countTurn();
+		assertEquals("O", controller.getPlayerSign());
 	}
 	
+	@Test
 	public void testGetFieldString() {
 		assertEquals(" -"+newLine, controller.getFieldString());
-	}
-	
-	public void testCountTurn() {
-		assertEquals(1, controller.countTurn());
 	}
 
 }

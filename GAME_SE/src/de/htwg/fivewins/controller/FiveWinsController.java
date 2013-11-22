@@ -8,6 +8,8 @@ public class FiveWinsController extends Observable {
 	private String statusMessage = "Welcome to HTWG Five Wins!";
 	private Field field;
 	private int turn =  0;
+	final int FIVE = 5;
+
 
 	
 	public FiveWinsController(Field field) {
@@ -50,5 +52,51 @@ public class FiveWinsController extends Observable {
 		} else {
 			return "O";
 		}
+	}
+	
+	
+	public String winRequest() {
+		if(!verticalWinRequest().equals("")) {
+			return verticalWinRequest();
+		}
+		return "";
+	}
+	
+	
+	public String verticalWinRequest() {
+		int size = field.getSize();
+		int[] countPlayerSign = {0, 0}; //{waagrecht, senkrecht}
+		String[] currentPlayerSign = new String[2];
+		
+		for(int i = 0; i < size; i++) {
+			for(int j = 0; j < size; j++) {
+				currentPlayerSign[0] = testVerticalWinRequest(i,j, countPlayerSign[0], currentPlayerSign[0]);
+				if (countPlayerSign[0] >= FIVE){
+					return currentPlayerSign[0];
+				}
+				currentPlayerSign[1] = testVerticalWinRequest(j,i, countPlayerSign[1], currentPlayerSign[1]);
+				if (countPlayerSign[1] >= FIVE){
+					return currentPlayerSign[1];
+				}
+			}
+		}
+		return "";
+	}
+	
+	
+	public String testVerticalWinRequest(int i, int j, int countPlayerSign, String currentPlayerSign) {
+			
+		if(field.getCellValue(i, j).equals(currentPlayerSign)) {
+			countPlayerSign++;
+		} else {
+			if(!field.getCellValue(i, j).equals("")) {
+				countPlayerSign = 1;
+			} else {
+				countPlayerSign = 0;
+			}
+			
+		}
+		
+		return field.getCellValue(i, j);
 	}
 }

@@ -43,4 +43,7 @@ public class Field {
 		gamefield[column][row] = value;
 	}
 	
+	public int getSize() {
+		return size;
+	}
 }
