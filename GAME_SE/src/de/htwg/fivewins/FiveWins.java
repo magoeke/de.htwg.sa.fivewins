@@ -9,7 +9,8 @@ public final class FiveWins {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		TextUI tui = new TextUI(new FiveWinsController(new Field(3)));
+		final int THREE = 3;
+		TextUI tui = new TextUI(new FiveWinsController(new Field(THREE)));
 		tui.printTUI();
 		// continue until the user decides to quit
 		boolean quit = false;
