@@ -5,6 +5,7 @@ import de.htwg.fivewins.field.Field;
 import de.htwg.fivewins.tui.TextUI;
 
 public class FiveWins {
+	private FiveWins() { }
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

@@ -13,7 +13,6 @@ public class TextUI implements IObserver{
 	
 	private FiveWinsController controller;
 	private Scanner scanner;
-	//private String line = "";
 	
 
 	public TextUI(FiveWinsController controller){

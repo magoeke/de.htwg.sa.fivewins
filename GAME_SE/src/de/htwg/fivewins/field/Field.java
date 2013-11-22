@@ -3,8 +3,8 @@ package de.htwg.fivewins.field;
 public class Field {
 
 	private int size;
-	String[][] gamefield;
-	String newLine = System.getProperty("line.separator");
+	private String[][] gamefield;
+	private String newLine = System.getProperty("line.separator");
 	
 	public Field(int size) {
 		this.size = size;
