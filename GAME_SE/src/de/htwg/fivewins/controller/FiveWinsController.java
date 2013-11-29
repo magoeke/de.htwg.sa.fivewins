@@ -8,25 +8,41 @@ public class FiveWinsController extends Observable {
 	private String statusMessage = "Welcome to HTWG Five Wins!";
 	private Field field;
 	private int turn =  0;
-	final int FIVE = 5;
+	private int needToWin;
+	private int last_x;
+	private int last_y;
 
 
 	
 	public FiveWinsController(Field field) {
 		this.field = field;
+		calculateNeedToWin();
 	}
 	
-	public void setValue(int column, int row, String value) {
+	private void calculateNeedToWin() {
+		if(field.getSize() < 5) {
+			needToWin = field.getSize();
+			return;	//after calculate
+		} 
+		needToWin = 5;
+	}
+	
+	public boolean setValue(int column, int row, String value) {
 		//input must be right
+		last_x = column;
+		last_y = row;
 		String cellVal = field.getCellValue(column, row);
+		boolean result = false;
 		
 		if(cellVal.equals("-")) {
 			field.setValue(column, row, value);
 			setStatusMessage("The cell "+column+" "+row+" was successfully set");
+			result = true;
 		} else {
 			setStatusMessage("The cell "+column+" "+row+" is already set");
 		}
 		notifyObservers();
+		return result;
 	}
 
 	public String getStatus() {
@@ -45,6 +61,7 @@ public class FiveWinsController extends Observable {
 		return turn++;
 	}
 	
+	//ToDo playerCurrentPlayerDign
 	public String getPlayerSign() {
 		int result = turn % 2;
 		if(result == 0) {
@@ -54,49 +71,27 @@ public class FiveWinsController extends Observable {
 		}
 	}
 	
-	
 	public String winRequest() {
-		if(!verticalWinRequest().equals("")) {
-			return verticalWinRequest();
-		}
-		return "";
+		winRequestR(last_x, last_y, 1, field.getCellValue(last_x, last_y));
+		return field.getCellValue(last_x, last_y);
 	}
 	
-	
-	public String verticalWinRequest() {
-		int size = field.getSize();
-		int[] countPlayerSign = {0, 0}; //{waagrecht, senkrecht}
-		String[] currentPlayerSign = new String[2];
+	public int winRequestR(int column, int row, int number,String latestPlayerSign) {
+		if(row > field.getSize() || row < 0) {
+			return 0;
+		}
+		if(column > field.getSize() || row < 0) {
+			return 0;
+		}
 		
-		for(int i = 0; i < size; i++) {
-			for(int j = 0; j < size; j++) {
-				currentPlayerSign[0] = testVerticalWinRequest(i,j, countPlayerSign[0], currentPlayerSign[0]);
-				if (countPlayerSign[0] >= FIVE){
-					return currentPlayerSign[0];
-				}
-				currentPlayerSign[1] = testVerticalWinRequest(j,i, countPlayerSign[1], currentPlayerSign[1]);
-				if (countPlayerSign[1] >= FIVE){
-					return currentPlayerSign[1];
-				}
-			}
-		}
-		return "";
-	}
-	
-	
-	public String testVerticalWinRequest(int i, int j, int countPlayerSign, String currentPlayerSign) {
+		if(field.getCellValue(column, row).equals(latestPlayerSign)) {
 			
-		if(field.getCellValue(i, j).equals(currentPlayerSign)) {
-			countPlayerSign++;
-		} else {
-			if(!field.getCellValue(i, j).equals("")) {
-				countPlayerSign = 1;
-			} else {
-				countPlayerSign = 0;
-			}
+		}
+		if(needToWin <= 2) {
 			
 		}
 		
-		return field.getCellValue(i, j);
+		return 0;
 	}
+
 }

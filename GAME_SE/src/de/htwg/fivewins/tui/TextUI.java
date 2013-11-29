@@ -1,15 +1,12 @@
 package de.htwg.fivewins.tui;
 
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.field.Field;
 import de.htwg.util.observer.IObserver;
 
 public class TextUI implements IObserver{
-
 	
 	private FiveWinsController controller;
 	private Scanner scanner;
@@ -54,11 +51,13 @@ public class TextUI implements IObserver{
 			String[] numbers = line.split(",");
 			int arg0 = Integer.parseInt(numbers[0]);
 			int arg1 = Integer.parseInt(numbers[1]);
-			controller.setValue(arg0, arg1, controller.getPlayerSign());
-			controller.countTurn();
-			controller.winRequest();
+			boolean successfulFieldChange = controller.setValue(arg0, arg1, controller.getPlayerSign());
+			if(successfulFieldChange) {
+				controller.countTurn();
+				controller.winRequest();
+			}
 		}
-		
+
 		return quit;
 	}
 

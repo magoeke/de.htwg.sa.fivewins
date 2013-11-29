@@ -7,6 +7,10 @@ public class Field {
 	private String newLine = System.getProperty("line.separator");
 	
 	public Field(int size) {
+		if(size < 0 || size > 20) {
+			throw new IllegalArgumentException("Size has to be between 1 and 20.");
+		}
+		
 		this.size = size;
 		gamefield = new String[size][size];
 		
@@ -20,7 +24,6 @@ public class Field {
 	
 	@Override
 	public String toString() {
-		//calculate size for i
 		StringBuilder s = new StringBuilder();
 		
 		for(int i = 0; i < size; i++) {
