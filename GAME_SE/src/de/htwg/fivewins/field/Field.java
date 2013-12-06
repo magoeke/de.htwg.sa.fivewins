@@ -28,7 +28,7 @@ public class Field {
 		
 		for(int i = 0; i < size; i++) {
 			for(int a = 0; a < size; a++) {
-				s.append(" " + gamefield[i][a]);
+				s.append(" " + gamefield[a][i]);
 			}
 			s.append(newLine);
 		}

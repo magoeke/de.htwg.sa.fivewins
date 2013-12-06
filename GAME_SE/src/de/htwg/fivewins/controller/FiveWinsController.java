@@ -11,7 +11,7 @@ public class FiveWinsController extends Observable {
 	private int needToWin;
 	private int last_x;
 	private int last_y;
-
+    private int[] currentCell = new int[2];
 
 	
 	public FiveWinsController(Field field) {
@@ -29,17 +29,25 @@ public class FiveWinsController extends Observable {
 	
 	public boolean setValue(int column, int row, String value) {
 		//input must be right
+		column--;
+		row--;
 		last_x = column;
 		last_y = row;
+		currentCell[0] = column;
+		currentCell[1] = row;
 		String cellVal = field.getCellValue(column, row);
 		boolean result = false;
 		
 		if(cellVal.equals("-")) {
 			field.setValue(column, row, value);
-			setStatusMessage("The cell "+column+" "+row+" was successfully set");
+			column++; row++;
+			setStatusMessage("The cell "+column+" "+row+" was successfully set.");
+			column--; row--;
 			result = true;
 		} else {
-			setStatusMessage("The cell "+column+" "+row+" is already set");
+			column++; row++;
+			setStatusMessage("The cell "+column+" "+row+" is already set.");
+			column--; row--;
 		}
 		notifyObservers();
 		return result;
@@ -61,37 +69,91 @@ public class FiveWinsController extends Observable {
 		return turn++;
 	}
 	
-	//ToDo playerCurrentPlayerDign
-	public String getPlayerSign() {
+	//ToDo getCurrentPlayer
+	public String getCurrentPlayer(){ //getPlayerSign() {
 		int result = turn % 2;
 		if(result == 0) {
 			return "X";
 		} else {
 			return "O";
-		}
+		} 
 	}
 	
 	public String winRequest() {
-		winRequestR(last_x, last_y, 1, field.getCellValue(last_x, last_y));
-		return field.getCellValue(last_x, last_y);
+		boolean direction = true;
+		boolean H = false;
+		if(winRequestH(currentCell, last_x, last_y, field.getCellValue(last_x, last_y), direction, H, 0)){
+			return field.getCellValue(last_x, last_y);
+		}
+		return "";
 	}
 	
-	public int winRequestR(int column, int row, int number,String latestPlayerSign) {
-		if(row > field.getSize() || row < 0) {
-			return 0;
+	
+	public boolean winRequestH(int[] cC, int last_x, int last_y, String s, boolean d, boolean b,int i) {
+		while (field.getCellValue(cC[0], cC[1]) == field.getCellValue(last_x, last_y)) {         // ist das aktuelle feld gleich dem derzeit Abgefragtem?
+			i++;
+			if (i >= needToWin){
+				b = true;
+				break;
+			}
+			if(last_x - 1 >= 0 && cC[0] - last_x <= needToWin && d){                           // ist das Feld das gleich abgefragt überhaupt relevant?
+				last_x--;
+				winRequestH(cC, last_x, last_y, s, d, b,i);                                    // request an das feld über dem letzten.
+				break;
+			}
+			if(d){			                                                                   // war das Feld eben nichtmehr relevant,
+			    last_x = cC[0];                                                                // wird das abgefragte zurückgesetzt.
+			    d = false;
+			}                                                                                  //
+			if(last_x + 1 < field.getSize() && last_x - cC[0] <= needToWin && !d){             //
+				last_x++;
+				winRequestH(cC, last_x, last_y, s, d, b, i);                                   //
+				break;
+			}
 		}
-		if(column > field.getSize() || row < 0) {
-			return 0;
-		}
-		
-		if(field.getCellValue(column, row).equals(latestPlayerSign)) {
-			
-		}
-		if(needToWin <= 2) {
-			
-		}
-		
-		return 0;
+	    return b;
 	}
-
+	
+	
+	
+	
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

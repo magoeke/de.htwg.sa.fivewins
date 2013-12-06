@@ -28,9 +28,10 @@ public class TextUI implements IObserver{
 	}
 
 	public void printTUI() {
-		System.out.print(controller.getFieldString() + "\n");
+		System.out.print("\n" + controller.getFieldString() + "\n");
 		System.out.print(controller.getStatus() + "\n");
-		System.out.print("Please enter a command( q - quit, u - update, n - new, 1 - 15 - set size, x,y - set cell(x,y)):\n");
+		System.out.print("\n");
+		System.out.print("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)):\n"); // 1-15 - set size
 	}
 	
 	public boolean handleInputOrQuit(String line) {
@@ -51,10 +52,10 @@ public class TextUI implements IObserver{
 			String[] numbers = line.split(",");
 			int arg0 = Integer.parseInt(numbers[0]);
 			int arg1 = Integer.parseInt(numbers[1]);
-			boolean successfulFieldChange = controller.setValue(arg0, arg1, controller.getPlayerSign());
+			boolean successfulFieldChange = controller.setValue(arg0, arg1, controller.getCurrentPlayer());
 			if(successfulFieldChange) {
+				System.out.print("Der Gewinner ist " + controller.winRequest() + "\n");
 				controller.countTurn();
-				controller.winRequest();
 			}
 		}
 
