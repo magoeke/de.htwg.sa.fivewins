@@ -52,7 +52,7 @@ public class TextUI implements IObserver{
 			String[] numbers = line.split(",");
 			int arg0 = Integer.parseInt(numbers[0]);
 			int arg1 = Integer.parseInt(numbers[1]);
-			boolean successfulFieldChange = controller.setValue(arg0, arg1, controller.getCurrentPlayer());
+			boolean successfulFieldChange = controller.setValue(arg0, arg1, controller.getPlayerSign());
 			if(successfulFieldChange) {
 				System.out.print("Der Gewinner ist " + controller.winRequest() + "\n");
 				controller.countTurn();

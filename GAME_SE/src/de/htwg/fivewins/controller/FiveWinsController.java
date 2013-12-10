@@ -3,7 +3,7 @@ package de.htwg.fivewins.controller;
 import de.htwg.fivewins.field.Field;
 import de.htwg.util.observer.Observable;
 
-public class FiveWinsController extends Observable {
+public class FiveWinsController extends Observable implements IFiveWinsController{
 
 	private String statusMessage = "Welcome to HTWG Five Wins!";
 	private Field field;
@@ -69,8 +69,7 @@ public class FiveWinsController extends Observable {
 		return turn++;
 	}
 	
-	//ToDo getCurrentPlayer
-	public String getCurrentPlayer(){ //getPlayerSign() {
+	public String getPlayerSign() {
 		int result = turn % 2;
 		if(result == 0) {
 			return "X";
@@ -96,13 +95,13 @@ public class FiveWinsController extends Observable {
 				b = true;
 				break;
 			}
-			if(last_x - 1 >= 0 && cC[0] - last_x <= needToWin && d){                           // ist das Feld das gleich abgefragt überhaupt relevant?
+			if(last_x - 1 >= 0 && cC[0] - last_x <= needToWin && d){                           // ist das Feld das gleich abgefragt ï¿½berhaupt relevant?
 				last_x--;
-				winRequestH(cC, last_x, last_y, s, d, b,i);                                    // request an das feld über dem letzten.
+				winRequestH(cC, last_x, last_y, s, d, b,i);                                    // request an das feld ï¿½ber dem letzten.
 				break;
 			}
 			if(d){			                                                                   // war das Feld eben nichtmehr relevant,
-			    last_x = cC[0];                                                                // wird das abgefragte zurückgesetzt.
+			    last_x = cC[0];                                                                // wird das abgefragte zurï¿½ckgesetzt.
 			    d = false;
 			}                                                                                  //
 			if(last_x + 1 < field.getSize() && last_x - cC[0] <= needToWin && !d){             //
@@ -113,12 +112,7 @@ public class FiveWinsController extends Observable {
 		}
 	    return b;
 	}
-	
-	
-	
-	
-	
-	
+
 	
 }
 

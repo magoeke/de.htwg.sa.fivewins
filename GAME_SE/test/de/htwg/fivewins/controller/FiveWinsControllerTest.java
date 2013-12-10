@@ -34,9 +34,9 @@ public class FiveWinsControllerTest {
 	
 	@Test
 	public void testGetCurrentPlayer() {
-		assertEquals("X", controller.getCurrentPlayer());
+		assertEquals("X", controller.getPlayerSign());
 		controller.countTurn();
-		assertEquals("O", controller.getCurrentPlayer());
+		assertEquals("O", controller.getPlayerSign());
 	}
 	
 	@Test
