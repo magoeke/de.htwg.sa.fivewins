@@ -12,6 +12,7 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 	private int last_x;
 	private int last_y;
     private int[] currentCell = new int[2];
+    private boolean win = false;
 
 	
 	public FiveWinsController(Field field) {
@@ -78,42 +79,95 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 		} 
 	}
 	
+	public boolean getWinner() {
+		return win;
+	}
+	
 	public String winRequest() {
-		boolean direction = true;
-		boolean H = false;
-		if(winRequestH(currentCell, last_x, last_y, field.getCellValue(last_x, last_y), direction, H, 0)){
-			return field.getCellValue(last_x, last_y);
+		int horizontal = winRequestHorizontal(last_x, last_y, 0, getPlayerSign(), true) 
+				+ winRequestHorizontal(last_x, last_y, 0, getPlayerSign(), false) + 1; //waagerecht
+		int vertical = winRequestVertical(last_x, last_y, 0, getPlayerSign(), true) 
+				+ winRequestVertical(last_x, last_y, 0, getPlayerSign(), false) + 1;
+		int diagonal = winRequestDiagonal(last_x, last_y, 0, getPlayerSign(), true) 
+				+ winRequestDiagonal(last_x, last_y, 0, getPlayerSign(), false) + 1;
+		int diagonalReflected = winRequestDiagonalReflected(last_x, last_y, 0, getPlayerSign(), true) 
+				+ winRequestDiagonalReflected(last_x, last_y, 0, getPlayerSign(), false) + 1;
+		
+		if(vertical >= needToWin || horizontal >= needToWin || diagonal >= needToWin ||
+				diagonalReflected >= needToWin) {
+			win = true;
+			return getPlayerSign();
 		}
+		
 		return "";
 	}
 	
-	
-	public boolean winRequestH(int[] cC, int last_x, int last_y, String s, boolean d, boolean b,int i) {
-		while (field.getCellValue(cC[0], cC[1]) == field.getCellValue(last_x, last_y)) {         // ist das aktuelle feld gleich dem derzeit Abgefragtem?
-			i++;
-			if (i >= needToWin){
-				b = true;
-				break;
-			}
-			if(last_x - 1 >= 0 && cC[0] - last_x <= needToWin && d){                           // ist das Feld das gleich abgefragt �berhaupt relevant?
-				last_x--;
-				winRequestH(cC, last_x, last_y, s, d, b,i);                                    // request an das feld �ber dem letzten.
-				break;
-			}
-			if(d){			                                                                   // war das Feld eben nichtmehr relevant,
-			    last_x = cC[0];                                                                // wird das abgefragte zur�ckgesetzt.
-			    d = false;
-			}                                                                                  //
-			if(last_x + 1 < field.getSize() && last_x - cC[0] <= needToWin && !d){             //
-				last_x++;
-				winRequestH(cC, last_x, last_y, s, d, b, i);                                   //
-				break;
-			}
+	//operator true => Plus
+	private int winRequestHorizontal(int value, int fixValue, int n, String currentPlayer, 
+			boolean operator) {
+		int result = 0;
+		if(value < 0 || value >= field.getSize() || 
+				!field.getCellValue(value, fixValue).equals(currentPlayer) ) {
+			return n-1;
 		}
-	    return b;
+		
+		if(operator) {
+			result = winRequestHorizontal(value-1, fixValue,n+1, currentPlayer, operator);
+		} else {
+			result = winRequestHorizontal(value+1, fixValue,n+1, currentPlayer, operator);
+		}
+		return result;
 	}
-
 	
+	private int winRequestVertical(int fixValue, int value, int n, String currentPlayer, 
+			boolean operator) {
+		int result = 0;
+		if(value < 0 || value >= field.getSize() || 
+				!field.getCellValue(fixValue, value).equals(currentPlayer) ) {
+			return n-1;
+		}
+		
+		if(operator) {
+			result = winRequestVertical(fixValue, value-1, n+1, currentPlayer, operator);
+		} else {
+			result = winRequestVertical(fixValue, value+1, n+1, currentPlayer, operator);
+		}
+		return result;
+	}
+	
+	//operator true => doppel --
+	private int winRequestDiagonal(int value1, int value2, int n, String currentPlayer, 
+			boolean operator) {
+		int result = 0;
+		if(value1 < 0 || value1 >= field.getSize() || value2 < 0 || value2 >= field.getSize() || 
+				!field.getCellValue(value1, value2).equals(currentPlayer) ) {
+			return n-1;
+		}
+		
+		if(operator) {
+			result = winRequestDiagonal(value1-1, value2-1,n+1, currentPlayer, operator);
+		} else {
+			result = winRequestDiagonal(value1+1, value2+1,n+1, currentPlayer, operator);
+		}
+		return result;
+	}
+		
+	//operator true => +-
+		private int winRequestDiagonalReflected(int value1, int value2, int n, String currentPlayer, 
+				boolean operator) {
+			int result = 0;
+			if(value1 < 0 || value1 >= field.getSize() || value2 < 0 || value2 >= field.getSize() || 
+					!field.getCellValue(value1, value2).equals(currentPlayer) ) {
+				return n-1;
+			}
+			
+			if(operator) {
+				result = winRequestDiagonalReflected(value1+1, value2-1,n+1, currentPlayer, operator);
+			} else {
+				result = winRequestDiagonalReflected(value1-1, value2+1,n+1, currentPlayer, operator);
+			}
+			return result;
+		}
 }
 
 
