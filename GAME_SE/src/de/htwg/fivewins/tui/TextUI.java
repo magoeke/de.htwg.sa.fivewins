@@ -2,6 +2,7 @@ package de.htwg.fivewins.tui;
 
 import java.util.Scanner;
 
+import de.htwg.fivewins.FiveWins;
 import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.field.Field;
 import de.htwg.util.observer.IObserver;
@@ -45,9 +46,8 @@ public class TextUI implements IObserver{
 		}
 		if (line.equalsIgnoreCase("n")) {
 			//Restart game
-			new TextUI(new FiveWinsController(new Field(3)));
+			reset();
 		}
-		// if the command line has the form 12, set the cell (1,2) to value 3
 		if (line.matches("[0-9]{1,2}?,[0-9]{1,2}?")){
 			String[] numbers = line.split(",");
 			int arg0 = Integer.parseInt(numbers[0]);
@@ -62,7 +62,9 @@ public class TextUI implements IObserver{
 		return quit;
 	}
 
-	
+	private void reset() {
+		FiveWins.reset();
+	}
 	
 
 }

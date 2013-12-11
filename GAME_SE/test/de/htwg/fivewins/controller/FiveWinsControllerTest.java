@@ -26,10 +26,10 @@ public class FiveWinsControllerTest {
 	
 	@Test
 	public void testSetValue() {
-		controller.setValue(0, 0, "x");
-		assertEquals("The cell 0 0 was successfully set", controller.getStatus());
-		controller.setValue(0, 0, "x");
-		assertEquals("The cell 0 0 is already set", controller.getStatus());
+		controller.setValue(1, 1, "x");
+		assertEquals("The cell 1 1 was successfully set", controller.getStatus());
+		controller.setValue(1, 1, "x");
+		assertEquals("The cell 1 1 is already set", controller.getStatus());
 	}
 	
 	@Test

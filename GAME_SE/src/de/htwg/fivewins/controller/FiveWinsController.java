@@ -11,7 +11,6 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 	private int needToWin;
 	private int last_x;
 	private int last_y;
-    private int[] currentCell = new int[2];
     private boolean win = false;
 
 	
@@ -30,25 +29,17 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 	
 	public boolean setValue(int column, int row, String value) {
 		//input must be right
-		column--;
-		row--;
-		last_x = column;
-		last_y = row;
-		currentCell[0] = column;
-		currentCell[1] = row;
-		String cellVal = field.getCellValue(column, row);
+		last_x = column-1;
+		last_y = row-1;
+		String cellVal = field.getCellValue(last_x, last_y);
 		boolean result = false;
 		
 		if(cellVal.equals("-")) {
-			field.setValue(column, row, value);
-			column++; row++;
+			field.setValue(last_x, last_y, value);
 			setStatusMessage("The cell "+column+" "+row+" was successfully set.");
-			column--; row--;
 			result = true;
 		} else {
-			column++; row++;
 			setStatusMessage("The cell "+column+" "+row+" is already set.");
-			column--; row--;
 		}
 		notifyObservers();
 		return result;
@@ -102,7 +93,7 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 		return "";
 	}
 	
-	//operator true => Plus
+	//operator true => Minus
 	private int winRequestHorizontal(int value, int fixValue, int n, String currentPlayer, 
 			boolean operator) {
 		int result = 0;
@@ -119,6 +110,7 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 		return result;
 	}
 	
+	//operator true => Minus
 	private int winRequestVertical(int fixValue, int value, int n, String currentPlayer, 
 			boolean operator) {
 		int result = 0;

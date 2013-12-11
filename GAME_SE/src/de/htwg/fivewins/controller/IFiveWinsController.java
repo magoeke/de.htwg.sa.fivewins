@@ -31,5 +31,13 @@ public interface IFiveWinsController {
 	 */
 	String getPlayerSign();
 	
+	/*
+	 * @return the player who won
+	 */
+	String winRequest();
 	
+	/*
+	 * @return true if somebody won
+	 */
+	boolean getWinner();
 }
