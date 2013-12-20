@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 import de.htwg.fivewins.FiveWins;
 import de.htwg.fivewins.controller.FiveWinsController;
-import de.htwg.fivewins.field.Field;
 import de.htwg.util.observer.IObserver;
 
 public class TextUI implements IObserver{
@@ -48,22 +47,32 @@ public class TextUI implements IObserver{
 			//Restart game
 			reset();
 		}
+		
 		if (line.matches("[0-9]{1,2}?,[0-9]{1,2}?")){
 			String[] numbers = line.split(",");
 			int arg0 = Integer.parseInt(numbers[0]);
 			int arg1 = Integer.parseInt(numbers[1]);
 			boolean successfulFieldChange = controller.setValue(arg0, arg1, controller.getPlayerSign());
 			if(successfulFieldChange) {
-				System.out.print("Der Gewinner ist " + controller.winRequest() + "\n");
+				String winnerSign = controller.winRequest();
+				if(winnerSign.equals("X") || winnerSign.equals("Y")) {
+					System.out.print("Der Gewinner ist " + winnerSign + "\n");
+					quit = true;
+				}
 				controller.countTurn();
 			}
+			
 		}
 
 		return quit;
 	}
 
+
+	
 	private void reset() {
-		FiveWins.reset();
+		System.out.println("Please insert size of the gamefield: ");
+		int size = scanner.nextInt();
+		FiveWins.reset(size);
 	}
 	
 

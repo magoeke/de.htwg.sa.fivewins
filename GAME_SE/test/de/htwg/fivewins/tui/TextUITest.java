@@ -25,9 +25,8 @@ public class TextUITest {
 	public void testHandleInputOrQuit() {
 		assertTrue(tui1.handleInputOrQuit("q"));
 		assertFalse(tui1.handleInputOrQuit("u"));
-		tui1.handleInputOrQuit("0,0");
+		tui1.handleInputOrQuit("1,1");
 		assertEquals("X", field.getCellValue(0, 0));
-		assertFalse(tui1.handleInputOrQuit("n"));
 	}
 
 

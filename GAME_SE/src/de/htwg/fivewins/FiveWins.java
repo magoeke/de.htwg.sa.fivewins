@@ -1,16 +1,21 @@
 package de.htwg.fivewins;
 
+import java.util.Scanner;
+
 import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.field.Field;
 import de.htwg.fivewins.tui.TextUI;
 
 public final class FiveWins {
 	private FiveWins() { }
-	public static final int THREE = 3;
+	private static int size;
 	private static TextUI tui;
 	
 	public static void main(String[] args) {
-		tui = new TextUI(new FiveWinsController(new Field(THREE)));
+		Scanner sc = new Scanner(System.in); 
+		System.out.println("Please insert size of the gamefield: ");
+		size = sc.nextInt();
+		tui = new TextUI(new FiveWinsController(new Field(size)));
 		tui.printTUI();
 		// continue until the user decides to quit
 		boolean quit = false;
@@ -18,11 +23,11 @@ public final class FiveWins {
 		    quit = tui.iterate();
 		    
 		}
-
+		sc.close();
 	}
 
 	public static void reset() {
-		tui = new TextUI(new FiveWinsController(new Field(THREE)));
+		tui = new TextUI(new FiveWinsController(new Field(size)));
 	}
 	
 	public static void reset(int size) {

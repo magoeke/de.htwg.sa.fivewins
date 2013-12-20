@@ -12,6 +12,7 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 	private int last_x;
 	private int last_y;
     private boolean win = false;
+    private String winner;
 
 	
 	public FiveWinsController(Field field) {
@@ -74,6 +75,10 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 		return win;
 	}
 	
+	public String getWinnerSign() {
+		return winner;
+	}
+	
 	public String winRequest() {
 		int horizontal = winRequestHorizontal(last_x, last_y, 0, getPlayerSign(), true) 
 				+ winRequestHorizontal(last_x, last_y, 0, getPlayerSign(), false) + 1; //waagerecht
@@ -87,7 +92,8 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 		if(vertical >= needToWin || horizontal >= needToWin || diagonal >= needToWin ||
 				diagonalReflected >= needToWin) {
 			win = true;
-			return getPlayerSign();
+			winner = getPlayerSign();
+			return winner;
 		}
 		
 		return "";
