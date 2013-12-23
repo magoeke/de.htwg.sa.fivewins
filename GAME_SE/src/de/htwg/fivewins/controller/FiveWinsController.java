@@ -12,7 +12,7 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 	private int last_x;
 	private int last_y;
     private boolean win = false;
-    private String winner;
+    private String winner = null;
 
 	
 	public FiveWinsController(Field field) {

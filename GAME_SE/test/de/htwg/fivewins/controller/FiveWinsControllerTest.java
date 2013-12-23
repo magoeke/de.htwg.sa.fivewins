@@ -9,7 +9,7 @@ import de.htwg.fivewins.field.Field;
 
 public class FiveWinsControllerTest {
 
-	FiveWinsController controller;
+	FiveWinsController controller, controller2;
 	Field field1;
 	String newLine = System.getProperty("line.separator");
 	
@@ -17,6 +17,7 @@ public class FiveWinsControllerTest {
 	public void setUp() throws Exception {
 		field1  = new Field(1);
 		controller = new FiveWinsController(field1);
+		controller2 = new FiveWinsController(new Field(6));
 	}
 
 	@Test
@@ -26,10 +27,10 @@ public class FiveWinsControllerTest {
 	
 	@Test
 	public void testSetValue() {
-		controller.setValue(1, 1, "x");
-		assertEquals("The cell 1 1 was successfully set", controller.getStatus());
-		controller.setValue(1, 1, "x");
-		assertEquals("The cell 1 1 is already set", controller.getStatus());
+		controller2.setValue(1, 1, "x");
+		assertEquals("The cell 1 1 was successfully set.", controller2.getStatus());
+		controller2.setValue(1, 1, "x");
+		assertEquals("The cell 1 1 is already set.", controller2.getStatus());
 	}
 	
 	@Test
@@ -42,6 +43,23 @@ public class FiveWinsControllerTest {
 	@Test
 	public void testGetFieldString() {
 		assertEquals(" -"+newLine, controller.getFieldString());
+	}
+	
+	@Test
+	public void testGetWinner() {
+		assertFalse(controller.getWinner());
+	}
+	
+	@Test
+	public void testGetWinnerSign() {
+		assertEquals(null, controller.getWinnerSign());
+	}
+	
+	@Test
+	public void testWinRequest() {
+		assertEquals("", controller.winRequest());
+		controller.setValue(1, 1, "X");
+		assertEquals("X", controller.winRequest());
 	}
 
 }

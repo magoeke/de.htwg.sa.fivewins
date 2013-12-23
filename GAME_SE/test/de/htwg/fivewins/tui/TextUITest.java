@@ -28,6 +28,8 @@ public class TextUITest {
 		tui1.handleInputOrQuit("1,1");
 		assertEquals("X", field.getCellValue(0, 0));
 	}
+	
+	
 
 
 }
