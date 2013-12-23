@@ -2,8 +2,8 @@ package de.htwg.fivewins.tui;
 
 import java.util.Scanner;
 
-import de.htwg.fivewins.FiveWins;
 import de.htwg.fivewins.controller.FiveWinsController;
+import de.htwg.fivewins.field.AIAdapter;
 import de.htwg.util.observer.IObserver;
 
 public class TextUI implements IObserver{
@@ -20,13 +20,18 @@ public class TextUI implements IObserver{
 
 	@Override
 	public void update() {
-		System.out.print("\n" + controller.getFieldString() + "\n");
-		System.out.print("\n");
-		System.out.print("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)):\n"); 
+		printTUI();
 	}
 
 	public boolean iterate() {
-		return handleInputOrQuit(scanner.next());
+		boolean returnValue = false;
+		AIAdapter npc = controller.getSecondPlayer();
+		if(npc != null && npc.getWhichPlayer().equals(controller.getPlayerSign())) {
+			returnValue = handleInputOrQuit(npc.getCommand());
+		} else {
+			returnValue = handleInputOrQuit(scanner.next());
+		}
+		return returnValue;
 	}
 
 	public void printTUI() {

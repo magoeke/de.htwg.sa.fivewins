@@ -1,5 +1,6 @@
 package de.htwg.fivewins.controller;
 
+import de.htwg.fivewins.field.AIAdapter;
 import de.htwg.fivewins.field.Field;
 import de.htwg.util.observer.Observable;
 
@@ -14,11 +15,18 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 	private int lasty;
     private boolean win = false;
     private String winner = null;
+    private AIAdapter player2 = null;
 
 	
 	public FiveWinsController(Field field) {
 		this.field = field;
 		calculateNeedToWin();
+	}
+	
+	public FiveWinsController(Field field, AIAdapter ai) {
+		this.field = field;
+		calculateNeedToWin();
+		this.player2 = ai;
 	}
 	
 	private void calculateNeedToWin() {
@@ -83,7 +91,7 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 	
 	public String winRequest() {
 		int horizontal = winRequestHorizontal(lastx, lasty, 0, getPlayerSign(), true) 
-				+ winRequestHorizontal(lastx, lasty, 0, getPlayerSign(), false) + 1; //waagerecht
+				+ winRequestHorizontal(lastx, lasty, 0, getPlayerSign(), false) + 1;
 		int vertical = winRequestVertical(lastx, lasty, 0, getPlayerSign(), true) 
 				+ winRequestVertical(lastx, lasty, 0, getPlayerSign(), false) + 1;
 		int diagonal = winRequestDiagonal(lastx, lasty, 0, getPlayerSign(), true) 
@@ -171,7 +179,12 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 		
 		public void reset() {
 			field.reset();
+			setStatusMessage("Welcome to HTWG Five Wins!");
 			turn = 0;
+		}
+		
+		public AIAdapter getSecondPlayer() {
+			return player2;
 		}
 }
 
