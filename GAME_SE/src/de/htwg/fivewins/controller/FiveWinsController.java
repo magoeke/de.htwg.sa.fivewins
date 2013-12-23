@@ -5,13 +5,13 @@ import de.htwg.util.observer.Observable;
 
 public class FiveWinsController extends Observable implements IFiveWinsController{
 
-	public final int FiveWins = 5;
+	public static final int FIVEWINS = 5;
 	private String statusMessage = "Welcome to HTWG Five Wins!";
 	private Field field;
 	private int turn =  0;
 	private int needToWin;
-	private int last_x;
-	private int last_y;
+	private int lastx;
+	private int lasty;
     private boolean win = false;
     private String winner = null;
 
@@ -22,23 +22,23 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 	}
 	
 	private void calculateNeedToWin() {
-		if(field.getSize() < FiveWins) {
+		if(field.getSize() < FIVEWINS) {
 			needToWin = field.getSize();
 			//after calculate
 			return;	
 		} 
-		needToWin = FiveWins;
+		needToWin = FIVEWINS;
 	}
 	
 	public boolean setValue(int column, int row, String value) {
 		//input must be right
-		last_x = column-1;
-		last_y = row-1;
-		String cellVal = field.getCellValue(last_x, last_y);
+		lastx = column-1;
+		lasty = row-1;
+		String cellVal = field.getCellValue(lastx, lasty);
 		boolean result = false;
 		
 		if(cellVal.equals("-")) {
-			field.setValue(last_x, last_y, value);
+			field.setValue(lastx, lasty, value);
 			setStatusMessage("The cell "+column+" "+row+" was successfully set.");
 			result = true;
 		} else {
@@ -82,14 +82,14 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 	}
 	
 	public String winRequest() {
-		int horizontal = winRequestHorizontal(last_x, last_y, 0, getPlayerSign(), true) 
-				+ winRequestHorizontal(last_x, last_y, 0, getPlayerSign(), false) + 1; //waagerecht
-		int vertical = winRequestVertical(last_x, last_y, 0, getPlayerSign(), true) 
-				+ winRequestVertical(last_x, last_y, 0, getPlayerSign(), false) + 1;
-		int diagonal = winRequestDiagonal(last_x, last_y, 0, getPlayerSign(), true) 
-				+ winRequestDiagonal(last_x, last_y, 0, getPlayerSign(), false) + 1;
-		int diagonalReflected = winRequestDiagonalReflected(last_x, last_y, 0, getPlayerSign(), true) 
-				+ winRequestDiagonalReflected(last_x, last_y, 0, getPlayerSign(), false) + 1;
+		int horizontal = winRequestHorizontal(lastx, lasty, 0, getPlayerSign(), true) 
+				+ winRequestHorizontal(lastx, lasty, 0, getPlayerSign(), false) + 1; //waagerecht
+		int vertical = winRequestVertical(lastx, lasty, 0, getPlayerSign(), true) 
+				+ winRequestVertical(lastx, lasty, 0, getPlayerSign(), false) + 1;
+		int diagonal = winRequestDiagonal(lastx, lasty, 0, getPlayerSign(), true) 
+				+ winRequestDiagonal(lastx, lasty, 0, getPlayerSign(), false) + 1;
+		int diagonalReflected = winRequestDiagonalReflected(lastx, lasty, 0, getPlayerSign(), true) 
+				+ winRequestDiagonalReflected(lastx, lasty, 0, getPlayerSign(), false) + 1;
 		
 		if(vertical >= needToWin || horizontal >= needToWin || diagonal >= needToWin ||
 				diagonalReflected >= needToWin) {
@@ -167,6 +167,11 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 				result = winRequestDiagonalReflected(value1-1, value2+1,n+1, currentPlayer, operator);
 			}
 			return result;
+		}
+		
+		public void reset() {
+			field.reset();
+			turn = 0;
 		}
 }
 

@@ -5,11 +5,11 @@ public class Field implements IField {
 	private int size;
 	private String[][] gamefield;
 	private String newLine = System.getProperty("line.separator");
-	public final int bottomBorder = 0;
-	public final int topBorder = 20;
+	public static final int BOTTOMBORDER = 0;
+	public static final int TOPBORDER = 20;
 	
 	public Field(int size) {
-		if(size < bottomBorder || size > topBorder) {
+		if(size < BOTTOMBORDER || size > TOPBORDER) {
 			throw new IllegalArgumentException("Size has to be between 1 and 20.");
 		}
 		
@@ -50,5 +50,14 @@ public class Field implements IField {
 	
 	public int getSize() {
 		return size;
+	}
+	
+	public void reset() {		
+		//fill array with default value
+		for(int i = 0; i < size; i++) {
+			for(int a = 0; a < size; a++) {
+				gamefield[i][a] = "-";
+			}
+		}
 	}
 }

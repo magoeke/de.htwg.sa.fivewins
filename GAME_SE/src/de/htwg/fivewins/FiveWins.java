@@ -26,12 +26,4 @@ public final class FiveWins {
 		sc.close();
 	}
 
-	public static void reset() {
-		tui = new TextUI(new FiveWinsController(new Field(size)));
-	}
-	
-	public static void reset(int size) {
-		tui = new TextUI(new FiveWinsController(new Field(size)));
-	}
-	
 }

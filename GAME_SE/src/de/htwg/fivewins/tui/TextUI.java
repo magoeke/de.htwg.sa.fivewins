@@ -20,7 +20,9 @@ public class TextUI implements IObserver{
 
 	@Override
 	public void update() {
-		printTUI();
+		System.out.print("\n" + controller.getFieldString() + "\n");
+		System.out.print("\n");
+		System.out.print("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)):\n"); 
 	}
 
 	public boolean iterate() {
@@ -67,12 +69,9 @@ public class TextUI implements IObserver{
 		return quit;
 	}
 
-
-	
 	private void reset() {
-		System.out.println("Please insert size of the gamefield: ");
-		int size = scanner.nextInt();
-		FiveWins.reset(size);
+		controller.reset();
+		update();
 	}
 	
 
