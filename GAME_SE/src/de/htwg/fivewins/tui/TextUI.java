@@ -31,7 +31,7 @@ public class TextUI implements IObserver{
 		System.out.print("\n" + controller.getFieldString() + "\n");
 		System.out.print(controller.getStatus() + "\n");
 		System.out.print("\n");
-		System.out.print("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)):\n"); // 1-15 - set size
+		System.out.print("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)):\n"); 
 	}
 	
 	public boolean handleInputOrQuit(String line) {
