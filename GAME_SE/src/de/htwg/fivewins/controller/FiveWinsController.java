@@ -5,6 +5,7 @@ import de.htwg.util.observer.Observable;
 
 public class FiveWinsController extends Observable implements IFiveWinsController{
 
+	public final int FiveWins = 5;
 	private String statusMessage = "Welcome to HTWG Five Wins!";
 	private Field field;
 	private int turn =  0;
@@ -21,11 +22,12 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 	}
 	
 	private void calculateNeedToWin() {
-		if(field.getSize() < 5) {
+		if(field.getSize() < FiveWins) {
 			needToWin = field.getSize();
-			return;	//after calculate
+			//after calculate
+			return;	
 		} 
-		needToWin = 5;
+		needToWin = FiveWins;
 	}
 	
 	public boolean setValue(int column, int row, String value) {
