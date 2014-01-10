@@ -6,18 +6,23 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.htwg.fivewins.field.Field;
+import de.htwg.fivewins.field.VerySillyAI;
 
 public class FiveWinsControllerTest {
 
-	FiveWinsController controller, controller2;
-	Field field1;
+	VerySillyAI vsai;
+	FiveWinsController controller, controller2, controllerAI;
+	Field field1, field3;
 	String newLine = System.getProperty("line.separator");
 	
 	@Before
 	public void setUp() throws Exception {
 		field1  = new Field(1);
+		field3 = new Field(3);
 		controller = new FiveWinsController(field1);
 		controller2 = new FiveWinsController(new Field(6));
+		vsai = new VerySillyAI("X", field3);
+		controllerAI = new FiveWinsController(field3, vsai);
 	}
 
 	@Test
@@ -60,6 +65,17 @@ public class FiveWinsControllerTest {
 		assertEquals("", controller.winRequest());
 		controller.setValue(1, 1, "X");
 		assertEquals("X", controller.winRequest());
+	}
+	
+	@Test
+	public void testReset() {
+		controller.reset();
+		assertEquals("Welcome to HTWG Five Wins!", controller.getStatus());
+	}
+	
+	@Test
+	public void testGetSecondPlayer() {
+		assertEquals(vsai, controllerAI.getSecondPlayer());
 	}
 
 }

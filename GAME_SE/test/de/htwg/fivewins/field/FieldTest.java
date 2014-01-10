@@ -45,4 +45,11 @@ public class FieldTest {
 	public void testGetSize() {
 		assertEquals(1, field1.getSize());
 	}
+	
+	@Test
+	public void testReset() {
+		field1.setValue(0, 0, "X");
+		field1.reset();
+		assertEquals("-", field1.getCellValue(0, 0));
+	}
 }
