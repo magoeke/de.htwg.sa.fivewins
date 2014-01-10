@@ -27,7 +27,7 @@ public class VerySillyAI extends AIAdapter {
 			quit = isFree(column, row);
 		}
 		
-		//Number, Number is expected
+		//Number,Number is expected
 		return column + "," + row;
 	}
 	
