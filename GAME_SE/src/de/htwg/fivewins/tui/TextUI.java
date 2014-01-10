@@ -64,8 +64,8 @@ public class TextUI implements IObserver{
 			boolean successfulFieldChange = controller.setValue(arg0, arg1, controller.getPlayerSign());
 			if(successfulFieldChange) {
 				String winnerSign = controller.winRequest();
-				if(winnerSign.equals("X") || winnerSign.equals("Y")) {
-					System.out.print("Der Gewinner ist " + winnerSign + "\n");
+				if(winnerSign.equals("X") || winnerSign.equals("O")) {
+					logger.info("Der Gewinner ist " + winnerSign + "\n");
 					quit = true;
 				}
 				controller.countTurn();
