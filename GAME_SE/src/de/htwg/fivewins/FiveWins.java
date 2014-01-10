@@ -6,6 +6,7 @@ import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.field.AIAdapter;
 import de.htwg.fivewins.field.Field;
 import de.htwg.fivewins.field.VerySillyAI;
+import de.htwg.fivewins.gui.GameFrame;
 import de.htwg.fivewins.tui.TextUI;
 
 public final class FiveWins {
@@ -15,11 +16,11 @@ public final class FiveWins {
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in); 
-		System.out.println("Please insert size of the gamefield: ");
+		/*System.out.println("Please insert size of the gamefield: ");
 		size = sc.nextInt();
 		//tui = new TextUI(new FiveWinsController(new Field(size)));
 		//tui.printTUI();
-		Field field = new Field(size);
+		/*Field field = new Field(size);
 		AIAdapter ai = new VerySillyAI("X", field);
 		tui = new TextUI(new FiveWinsController(field, ai));
 		tui.printTUI();
@@ -28,7 +29,9 @@ public final class FiveWins {
 		while (!quit) {
 		    quit = tui.iterate();
 		    
-		}
+		}*/
+		
+		GameFrame gf = new GameFrame();
 		sc.close();
 	}
 

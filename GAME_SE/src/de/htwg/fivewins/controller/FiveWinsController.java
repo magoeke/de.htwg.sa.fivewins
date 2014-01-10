@@ -186,6 +186,10 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 		public AIAdapter getSecondPlayer() {
 			return player2;
 		}
+		
+		public int getTurn() {
+			return turn;
+		}
 }
 
 
