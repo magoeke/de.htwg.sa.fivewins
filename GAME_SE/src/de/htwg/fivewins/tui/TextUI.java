@@ -1,6 +1,7 @@
 package de.htwg.fivewins.tui;
 
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.field.AIAdapter;
@@ -11,7 +12,8 @@ public class TextUI implements IObserver{
 	private FiveWinsController controller;
 	private Scanner scanner;
 	
-
+	private Logger logger = Logger.getLogger("de.htwg.fivewins.tui");
+	
 	public TextUI(FiveWinsController controller){
 		this.controller = controller;
 		controller.addObserver(this);
@@ -35,10 +37,10 @@ public class TextUI implements IObserver{
 	}
 
 	public void printTUI() {
-		System.out.print("\n" + controller.getFieldString() + "\n");
-		System.out.print(controller.getStatus() + "\n");
-		System.out.print("\n");
-		System.out.print("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)):\n"); 
+		logger.info("\n" + controller.getFieldString() + "\n");
+		logger.info(controller.getStatus() + "\n");
+		logger.info("\n");
+		logger.info("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)):\n"); 
 	}
 	
 	public boolean handleInputOrQuit(String line) {
