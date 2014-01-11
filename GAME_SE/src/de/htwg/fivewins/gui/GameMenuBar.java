@@ -32,7 +32,7 @@ public class GameMenuBar extends JMenuBar implements ActionListener{
 		// TODO Auto-generated method stub
 		Object source = e.getSource();
 		if(source == restart) {
-			
+			jf.reset();
 		} else if(source == backToMainMenu) {
 			jf.backToMainMenu();
 		}

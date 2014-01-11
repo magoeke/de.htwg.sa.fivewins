@@ -1,5 +1,7 @@
 package de.htwg.fivewins.controller;
 
+import de.htwg.fivewins.field.AIAdapter;
+
 public interface IFiveWinsController {
 	
 	/*
@@ -40,4 +42,25 @@ public interface IFiveWinsController {
 	 * @return true if somebody won
 	 */
 	boolean getWinner();
+	
+	/*
+	 * return NPC Oject if exist
+	 */
+	AIAdapter getSecondPlayer();
+	
+	/*
+	 * return number of truns
+	 */
+	int getTurn();
+	
+	/*
+	 * return winnser sign
+	 */
+	String getWinnerSign();
+
+	/*
+	 * reset the game
+	 */
+	void reset();
+	
 }
