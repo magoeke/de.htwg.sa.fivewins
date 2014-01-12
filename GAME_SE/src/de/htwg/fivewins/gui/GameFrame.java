@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import de.htwg.fivewins.controller.FiveWinsController;
+import de.htwg.fivewins.controller.IFiveWinsController;
 import de.htwg.fivewins.field.AIAdapter;
 import de.htwg.fivewins.field.Field;
 import de.htwg.fivewins.field.StrongAI;
@@ -18,16 +19,17 @@ public class GameFrame extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	
-	FiveWinsController controller = null;
-	final static String GAMEPANEL = "GamePanel";
-	final static String MAINMENUPANEL = "MainMenuPanel";
-	final static int BOTTOMBORDER = 0;
-	final static int TOPBORDER=20;
-	GamePanel gamePanel;
-	JPanel mainMenuPanel, mainPanel;
-	TextUI textUI;
+	private IFiveWinsController controller = null;
+	private final static String GAMEPANEL = "GamePanel";
+	private final static String MAINMENUPANEL = "MainMenuPanel";
+	private final static int BOTTOMBORDER = 0;
+	private final static int TOPBORDER=20;
+	private GamePanel gamePanel;
+	private JPanel mainMenuPanel, mainPanel;
+	private TextUI textUI;
 	
-	public GameFrame() {
+	public GameFrame(IFiveWinsController controller) {
+		this.controller = controller;
 		this.setTitle("FiveWins");
 		this.setLocationRelativeTo(null);
 		this.setSize( 640, 400 );
@@ -58,9 +60,8 @@ public class GameFrame extends JFrame{
 		}
 	}
 	
-	public void startGameNPC(int fieldsize, String levelOfDifficulty) {
+	public void startGameNPC(int fieldsize, String levelOfDifficulty, String sign) {
 		gamePanel.setPlayer("X");
-		String sign = "O";
 		Field field = new Field(fieldsize);
 		if(levelOfDifficulty.equals("silly")) {
 			controller = new FiveWinsController(field, new VerySillyAI(sign, field));
@@ -73,6 +74,7 @@ public class GameFrame extends JFrame{
 			CardLayout c1 = (CardLayout)(mainPanel.getLayout());
 			c1.show(mainPanel, GAMEPANEL);
 		}
+		gamePanel.firstAction();
 	}
 	
 	public void resizeGameField(int fieldsize) {
@@ -114,6 +116,11 @@ public class GameFrame extends JFrame{
 			
 			gamePanel.allButtonsEnabled();
 		}
+	}
+
+	public void reset() {
+		gamePanel.reset();
+		controller.reset();
 	}
 	
 }

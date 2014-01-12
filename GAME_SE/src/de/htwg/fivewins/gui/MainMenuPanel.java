@@ -13,9 +13,10 @@ public class MainMenuPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
 	
-	JButton pvp, npc, silly, strong;
-	JOptionPane inputFieldSize;
-	GameFrame jf;
+	private JButton pvp, npc, silly, strong, x, o;
+	private JOptionPane inputFieldSize;
+	private GameFrame jf;
+	private String strength; 
 	
 	public MainMenuPanel(GameFrame jf) {
 		this.jf= jf;
@@ -24,6 +25,14 @@ public class MainMenuPanel extends JPanel{
 		headline.setBounds(50, 50, 300, 50);
 		headline.setFont(new Font("Dialog", 0, 50));
 		
+		x = new JButton("X");
+		x.addActionListener(new PlayerSelectionListener());
+		x.setVisible(false);
+		x.setBounds(300, 240, 150, 30);
+		o = new JButton("O");
+		o.addActionListener(new PlayerSelectionListener());
+		o.setVisible(false);
+		o.setBounds(300, 270, 150, 30);
 		pvp = new JButton("Player vs. Player");
 		pvp.addActionListener(new GameSelectionListener());
 		pvp.setBounds(25, 150, 180, 30);
@@ -44,6 +53,8 @@ public class MainMenuPanel extends JPanel{
 		this.add(npc);
 		this.add(silly);
 		this.add(strong);
+		this.add(x);
+		this.add(o);
 		this.add(headline);
 	}
 	
@@ -75,13 +86,27 @@ public class MainMenuPanel extends JPanel{
 	class levelOfDifficultyListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//Pop up field size value
-			int fieldSize = getFieldSize();
 			if(e.getSource() == silly) {
-				jf.startGameNPC(fieldSize, "silly");
+				strength = "silly";
 			} else {
-				jf.startGameNPC(fieldSize, "strong");
+				strength = "strong";
+			}
+			x.setVisible(true);
+			o.setVisible(true);
+		}
+	}
+	
+	class PlayerSelectionListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int fieldSize = getFieldSize();
+			if(e.getSource() == x) {
+				jf.startGameNPC(fieldSize, strength, "X");
+			} else {
+				jf.startGameNPC(fieldSize, strength, "O");
 			}
 		}
+		
 	}
 }

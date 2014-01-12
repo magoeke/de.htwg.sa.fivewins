@@ -124,4 +124,13 @@ public class GamePanel extends JPanel{
 	public void setTurn(int turn) {
 		this.turn.setText(turn+"");
 	}
+	
+	public  void reset() {
+		for (int i = 0; i < fieldsize; i++) {
+            for (int j = 0; j < fieldsize; j++) {
+                buttons[i][j].setEnabled(true);
+                buttons[i][j].setText("");
+            }
+        }
+	}
 }

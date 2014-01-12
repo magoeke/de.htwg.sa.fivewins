@@ -4,19 +4,20 @@ import java.util.Scanner;
 import java.util.logging.Logger;
 
 import de.htwg.fivewins.controller.FiveWinsController;
+import de.htwg.fivewins.controller.IFiveWinsController;
 import de.htwg.fivewins.field.AIAdapter;
 import de.htwg.util.observer.IObserver;
 
 public class TextUI implements IObserver{
 	
-	private FiveWinsController controller;
+	private IFiveWinsController controller;
 	private Scanner scanner;
 	
 	private Logger logger = Logger.getLogger("de.htwg.fivewins.tui");
 	
-	public TextUI(FiveWinsController controller){
+	public TextUI(IFiveWinsController controller){
 		this.controller = controller;
-		controller.addObserver(this);
+		//controller.addObserver(this);
 		scanner = new Scanner (System.in);	
 	}
 
@@ -62,6 +63,7 @@ public class TextUI implements IObserver{
 			int arg0 = Integer.parseInt(numbers[0]);
 			int arg1 = Integer.parseInt(numbers[1]);
 			boolean successfulFieldChange = controller.setValue(arg0, arg1, controller.getPlayerSign());
+			update();
 			if(successfulFieldChange) {
 				String winnerSign = controller.winRequest();
 				if(winnerSign.equals("X") || winnerSign.equals("O")) {
