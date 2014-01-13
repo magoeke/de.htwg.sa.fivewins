@@ -78,6 +78,8 @@ public class MainMenuPanel extends JPanel{
 			} else {
 				silly.setVisible(false);
 				strong.setVisible(false);
+				x.setVisible(false);
+				o.setVisible(false);
 				jf.startGamePlayer(getFieldSize());
 			}
 		}

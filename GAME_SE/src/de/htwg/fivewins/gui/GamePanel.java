@@ -82,9 +82,11 @@ public class GamePanel extends JPanel{
         //button.setBackground(new Color(255));
         button.setEnabled(false);
         
-        if(isAITurn()) {
-			handleAITurn();
-		}
+        if(!jf.isWon()) {
+        	if(isAITurn()) {
+				handleAITurn();
+			}
+        }
         
     }
 	

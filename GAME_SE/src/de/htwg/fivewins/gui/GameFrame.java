@@ -111,7 +111,7 @@ public class GameFrame extends JFrame{
 		
 		if(controller.getWinner()) {
 			//output win message and go back to main menu
-			JOptionPane.showMessageDialog(null, "Spieler " + controller.getWinnerSign() + " hat gewonnen!",
+			JOptionPane.showMessageDialog(null, "Player " + controller.getWinnerSign() + " has won!",
 				        "Game Over", JOptionPane.INFORMATION_MESSAGE);
 			
 			gamePanel.allButtonsEnabled();
@@ -121,6 +121,10 @@ public class GameFrame extends JFrame{
 	public void reset() {
 		gamePanel.reset();
 		controller.reset();
+	}
+	
+	public boolean isWon() {
+		return controller.getWinner();
 	}
 	
 }
