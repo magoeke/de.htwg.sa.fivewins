@@ -1,9 +1,16 @@
 package de.htwg.fivewins.gui;
 
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
+import javax.imageio.IIOException;
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -12,11 +19,12 @@ import javax.swing.JPanel;
 public class MainMenuPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
-	
 	private JButton pvp, npc, silly, strong, x, o;
 	private JOptionPane inputFieldSize;
 	private GameFrame jf;
-	private String strength; 
+	private String strength;
+	
+	
 	
 	public MainMenuPanel(GameFrame jf) {
 		this.jf= jf;
@@ -24,6 +32,8 @@ public class MainMenuPanel extends JPanel{
 		headline.setSize(20, 20);
 		headline.setBounds(50, 50, 300, 50);
 		headline.setFont(new Font("Dialog", 0, 50));
+		
+
 		
 		x = new JButton("X");
 		x.addActionListener(new PlayerSelectionListener());

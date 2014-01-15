@@ -20,4 +20,9 @@ public interface IField {
 	 * @return returns the size of the gamefield
 	 */
 	int getSize();
+	
+	/*
+	 * 
+	 */
+	String[][] getGameField();
 }

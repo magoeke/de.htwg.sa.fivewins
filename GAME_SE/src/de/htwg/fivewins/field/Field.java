@@ -60,4 +60,9 @@ public class Field implements IField {
 			}
 		}
 	}
+
+	@Override
+	public IField getGameField() {
+		return gamefield;
+	}
 }
