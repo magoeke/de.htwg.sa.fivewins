@@ -1,5 +1,3 @@
-de.htwg.se
-==========
 
 #Five Wins
 
