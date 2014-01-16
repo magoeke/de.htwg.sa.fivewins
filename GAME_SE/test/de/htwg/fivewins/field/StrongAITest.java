@@ -1,7 +1,5 @@
 package de.htwg.fivewins.field;
 
-import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,10 +19,6 @@ public class StrongAITest {
 	public void testFalseStringConstructor() {  
 	     s2 = new StrongAI("i", field1);
 	}
-	
-	@Test
-	public void testCalculateCommand() {
-		assertEquals(null, s1.calculateCommand());
-	}
+
 
 }

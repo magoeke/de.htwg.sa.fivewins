@@ -22,6 +22,11 @@ public class VerySillyAITest {
 		assertEquals("1,1", vs1.calculateCommand());
 	}
 	
+	@Test(expected=IllegalArgumentException.class)
+	public void testFalseStringConstructor() {  
+	     vs2 = new VerySillyAI("i", field1);
+	}
+	
 	@Test
 	public void testGetWhichPlayer() {
 		assertEquals("X", vs1.getWhichPlayer());
