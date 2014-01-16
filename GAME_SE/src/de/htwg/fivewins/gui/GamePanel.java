@@ -56,10 +56,16 @@ public class GamePanel extends JPanel{
 		this.add(optionsLabel);
 	}
 	
+	/*
+	 * get actual player
+	 */
 	public String getPlayer() {
 		return jf.getPlayerSign();
 	}
 	
+	/*
+	 * calls GameFrame.handelaction with the pressed coordinates
+	 */
 	public void buttonClicked(ActionEvent evt) {
 		if(isAITurn()) {
 			handleAITurn();
@@ -90,10 +96,16 @@ public class GamePanel extends JPanel{
         
     }
 	
+	/*
+	 * return if it's ai turn or player
+	 */
 	public boolean isAITurn() {
 		return jf.nowSecondPlayer();
 	}
 	
+	/*
+	 * handel the behavior of a ai
+	 */
 	public void handleAITurn() {
 		String command = jf.getSecondPlayer().getCommand();
 		jf.handleAction(command);
@@ -105,12 +117,18 @@ public class GamePanel extends JPanel{
 		buttons[y][x].setText(jf.getSecondPlayer().getWhichPlayer());
 	}
 	
+	/*
+	 * the method is needed if the ai starts
+	 */
 	public void firstAction() {
 		if(isAITurn()) {
 			handleAITurn();
 		}
 	}
 	
+	/*
+	 * disable all buttons
+	 */
 	public void allButtonsEnabled() {
 		for (int i = 0; i < fieldsize; i++) {
             for (int j = 0; j < fieldsize; j++) {
@@ -119,14 +137,23 @@ public class GamePanel extends JPanel{
         }
 	}
 	
+	/*
+	 * change Jlabel to actual player
+	 */
 	public void setPlayer(String player) {
 		this.player.setText(player);
 	}
 	
+	/*
+	 * change turn to actual turn
+	 */
 	public void setTurn(int turn) {
 		this.turn.setText(turn+"");
 	}
 	
+	/*
+	 * reset all buttons to default
+	 */
 	public  void reset() {
 		for (int i = 0; i < fieldsize; i++) {
             for (int j = 0; j < fieldsize; j++) {

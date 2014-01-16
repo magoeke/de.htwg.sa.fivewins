@@ -1,15 +1,13 @@
 package de.htwg.fivewins;
 
-import java.util.Scanner;
-
 import de.htwg.fivewins.controller.FiveWinsController;
-import de.htwg.fivewins.controller.IFiveWinsController;
-import de.htwg.fivewins.field.AIAdapter;
 import de.htwg.fivewins.field.Field;
-import de.htwg.fivewins.field.VerySillyAI;
 import de.htwg.fivewins.gui.GameFrame;
-import de.htwg.fivewins.tui.TextUI;
 
+/*
+ * The start class for FiveWins.
+ * Singelton is used.
+ */
 public final class FiveWins {
 	public static FiveWins fivewins = null;
 	GameFrame gf;

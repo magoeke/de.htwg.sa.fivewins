@@ -16,19 +16,30 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
     private boolean win = false;
     private String winner = null;
     private AIAdapter player2 = null;
+    private boolean draw = false;
 
-	
+	/*
+	 * initialize a Controller for a Player vs. Player game
+	 */
 	public FiveWinsController(Field field) {
 		this.field = field;
 		calculateNeedToWin();
 	}
 	
+	/*
+	 * initialize a Controller for a NPC vs. Player game
+	 */
 	public FiveWinsController(Field field, AIAdapter ai) {
 		this.field = field;
 		calculateNeedToWin();
 		this.player2 = ai;
 	}
 	
+	/*
+	 * set the variable needToWin.
+	 * set need to win 5 if the gamefield is bigger than
+	 * 4x4 otherwise it set needToWin like the game field size
+	 */
 	private void calculateNeedToWin() {
 		if(field.getSize() < FIVEWINS) {
 			needToWin = field.getSize();
@@ -60,6 +71,9 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 		return statusMessage;
 	}
 
+	/*
+	 * change the value of statusMessage
+	 */
 	private void setStatusMessage(String statusMessage) {
 		this.statusMessage = statusMessage;
 	}
@@ -89,6 +103,10 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 		return winner;
 	}
 	
+	/*
+	 * for better understanding look at the picture
+	 * in the readme
+	 */
 	public String winRequest() {
 		int horizontal = winRequestHorizontal(lastx, lasty, 0, getPlayerSign(), true) 
 				+ winRequestHorizontal(lastx, lasty, 0, getPlayerSign(), false) + 1;
@@ -105,11 +123,18 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 			winner = getPlayerSign();
 			return winner;
 		}
+		if(isItADraw()) {
+			draw = true;
+			return "draw";
+		}
 		
 		return "";
 	}
 	
-	//operator true => Minus
+	/*
+	 * test the horizontal win request
+	 * if operator true use minus
+	 */
 	private int winRequestHorizontal(int value, int fixValue, int n, String currentPlayer, 
 			boolean operator) {
 		int result = 0;
@@ -126,7 +151,10 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 		return result;
 	}
 	
-	//operator true => Minus
+	/*
+	 * test the vertical win request
+	 * if operator true use minus
+	 */
 	private int winRequestVertical(int fixValue, int value, int n, String currentPlayer, 
 			boolean operator) {
 		int result = 0;
@@ -143,7 +171,10 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 		return result;
 	}
 	
-	//operator true => doppel --
+	/*
+	 * test the diagonal win request
+	 * if operator true use double minus (- -)
+	 */
 	private int winRequestDiagonal(int value1, int value2, int n, String currentPlayer, 
 			boolean operator) {
 		int result = 0;
@@ -159,71 +190,60 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 		}
 		return result;
 	}
+	
+	/*
+	 * test the other diagonal win request
+	 * if operator true use plus minus (+ -)
+	 */
+	private int winRequestDiagonalReflected(int value1, int value2, int n, String currentPlayer, 
+			boolean operator) {
+		int result = 0;
+		if(value1 < 0 || value1 >= field.getSize() || value2 < 0 || value2 >= field.getSize() || 
+				!field.getCellValue(value1, value2).equals(currentPlayer) ) {
+			return n-1;
+		}
 		
-	//operator true => +-
-		private int winRequestDiagonalReflected(int value1, int value2, int n, String currentPlayer, 
-				boolean operator) {
-			int result = 0;
-			if(value1 < 0 || value1 >= field.getSize() || value2 < 0 || value2 >= field.getSize() || 
-					!field.getCellValue(value1, value2).equals(currentPlayer) ) {
-				return n-1;
+		if(operator) {
+			result = winRequestDiagonalReflected(value1+1, value2-1,n+1, currentPlayer, operator);
+		} else {
+			result = winRequestDiagonalReflected(value1-1, value2+1,n+1, currentPlayer, operator);
+		}
+		return result;
+	}
+	
+	private boolean isItADraw() {
+		boolean returnValue = true;
+		for(int i = 0; i < field.getSize(); i++) {
+			for(int j = 0; j < field.getSize(); j++) {
+				if(field.getCellValue(i, j).equals("-")) {
+					i = field.getSize();
+					j = field.getSize();
+					returnValue = false;
+				}
 			}
-			
-			if(operator) {
-				result = winRequestDiagonalReflected(value1+1, value2-1,n+1, currentPlayer, operator);
-			} else {
-				result = winRequestDiagonalReflected(value1-1, value2+1,n+1, currentPlayer, operator);
-			}
-			return result;
 		}
 		
-		public void reset() {
-			field.reset();
-			setStatusMessage("Welcome to HTWG Five Wins!");
-			turn = 0;
-		}
+		return returnValue;
+	}
+	
+	public void reset() {
+		field.reset();
+		setStatusMessage("Welcome to HTWG Five Wins!");
+		turn = 0;
+		win = false;
+		winner = null;
+		draw = false;
+	}
 		
-		public AIAdapter getSecondPlayer() {
-			return player2;
-		}
+	public AIAdapter getSecondPlayer() {
+		return player2;
+	}
 		
-		public int getTurn() {
-			return turn;
-		}
+	public int getTurn() {
+		return turn;
+	}
+	
+	public boolean getDraw() {
+		return draw;
+	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

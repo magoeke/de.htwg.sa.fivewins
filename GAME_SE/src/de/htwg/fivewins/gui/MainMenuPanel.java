@@ -68,6 +68,10 @@ public class MainMenuPanel extends JPanel{
 		this.add(headline);
 	}
 	
+	/*
+	 * pop up a window which ask you
+	 * how big should the game field be
+	 */
 	protected int getFieldSize() {
 		String inputValue = JOptionPane.showInputDialog("Please input the field size you wante(Between 1-20)");
 		int input;
@@ -79,6 +83,9 @@ public class MainMenuPanel extends JPanel{
 		return input;
 	}
 	
+	/*
+	 * ActionListener für Button pvp und npc
+	 */
 	class GameSelectionListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -95,6 +102,9 @@ public class MainMenuPanel extends JPanel{
 		}
 	}
 	
+	/*
+	 * ActionListener for silly and stron button
+	 */
 	class levelOfDifficultyListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -108,6 +118,9 @@ public class MainMenuPanel extends JPanel{
 		}
 	}
 	
+	/*
+	 * ActionListener for x and o button
+	 */
 	class PlayerSelectionListener implements ActionListener {
 
 		@Override

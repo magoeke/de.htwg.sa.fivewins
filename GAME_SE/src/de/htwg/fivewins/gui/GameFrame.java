@@ -17,6 +17,11 @@ import de.htwg.fivewins.tui.TextUI;
 
 public class GameFrame extends JFrame{
 
+	/*
+	 * To switch betwee GamePanel and MainMenuPanel is
+	 * a cardlayout used.
+	 */
+	
 	private static final long serialVersionUID = 1L;
 	
 	private IFiveWinsController controller = null;
@@ -28,6 +33,9 @@ public class GameFrame extends JFrame{
 	private JPanel mainMenuPanel, mainPanel;
 	private TextUI textUI;
 	
+	/*
+	 * initialize GameFrame with a controller
+	 */
 	public GameFrame(IFiveWinsController controller) {
 		this.controller = controller;
 		this.setTitle("FiveWins");
@@ -49,6 +57,9 @@ public class GameFrame extends JFrame{
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
+	/*
+	 * start a new Player vs. player game
+	 */
 	public void startGamePlayer(int fieldsize) {
 		gamePanel.setPlayer("X");
 		controller = new FiveWinsController(new Field(fieldsize));
@@ -60,6 +71,9 @@ public class GameFrame extends JFrame{
 		}
 	}
 	
+	/*
+	 * start a new npc vs. player game
+	 */
 	public void startGameNPC(int fieldsize, String levelOfDifficulty, String sign) {
 		gamePanel.setPlayer("X");
 		Field field = new Field(fieldsize);
@@ -77,20 +91,33 @@ public class GameFrame extends JFrame{
 		gamePanel.firstAction();
 	}
 	
+	/*
+	 * Change the gamefieldsize. Because first initialize is with
+	 * default values
+	 */
 	public void resizeGameField(int fieldsize) {
 		gamePanel = new GamePanel(fieldsize, this);
 		mainPanel.add(gamePanel, GAMEPANEL);
 	}
 	
+	/*
+	 * leave the game and go back to the main menu
+	 */
 	public void backToMainMenu() {
 		CardLayout c1 = (CardLayout)(mainPanel.getLayout());
 		c1.show(mainPanel, MAINMENUPANEL);
 	}
 	
+	/*
+	 * @return the actual player sign
+	 */
 	public String getPlayerSign() {
 		return controller.getPlayerSign();
 	}
 	
+	/*
+	 * makes the npc turn
+	 */
 	public boolean nowSecondPlayer() {
 		AIAdapter aia = controller.getSecondPlayer();
 		boolean returnValue = false;
@@ -100,10 +127,16 @@ public class GameFrame extends JFrame{
 		return returnValue;
 	}
 	
+	/*
+	 * @return the ai object
+	 */
 	public AIAdapter getSecondPlayer() {
 		return controller.getSecondPlayer();
 	}
 	
+	/*
+	 * handle the action button pressed or ai
+	 */
 	public void handleAction(String command) {
 		textUI.handleInputOrQuit(command);
 		gamePanel.setTurn(controller.getTurn());
@@ -116,13 +149,26 @@ public class GameFrame extends JFrame{
 			
 			gamePanel.allButtonsEnabled();
 		}
+		if(controller.getDraw()) {
+			//output draw message and go back to main menu
+			JOptionPane.showMessageDialog(null, "It's a draw!",
+				        "Game Over", JOptionPane.INFORMATION_MESSAGE);
+			
+			gamePanel.allButtonsEnabled();
+		}
 	}
 
+	/*
+	 * reset the game
+	 */
 	public void reset() {
 		gamePanel.reset();
 		controller.reset();
 	}
 	
+	/*
+	 * @return if game is won or not
+	 */
 	public boolean isWon() {
 		return controller.getWinner();
 	}

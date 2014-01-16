@@ -63,4 +63,9 @@ public interface IFiveWinsController {
 	 */
 	void reset();
 	
+	/*
+	 * @return true if it's a draw
+	 */
+	boolean getDraw();
+	
 }

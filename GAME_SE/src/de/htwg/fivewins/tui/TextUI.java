@@ -21,11 +21,17 @@ public class TextUI implements IObserver{
 		scanner = new Scanner (System.in);	
 	}
 
+	/*
+	 * needed for the observer
+	 */
 	@Override
 	public void update() {
 		printTUI();
 	}
 
+	/*
+	 * was used when the gui wasn't implemented
+	 */
 	public boolean iterate() {
 		boolean returnValue = false;
 		AIAdapter npc = controller.getSecondPlayer();
@@ -37,6 +43,9 @@ public class TextUI implements IObserver{
 		return returnValue;
 	}
 
+	/*
+	 * print tui on the console
+	 */
 	public void printTUI() {
 		logger.info("\n" + controller.getFieldString() + "\n");
 		logger.info(controller.getStatus() + "\n");
@@ -44,6 +53,10 @@ public class TextUI implements IObserver{
 		logger.info("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)):\n"); 
 	}
 	
+	/*
+	 * handel inputed command
+	 * reset, update or set value
+	 */
 	public boolean handleInputOrQuit(String line) {
 		boolean quit=false;
 		if (line.equalsIgnoreCase("q")) {
@@ -69,6 +82,9 @@ public class TextUI implements IObserver{
 				if(winnerSign.equals("X") || winnerSign.equals("O")) {
 					logger.info("Der Gewinner ist " + winnerSign + "\n");
 					quit = true;
+				} else if(winnerSign.equals("draw")) {
+					logger.info("It's a draw!");
+					quit = true;
 				}
 				controller.countTurn();
 			}
@@ -78,6 +94,9 @@ public class TextUI implements IObserver{
 		return quit;
 	}
 
+	/*
+	 * resets the controller and update the tui
+	 */
 	private void reset() {
 		controller.reset();
 		update();

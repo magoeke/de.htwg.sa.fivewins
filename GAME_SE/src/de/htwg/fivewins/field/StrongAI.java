@@ -56,10 +56,10 @@ public class StrongAI extends AIAdapter{
 		bigTree = new HashMap< Integer, HashMap<Integer, Double>>();
 		bigTree.put(0, new HashMap<Integer, Double>());
 		
-		String tempField [][] = field.getGameField();
+		String tempField[][] = field.getGameField();
 		needToWin = calculateNeedToWin();
 		
-		//Liste aufbaun mit allen verbleibendenfreien Feldern;
+		//Liste aufbaun mit allen verbleibendenfreien Feldern
 		isFreeList(tempField);
 		
 		//bigTree aufbauen.

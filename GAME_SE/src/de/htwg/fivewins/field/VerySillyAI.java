@@ -4,6 +4,9 @@ import java.util.Random;
 
 public class VerySillyAI extends AIAdapter {
 	
+	/*
+	 * initialize random generator
+	 */
 	private Random randomNumber = new Random();
 
 	public VerySillyAI(String sign, Field field) {
@@ -15,6 +18,10 @@ public class VerySillyAI extends AIAdapter {
 		}
 	}
 	
+	/*
+	 * must be override because it's an abstract method in the
+	 * parent class
+	 */
 	@Override
 	public String calculateCommand() {
 		boolean quit = false;
@@ -32,7 +39,10 @@ public class VerySillyAI extends AIAdapter {
 	}
 	
 	
-	
+	/*
+	 * is used for calculateCommand. It's test if the field is free
+	 * or taken.
+	 */
 	private boolean isFree(int column, int row){
 		boolean returnValue = false;
 		if(field.getCellValue(--column, --row).equals("-")) {

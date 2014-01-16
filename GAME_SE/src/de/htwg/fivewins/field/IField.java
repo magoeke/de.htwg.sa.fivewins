@@ -17,12 +17,12 @@ public interface IField {
 	void setValue(int column, int row, String value);
 	
 	/*
-	 * @return returns the size of the gamefield
+	 * @return the size of the gamefield
 	 */
 	int getSize();
 	
 	/*
-	 * 
+	 * @return the gamefield(a 2 dimensional array).
 	 */
 	String[][] getGameField();
 }
