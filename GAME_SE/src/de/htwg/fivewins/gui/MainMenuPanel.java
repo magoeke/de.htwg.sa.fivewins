@@ -29,7 +29,7 @@ public class MainMenuPanel extends JPanel{
 	private static final int SILLONGY = 160;
 	private static final int FAILURENUMBER = 0;
 	
-	private JButton pvp, npc, silly, strong, x, o;
+	private JButton npc, silly, strong, x, o;
 	private GameFrame jf;
 	private String strength;
 	
@@ -52,7 +52,7 @@ public class MainMenuPanel extends JPanel{
 		o.addActionListener(new PlayerSelectionListener());
 		o.setVisible(false);
 		o.setBounds(XOX, (XOY+BUTTONHEIGHT), BUTTONNORMALWIDTH, BUTTONHEIGHT);
-		pvp = new JButton("Player vs. Player");
+		JButton pvp = new JButton("Player vs. Player");
 		pvp.addActionListener(new GameSelectionListener());
 		pvp.setBounds(NVPX, NVPY, BUTTONLARGEWIDTH, BUTTONHEIGHT);
 		npc = new JButton("Player vs. NPC");
