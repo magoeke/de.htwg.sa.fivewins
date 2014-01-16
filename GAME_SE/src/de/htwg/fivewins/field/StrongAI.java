@@ -127,7 +127,7 @@ public class StrongAI extends AIAdapter{
 			String sign = getPlayerSign();
 			tmpF[column][row] = sign;
 			getTurn(f);
-			winRequest();
+			testWin();
 			
 			Deque<Integer> tmpDe = new LinkedList<Integer>();
 			tmpDe.add(z);
@@ -150,6 +150,10 @@ public class StrongAI extends AIAdapter{
 		}
 	}
 	
+	private void setForCalculate() {
+		
+	}
+	
 
 	private void calculateTree(Deque<Integer> z, LinkedList<Integer> l1, String[][] f, int depth){
 		if(depth <= STOP){
@@ -162,7 +166,7 @@ public class StrongAI extends AIAdapter{
 				String sign = getPlayerSign();
 				tmpF[column][row] = sign;
 				getTurn(f);
-				winRequest();
+				testWin();
 				
 				Deque<Integer> tmpDe = new LinkedList<Integer>();
 				tmpDe.addAll(z);
@@ -295,15 +299,15 @@ private String getWinnerSign() {
 }
 
 
-private void winRequest() {
-	int horizontal = winRequestHorizontal(lastx, lasty, 0, getPlayerSign(), true) 
-			+ winRequestHorizontal(lastx, lasty, 0, getPlayerSign(), false) + 1;
-	int vertical = winRequestVertical(lastx, lasty, 0, getPlayerSign(), true) 
-			+ winRequestVertical(lastx, lasty, 0, getPlayerSign(), false) + 1;
-	int diagonal = winRequestDiagonal(lastx, lasty, 0, getPlayerSign(), true) 
-			+ winRequestDiagonal(lastx, lasty, 0, getPlayerSign(), false) + 1;
-	int diagonalReflected = winRequestDiagonalReflected(lastx, lasty, 0, getPlayerSign(), true) 
-			+ winRequestDiagonalReflected(lastx, lasty, 0, getPlayerSign(), false) + 1;
+private void testWin() {
+	int horizontal = testWinHorizontal(lastx, lasty, 0, getPlayerSign(), true) 
+			+ testWinHorizontal(lastx, lasty, 0, getPlayerSign(), false) + 1;
+	int vertical = testWinVertical(lastx, lasty, 0, getPlayerSign(), true) 
+			+ testWinVertical(lastx, lasty, 0, getPlayerSign(), false) + 1;
+	int diagonal = testWinDiagonal(lastx, lasty, 0, getPlayerSign(), true) 
+			+ testWinDiagonal(lastx, lasty, 0, getPlayerSign(), false) + 1;
+	int diagonalReflected = testWinDiagonalReflected(lastx, lasty, 0, getPlayerSign(), true) 
+			+ testWinDiagonalReflected(lastx, lasty, 0, getPlayerSign(), false) + 1;
 	
 	if(vertical >= needToWin || horizontal >= needToWin || diagonal >= needToWin ||
 			diagonalReflected >= needToWin) {
@@ -314,7 +318,7 @@ private void winRequest() {
 
 
 //operator true => Minus
-private int winRequestHorizontal(int value, int fixValue, int n, String currentPlayer, 
+private int testWinHorizontal(int value, int fixValue, int n, String currentPlayer, 
 		boolean operator) {
 	int result = 0;
 	if(value < 0 || value >= field.getSize() || 
@@ -323,16 +327,16 @@ private int winRequestHorizontal(int value, int fixValue, int n, String currentP
 	}
 	
 	if(operator) {
-		result = winRequestHorizontal(value-1, fixValue,n+1, currentPlayer, operator);
+		result = testWinHorizontal(value-1, fixValue,n+1, currentPlayer, operator);
 	} else {
-		result = winRequestHorizontal(value+1, fixValue,n+1, currentPlayer, operator);
+		result = testWinHorizontal(value+1, fixValue,n+1, currentPlayer, operator);
 	}
 	return result;
 }
 
 
 //operator true => Minus
-private int winRequestVertical(int fixValue, int value, int n, String currentPlayer, 
+private int testWinVertical(int fixValue, int value, int n, String currentPlayer, 
 		boolean operator) {
 	int result = 0;
 	if(value < 0 || value >= field.getSize() || 
@@ -341,16 +345,16 @@ private int winRequestVertical(int fixValue, int value, int n, String currentPla
 	}
 	
 	if(operator) {
-		result = winRequestVertical(fixValue, value-1, n+1, currentPlayer, operator);
+		result = testWinVertical(fixValue, value-1, n+1, currentPlayer, operator);
 	} else {
-		result = winRequestVertical(fixValue, value+1, n+1, currentPlayer, operator);
+		result = testWinVertical(fixValue, value+1, n+1, currentPlayer, operator);
 	}
 	return result;
 }
 
 
 //operator true => doppel --
-private int winRequestDiagonal(int value1, int value2, int n, String currentPlayer, 
+private int testWinDiagonal(int value1, int value2, int n, String currentPlayer, 
 		boolean operator) {
 	int result = 0;
 	if(value1 < 0 || value1 >= field.getSize() || value2 < 0 || value2 >= field.getSize() || 
@@ -359,9 +363,9 @@ private int winRequestDiagonal(int value1, int value2, int n, String currentPlay
 	}
 	
 	if(operator) {
-		result = winRequestDiagonal(value1-1, value2-1,n+1, currentPlayer, operator);
+		result = testWinDiagonal(value1-1, value2-1,n+1, currentPlayer, operator);
 	} else {
-		result = winRequestDiagonal(value1+1, value2+1,n+1, currentPlayer, operator);
+		result = testWinDiagonal(value1+1, value2+1,n+1, currentPlayer, operator);
 	}
 	return result;
 }
@@ -369,7 +373,7 @@ private int winRequestDiagonal(int value1, int value2, int n, String currentPlay
 
 
 //operator true => +-
-	private int winRequestDiagonalReflected(int value1, int value2, int n, String currentPlayer, 
+	private int testWinDiagonalReflected(int value1, int value2, int n, String currentPlayer, 
 			boolean operator) {
 		int result = 0;
 		if(value1 < 0 || value1 >= field.getSize() || value2 < 0 || value2 >= field.getSize() || 
@@ -378,9 +382,9 @@ private int winRequestDiagonal(int value1, int value2, int n, String currentPlay
 		}
 		
 		if(operator) {
-			result = winRequestDiagonalReflected(value1+1, value2-1,n+1, currentPlayer, operator);
+			result = testWinDiagonalReflected(value1+1, value2-1,n+1, currentPlayer, operator);
 		} else {
-			result = winRequestDiagonalReflected(value1-1, value2+1,n+1, currentPlayer, operator);
+			result = testWinDiagonalReflected(value1-1, value2+1,n+1, currentPlayer, operator);
 		}
 		return result;
 	}
