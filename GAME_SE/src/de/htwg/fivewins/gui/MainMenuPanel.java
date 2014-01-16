@@ -58,11 +58,11 @@ public class MainMenuPanel extends JPanel{
 		npc = new JButton("Player vs. NPC");
 		npc.addActionListener(new GameSelectionListener());
 		npc.setBounds(NVPX,(NVPY + BUTTONHEIGHT), BUTTONLARGEWIDTH, BUTTONHEIGHT);
-		silly = new JButton("Einfach");
+		silly = new JButton("Easy");
 		silly.setVisible(false);
 		silly.addActionListener(new levelOfDifficultyListener());
 		silly.setBounds(SILLONGX, SILLONGY, BUTTONNORMALWIDTH, BUTTONHEIGHT);
-		strong = new JButton("Schwer");
+		strong = new JButton("Hard");
 		strong.setVisible(false);
 		strong.addActionListener(new levelOfDifficultyListener());
 		strong.setBounds(SILLONGX, (SILLONGY+BUTTONHEIGHT), BUTTONNORMALWIDTH, BUTTONHEIGHT);

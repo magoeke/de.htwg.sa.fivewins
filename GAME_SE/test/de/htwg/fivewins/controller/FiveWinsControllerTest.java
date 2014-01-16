@@ -77,5 +77,29 @@ public class FiveWinsControllerTest {
 	public void testGetSecondPlayer() {
 		assertEquals(vsai, controllerAI.getSecondPlayer());
 	}
+	
+	public void prepareDraw() {
+		field3.setValue(0, 0, "A");
+		field3.setValue(0, 1, "B");
+		field3.setValue(0, 2, "C");
+		field3.setValue(1, 0, "D");
+		field3.setValue(1, 1, "E");
+		field3.setValue(1, 2, "F");
+		field3.setValue(2, 0, "G");
+		field3.setValue(2, 1, "H");
+		field3.setValue(2, 2, "I");
+	}
 
+	@Test
+	public void testGetTurn() {
+		assertEquals(controller.getTurn(), 0);
+	}
+	
+	@Test
+	public void testGetDraw() {
+		assertFalse(controller.getDraw());
+		prepareDraw();
+		controllerAI.winRequest();
+		assertTrue(controllerAI.getDraw());
+	}
 }

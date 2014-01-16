@@ -2,11 +2,14 @@ package de.htwg.fivewins.field;
 
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Deque;
+import java.util.List;
+
 import de.htwg.fivewins.field.Field;
 
 public class StrongAI extends AIAdapter{
 
-	HashMap<Integer, HashMap<Integer, Double>> bigTree;
+	HashMap<Deque<Integer>, HashMap<Deque<Integer>, Double>> bigTree;
 	LinkedList<Integer> liste;
 
 
@@ -45,6 +48,7 @@ public class StrongAI extends AIAdapter{
 				}
 			}
 		}
+		//liste.add(0);
 		return liste;
 	}
 
@@ -53,24 +57,27 @@ public class StrongAI extends AIAdapter{
 	@Override
 	public String calculateCommand() {
 		//bigTree initialisieren mit 0;
-		bigTree = new HashMap< Integer, HashMap<Integer, Double>>();
-		bigTree.put(0, new HashMap<Integer, Double>());
+		bigTree = new HashMap<Deque<Integer>, HashMap<Deque<Integer>, Double>>();
 		
-		String tempField[][] = field.getGameField();
+		String tempField [][] = field.getGameField();
 		needToWin = calculateNeedToWin();
 		
-		//Liste aufbaun mit allen verbleibendenfreien Feldern
+		//Liste aufbaun mit allen verbleibendenfreien Feldern;
 		isFreeList(tempField);
+		//System.out.printf("%s%n", liste.toString());
+		
 		
 		//bigTree aufbauen.
 		//System.out.printf("%s %n", liste.toString());
 		buildTree(0, liste);
+		//System.out.printf("%s%n", bigTree.toString());
+		//System.out.printf("%s%n", bigTree.size());
+		
 		
 		
 		//bigTree Wege berechnen
-		isFreeList(tempField);
 		calculateTree(0, liste, tempField);
-		
+		System.out.printf("%s%n", bigTree.toString());
 		
 		//bigTree günstigsten Weg suchen. Aufaddieren.
 		sumTree(0, 0);
@@ -82,48 +89,104 @@ public class StrongAI extends AIAdapter{
 		return column + "," + row;
 	}
 
-
-
-	private HashMap<Integer, HashMap<Integer, Double>> buildTree(int z, LinkedList<Integer> l1){
-		l1.remove(l1.indexOf(z));
-		
-		System.out.printf("%s %n", bigTree.toString());
-		System.out.printf("%s %n", l1.toString());
+	
+	private void  buildTree(int z, LinkedList<Integer> l1){
+		Deque<Integer> i = new LinkedList<Integer>();
+		i.add(z);
+		bigTree.put(i, new HashMap<Deque<Integer>, Double>());
+		buildTree(i, l1);
+	}
+	
+	
+	private HashMap<Deque<Integer>, HashMap<Deque<Integer>, Double>>  buildTree(Deque<Integer> z, LinkedList<Integer> l1){
 		
 		for(int i : l1){
-			bigTree.put(i, new HashMap<Integer, Double>());
-			bigTree.get(z).put(i, 0.0);
-			//buildTree(i, l1);
+			Deque<Integer> tmpDe = new LinkedList<Integer>();
+			tmpDe.addAll(z);
+			tmpDe.add(i);
+			bigTree.put(tmpDe, new HashMap<Deque<Integer>, Double>());
+			bigTree.get(z).put(tmpDe, 0.0);
+			//System.out.printf("%s%n", bigTree.toString());
+			
+			LinkedList<Integer> tmpLi = new LinkedList<Integer>();
+			tmpLi.addAll(l1);
+			tmpLi.remove(l1.indexOf(i));
+			buildTree(tmpDe, tmpLi);
 		}
-		for(int i : l1){
-			//bigTree.get(z).put(i, 0.0);
-			buildTree(i, l1);
-		}
+		
+		//System.out.printf("%s%n", bigTree.toString());
+		
 		return bigTree;
 	}
-
-
-
+	
+	
+	
 	private void calculateTree(int z, LinkedList<Integer> l1, String[][] f){
-		l1.remove(l1.indexOf(z));
+		
 		for(int i : l1){
-			int column = z/100;
-			int row = z - column*100;
-			lastx = column-1;
-			lasty = row-1;
+			int column = i / 100;
+			int row = i - column*100;
+			lastx = column - 1;
+			lasty = row - 1;
+			String tmpF[][] = f.clone();
 			String sign = getPlayerSign();
-			f[column][row]= sign;
+			tmpF[column][row] = sign;
 			getTurn(f);
 			winRequest();
+			
+			Deque<Integer> tmpDe = new LinkedList<Integer>();
+			tmpDe.add(z);
+			tmpDe.add(i);
+			
+			LinkedList<Integer> tmpLi = new LinkedList<Integer>();
+			tmpLi.addAll(l1);
+			tmpLi.remove(l1.indexOf(i));
+			
 			if(win){
 				win = false;
 				if( getWinnerSign().equals("O")){
-					fillTree(i, l1, 1.0);
+					fillTree(tmpDe, l1, 1.0);
 				} else if( getWinnerSign().equals("X")){
-					fillTree(i, l1, -1.0);
+					fillTree(tmpDe, l1, -1.0);
 				}
 			} else{
-				calculateTree(i, l1, f);
+				//System.out.printf("%s%n", bigTree.toString());
+				calculateTree(tmpDe, tmpLi, tmpF);
+			}
+		}
+	}
+	
+
+	private void calculateTree(Deque<Integer> z, LinkedList<Integer> l1, String[][] f){
+		
+		for(int i : l1){
+			int column = i / 100;
+			int row = i - column*100;
+			lastx = column;
+			lasty = row;
+			String tmpF[][] = f.clone();
+			String sign = getPlayerSign();
+			tmpF[column][row] = sign;
+			getTurn(f);
+			winRequest();
+			
+			Deque<Integer> tmpDe = new LinkedList<Integer>();
+			tmpDe.addAll(z);
+			tmpDe.add(i);
+			
+			LinkedList<Integer> tmpLi = new LinkedList<Integer>();
+			tmpLi.addAll(l1);
+			tmpLi.remove(l1.indexOf(i));
+			
+			if(win){
+				win = false;
+				if( getWinnerSign().equals("O")){
+					fillTree(tmpDe, l1, 1.0);
+				} else if( getWinnerSign().equals("X")){
+					fillTree(tmpDe, l1, -1.0);
+				}
+			} else{
+				calculateTree(tmpDe, tmpLi, tmpF);
 			}
 		}
 	}
@@ -136,14 +199,21 @@ public class StrongAI extends AIAdapter{
 	 * UND LÖSCHT DIESE DANN!!!
 	 */
 	private void sumTree(int z, int depth){
+		Deque<Integer> tmpDe = new LinkedList<Integer>();
+		tmpDe.add(z);
+		sumTree(tmpDe, depth);
+	}
+	
+	
+	private void sumTree(Deque<Integer> z, int depth){
 		if(bigTree.get(z).keySet().size() > 2){
-			for(int i : bigTree.get(z).keySet()){
+			for(Deque<Integer> i : bigTree.get(z).keySet()){
 				sumTree(i, --depth);
 			}
 		} else {
 			double sum = 0.0;
-			for(int i : bigTree.get(z).keySet()){
-				for(int j : bigTree.get(i).keySet()){
+			for(Deque<Integer> i : bigTree.get(z).keySet()){
+				for(Deque<Integer> j : bigTree.get(i).keySet()){
 					sum += bigTree.get(i).get(j);
 					bigTree.remove(j);
 				}
@@ -153,30 +223,46 @@ public class StrongAI extends AIAdapter{
 	}
 
 
+
 	/*
 	 * fillTree
 	 * füllt den Baum ab einem bestimmmten Knoten mit immer dem selben wert.
 	 */
-	private void fillTree(int z, LinkedList<Integer> l1, double d){
-		l1.remove(l1.indexOf(z));
+	private void fillTree(Deque<Integer> z, LinkedList<Integer> l1, double d){
 		for(int i : l1){
-			bigTree.get(z).put(i, d);
-			fillTree(i, l1, d);
+			Deque<Integer> tmpDe = new LinkedList<Integer>();
+			tmpDe.addAll(z);
+			tmpDe.add(i);
+			
+			LinkedList<Integer> tmpLi = new LinkedList<Integer>();
+			tmpLi.addAll(l1);
+			tmpLi.remove(l1.indexOf(i));
+			
+			System.out.printf("%s%n", bigTree.toString());
+			System.out.printf("%s%n", z.toString());
+			System.out.printf("%s%n", tmpDe.toString());
+			
+			bigTree.get(z).put(tmpDe, d);
+			fillTree(tmpDe, tmpLi, d);
 		}
 	}
+	
+
 	
 	
 	private int max(int z){
 		int r = -100000;
-		for(int i : bigTree.get(z).keySet()){
-			if(r < i){
-				r = i;
+		for(Deque<Integer> i : bigTree.get(z).keySet()){
+			if(r < i.getLast()){
+				r = i.getLast();
 			}
 		}
 		return r;
 	}
 //}  
 
+	
+	
 
                       // Hässliche Copy&Paste Methoden für die Gewinnabfrage der Ai
 

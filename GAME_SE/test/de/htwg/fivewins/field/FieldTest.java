@@ -52,4 +52,11 @@ public class FieldTest {
 		field1.reset();
 		assertEquals("-", field1.getCellValue(0, 0));
 	}
+	
+	@Test
+	public void testGetGameField() {
+		field1.setValue(0, 0, "X");
+		String[][] testGameField = field1.getGameField();
+		assertEquals(field1.getCellValue(0, 0), testGameField[0][0]);
+	}
 }
