@@ -45,9 +45,9 @@ public class VerySillyAI extends AIAdapter {
 	 */
 	private boolean isFree(int column, int row){
 		boolean returnValue = false;
-		--column;
-		--row;
-		if(field.getCellValue(column, row).equals("-")) {
+		int column2 = column-1;
+		int row2 = row - 1;
+		if(field.getCellValue(column2, row2).equals("-")) {
 			returnValue = true;
 		}
 		return returnValue;

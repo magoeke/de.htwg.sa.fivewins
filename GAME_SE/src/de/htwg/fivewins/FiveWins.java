@@ -10,10 +10,9 @@ import de.htwg.fivewins.gui.GameFrame;
  */
 public final class FiveWins {
 	private static FiveWins fivewins = null;
-	private GameFrame gf;
 	
 	private FiveWins() {
-		gf= new GameFrame(new FiveWinsController(new Field(1)));
+		new GameFrame(new FiveWinsController(new Field(1)));
 	}
 	
 	
