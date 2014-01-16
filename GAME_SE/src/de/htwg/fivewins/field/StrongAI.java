@@ -3,6 +3,7 @@ package de.htwg.fivewins.field;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Deque;
+import java.util.List;
 
 
 import de.htwg.fivewins.field.Field;
@@ -11,8 +12,8 @@ import de.htwg.fivewins.field.Field;
  */
 public class StrongAI extends AIAdapter{
 
-	HashMap<Deque<Integer>, HashMap<Deque<Integer>, Double>> bigTree;
-	LinkedList<Integer> liste;
+	private HashMap<Deque<Integer>, HashMap<Deque<Integer>, Double>> bigTree;
+	private LinkedList<Integer> liste;
 	private final int stop = 3;
 	
 	public StrongAI(String sign, Field field) {
@@ -40,7 +41,7 @@ public class StrongAI extends AIAdapter{
 	 * Sammelt alle freien Felder in einer Liste.
 	 * Dort sind sie abgespeichert zB feld(12, 7) mit 1207.
 	 */
-	private LinkedList<Integer> isFreeList(String[][] f){
+	private List<Integer> isFreeList(String[][] f){
 		liste = new LinkedList<Integer>();
 		for (int i = 0; i < field.getSize(); i++){
 			for(int j = 0; j < field.getSize(); j++){
@@ -50,7 +51,6 @@ public class StrongAI extends AIAdapter{
 				}
 			}
 		}
-		//liste.add(0);
 		return liste;
 	}
 
@@ -58,16 +58,15 @@ public class StrongAI extends AIAdapter{
 
 	@Override
 	public String calculateCommand() {
-		//bigTree initialisieren mit 0;
+		//bigTree initialisieren mit 0
 		bigTree = new HashMap<Deque<Integer>, HashMap<Deque<Integer>, Double>>();
 		
 		String tempField [][] = new String[field.getSize()][field.getSize()];
 		tempField = arrayCopy(field.getGameField(), tempField);
 		needToWin = calculateNeedToWin();
 		
-		//Liste aufbaun mit allen verbleibendenfreien Feldern;
+		//Liste aufbaun mit allen verbleibendenfreien Feldern
 		isFreeList(tempField);
-		System.out.printf("%s%n", liste.toString());
 		
 		//bigTree aufbauen.
 		buildTree(0, liste);
@@ -107,7 +106,8 @@ public class StrongAI extends AIAdapter{
 				LinkedList<Integer> tmpLi = new LinkedList<Integer>();
 				tmpLi.addAll(l1);
 				tmpLi.remove(l1.indexOf(i));
-				buildTree(tmpDe, tmpLi, ++depth);
+				int depth2 = depth + 1;
+				buildTree(tmpDe, tmpLi, depth2);
 			}
 		}
 		return bigTree;
@@ -115,7 +115,7 @@ public class StrongAI extends AIAdapter{
 	
 	
 	
-	private void calculateTree(int z, LinkedList<Integer> l1, String[][] f){
+	private void calculateTree(int z, List<Integer> l1, String[][] f){
 		
 		for(int i : l1){
 			int column = i / 100;
@@ -202,7 +202,8 @@ public class StrongAI extends AIAdapter{
 	private void sumTree(Deque<Integer> z, int depth){
 		if(bigTree.get(z).keySet().size() > 2){
 			for(Deque<Integer> i : bigTree.get(z).keySet()){
-				sumTree(i, --depth);
+				int depth2 = depth -1;
+				sumTree(i, depth2);
 			}
 		} else {
 			double sum = 0.0;
@@ -233,6 +234,7 @@ public class StrongAI extends AIAdapter{
 				LinkedList<Integer> tmpLi = new LinkedList<Integer>();
 				tmpLi.addAll(l1);
 				tmpLi.remove(l1.indexOf(i));
+				int depth2 = depth +1;
 				fillTree(tmpDe, tmpLi, d, ++depth);
 			}
 		}
@@ -254,7 +256,7 @@ public class StrongAI extends AIAdapter{
 	}
 
 
-private int FIVEWINS = 5;
+private static final int FIVEWINS = 5;
 private int needToWin = 0;
 private boolean win = false;
 private String winner = null;
