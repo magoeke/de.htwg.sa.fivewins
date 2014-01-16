@@ -14,7 +14,8 @@ public class StrongAI extends AIAdapter{
 
 	private HashMap<Deque<Integer>, HashMap<Deque<Integer>, Double>> bigTree;
 	private LinkedList<Integer> liste;
-	private final int stop = 3;
+	private static final int STOP = 3;
+	private static final int MULTIPLIER = 100;
 	
 	public StrongAI(String sign, Field field) {
 		if(sign.equals("X") || sign.equals("O")) {
@@ -46,7 +47,7 @@ public class StrongAI extends AIAdapter{
 		for (int i = 0; i < field.getSize(); i++){
 			for(int j = 0; j < field.getSize(); j++){
 				if(isFree(i, j, f)){
-					int k = i*100+j;
+					int k = i*MULTIPLIER+j;
 					liste.add(k);
 				}
 			}
@@ -80,8 +81,8 @@ public class StrongAI extends AIAdapter{
 		
 		//koordinaten vom besten Weg nehmen.
 		int t = max(0);
-		int column = t/100;
-		int row = t - column*100;
+		int column = t/MULTIPLIER;
+		int row = t - column*MULTIPLIER;
 		return ++column + "," + ++row;
 	}
 
@@ -95,7 +96,7 @@ public class StrongAI extends AIAdapter{
 	
 	
 	private HashMap<Deque<Integer>, HashMap<Deque<Integer>, Double>>  buildTree(Deque<Integer> z, LinkedList<Integer> l1, int depth){
-		if(depth <= stop){
+		if(depth <= STOP){
 			for(int i : l1){
 				Deque<Integer> tmpDe = new LinkedList<Integer>();
 				tmpDe.addAll(z);
@@ -118,8 +119,8 @@ public class StrongAI extends AIAdapter{
 	private void calculateTree(int z, List<Integer> l1, String[][] f){
 		
 		for(int i : l1){
-			int column = i / 100;
-			int row = i - column*100;
+			int column = i / MULTIPLIER;
+			int row = i - column*MULTIPLIER;
 			lastx = column;
 			lasty = row;
 			String tmpF[][] = f.clone();
@@ -151,10 +152,10 @@ public class StrongAI extends AIAdapter{
 	
 
 	private void calculateTree(Deque<Integer> z, LinkedList<Integer> l1, String[][] f, int depth){
-		if(depth <= stop){
+		if(depth <= STOP){
 			for(int i : l1){
-				int column = i / 100;
-				int row = i - column*100;
+				int column = i / MULTIPLIER;
+				int row = i - column*MULTIPLIER;
 				lastx = column;
 				lasty = row;
 				String tmpF[][] = f.clone();
@@ -224,7 +225,7 @@ public class StrongAI extends AIAdapter{
 	 * füllt den Baum ab einem bestimmmten Knoten mit immer dem selben wert.
 	 */
 	private void fillTree(Deque<Integer> z, LinkedList<Integer> l1, double d, int depth){
-		if(depth <= stop && z.size() <= field.getSize()*field.getSize()){
+		if(depth <= STOP && z.size() <= field.getSize()*field.getSize()){
 			for(int i : l1){
 				Deque<Integer> tmpDe = new LinkedList<Integer>();
 				tmpDe.addAll(z);
@@ -235,7 +236,7 @@ public class StrongAI extends AIAdapter{
 				tmpLi.addAll(l1);
 				tmpLi.remove(l1.indexOf(i));
 				int depth2 = depth +1;
-				fillTree(tmpDe, tmpLi, d, ++depth);
+				fillTree(tmpDe, tmpLi, d, depth2);
 			}
 		}
 	}
