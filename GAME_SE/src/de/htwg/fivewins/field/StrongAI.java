@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Deque;
 
+
 import de.htwg.fivewins.field.Field;
 
 public class StrongAI extends AIAdapter{
@@ -58,12 +59,13 @@ public class StrongAI extends AIAdapter{
 		//bigTree initialisieren mit 0;
 		bigTree = new HashMap<Deque<Integer>, HashMap<Deque<Integer>, Double>>();
 		
-		String tempField [][] = field.getGameField().clone();
+		String tempField [][] = new String[field.getSize()][field.getSize()];
+		tempField = arrayCopy(field.getGameField(), tempField);
 		needToWin = calculateNeedToWin();
 		
 		//Liste aufbaun mit allen verbleibendenfreien Feldern;
 		isFreeList(tempField);
-		//System.out.printf("%s%n", liste.toString());
+		System.out.printf("%s%n", liste.toString());
 		
 		
 		//bigTree aufbauen.
@@ -73,14 +75,15 @@ public class StrongAI extends AIAdapter{
 		//System.out.printf("%s%n", bigTree.size());
 		
 		
-		
 		//bigTree Wege berechnen
 		calculateTree(0, liste, tempField);
-		System.out.printf("%s%n", bigTree.toString());
+		//System.out.printf("%s%n", bigTree.toString());
+		
 		
 		//bigTree günstigsten Weg suchen. Aufaddieren.
 		sumTree(0, 0);
-		System.out.printf("%s%n", bigTree.toString());
+		//System.out.printf("%s%n", bigTree.toString());
+		
 		
 		//koordinaten vom besten Weg nehmen.
 		int t = max(0);
@@ -381,6 +384,7 @@ private int winRequestDiagonal(int value1, int value2, int n, String currentPlay
 }
 
 
+
 //operator true => +-
 	private int winRequestDiagonalReflected(int value1, int value2, int n, String currentPlayer, 
 			boolean operator) {
@@ -398,4 +402,14 @@ private int winRequestDiagonal(int value1, int value2, int n, String currentPlay
 		return result;
 	}
 
+
+
+	private String[][] arrayCopy(String[][] s, String[][] t){
+		for (int i = 0; i < s.length; i++) {
+		    System.arraycopy(s[i], 0, t[i], 0, s[0].length);
+		}
+		return t;
+	}
+	
+	
 }
