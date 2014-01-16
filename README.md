@@ -49,6 +49,6 @@ The important part in the controller is the win request.
 
 How does the win request work?
 The alorithm is based on this picture:
-![win request algorithm](/images/wra.png)
+![win request algorithm](/GAME_SE/images/wra.png)
 The algorithm saves the last x- and y-coordinate and test from this position the next 5(if the gamefield is bigger than 4X4 otherwise the gamefield size is used) in all directions. 
 
