@@ -17,10 +17,10 @@ public class GamePanel extends JPanel{
 	private static final int HEIGHT = 300;
 	private static final int WIDTH = 50;
 
-	JButton buttons[][];
-	int fieldsize;
-	JLabel turn, player;
-	GameFrame jf;
+	private JButton buttons[][];
+	private int fieldsize;
+	private JLabel turn, player;
+	private GameFrame jf;
 	
 	public GamePanel(int fieldsize, GameFrame jf) {
 		this.fieldsize = fieldsize;
@@ -86,7 +86,6 @@ public class GamePanel extends JPanel{
         //change because the tui want it this way
         jf.handleAction((y+1)+","+(x+1));
         
-        //button.setBackground(new Color(255));
         button.setEnabled(false);
         
         if(!jf.isWon()) {
