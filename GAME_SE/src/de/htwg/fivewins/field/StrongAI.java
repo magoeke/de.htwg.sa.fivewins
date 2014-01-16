@@ -6,6 +6,9 @@ import java.util.Deque;
 
 
 import de.htwg.fivewins.field.Field;
+/*
+ * @author manuel
+ */
 
 public class StrongAI extends AIAdapter{
 
@@ -67,29 +70,21 @@ public class StrongAI extends AIAdapter{
 		isFreeList(tempField);
 		System.out.printf("%s%n", liste.toString());
 		
-		
 		//bigTree aufbauen.
-		//System.out.printf("%s %n", liste.toString());
 		buildTree(0, liste);
-		//System.out.printf("%s%n", bigTree.toString());
-		//System.out.printf("%s%n", bigTree.size());
-		
 		
 		//bigTree Wege berechnen
 		calculateTree(0, liste, tempField);
-		//System.out.printf("%s%n", bigTree.toString());
 		
 		
 		//bigTree günstigsten Weg suchen. Aufaddieren.
 		sumTree(0, 0);
-		//System.out.printf("%s%n", bigTree.toString());
-		
 		
 		//koordinaten vom besten Weg nehmen.
 		int t = max(0);
 		int column = t/100;
 		int row = t - column*100;
-		return column + "," + row;
+		return ++column + "," + ++row;
 	}
 
 	
@@ -109,16 +104,12 @@ public class StrongAI extends AIAdapter{
 			tmpDe.add(i);
 			bigTree.put(tmpDe, new HashMap<Deque<Integer>, Double>());
 			bigTree.get(z).put(tmpDe, 0.0);
-			//System.out.printf("%s%n", bigTree.toString());
 			
 			LinkedList<Integer> tmpLi = new LinkedList<Integer>();
 			tmpLi.addAll(l1);
 			tmpLi.remove(l1.indexOf(i));
 			buildTree(tmpDe, tmpLi);
 		}
-		
-		//System.out.printf("%s%n", bigTree.toString());
-		
 		return bigTree;
 	}
 	
@@ -153,7 +144,6 @@ public class StrongAI extends AIAdapter{
 					fillTree(tmpDe, tmpLi, -1.0);
 				}
 			} else{
-				//System.out.printf("%s%n", bigTree.toString());
 				calculateTree(tmpDe, tmpLi, tmpF);
 			}
 		}
@@ -261,12 +251,6 @@ public class StrongAI extends AIAdapter{
 		}
 		return r;
 	}
-//}
-
-	
-	
-
-                      // Hässliche Copy&Paste Methoden für die Gewinnabfrage der Ai
 
 
 private int FIVEWINS = 5;
@@ -292,7 +276,7 @@ private void getTurn(String[][] f){
 }
 
 
-public String getPlayerSign() {
+private String getPlayerSign() {
 	int result = turn % 2;
 	if(result == 0) {
 		return "X";
@@ -302,17 +286,12 @@ public String getPlayerSign() {
 }
 
 
-public boolean getWinner() {
-	return win;
-}
-
-
-public String getWinnerSign() {
+private String getWinnerSign() {
 	return winner;
 }
 
 
-public void winRequest() {
+private void winRequest() {
 	int horizontal = winRequestHorizontal(lastx, lasty, 0, getPlayerSign(), true) 
 			+ winRequestHorizontal(lastx, lasty, 0, getPlayerSign(), false) + 1;
 	int vertical = winRequestVertical(lastx, lasty, 0, getPlayerSign(), true) 
