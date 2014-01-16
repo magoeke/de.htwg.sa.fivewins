@@ -11,13 +11,12 @@ public class GameMenuBar extends JMenuBar implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	
-	private JMenu menu;
 	private JMenuItem restart, backToMainMenu;
 	private GameFrame jf;
 	
 	public GameMenuBar(GameFrame jf) {
+		JMenu menu = new JMenu("Datei");
 		this.jf = jf;
-		menu = new JMenu("Datei");
 		restart = new JMenuItem("Restart");
 		restart.addActionListener(this);
 		backToMainMenu = new JMenuItem("Back to main menu");

@@ -88,10 +88,8 @@ public class GamePanel extends JPanel{
         
         button.setEnabled(false);
         
-        if(!jf.isWon()) {
-        	if(isAITurn()) {
-				handleAITurn();
-			}
+        if(!jf.isWon() && isAITurn()) {
+        	handleAITurn();
         }
         
     }

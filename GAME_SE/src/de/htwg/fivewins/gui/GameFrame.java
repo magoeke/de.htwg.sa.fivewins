@@ -32,7 +32,7 @@ public class GameFrame extends JFrame{
 	
 	private IFiveWinsController controller = null;
 	private GamePanel gamePanel;
-	private JPanel mainMenuPanel, mainPanel;
+	private JPanel mainPanel;
 	private TextUI textUI;
 	
 	/*
@@ -45,7 +45,7 @@ public class GameFrame extends JFrame{
 		this.setSize( HEIGHT, WIDTH );
 		this.setJMenuBar(new GameMenuBar(this));
 		
-		mainMenuPanel = new MainMenuPanel(this);
+		MainMenuPanel  mainMenuPanel = new MainMenuPanel(this);
 		gamePanel = new GamePanel(1, this);
 				
 		mainPanel = new JPanel();
