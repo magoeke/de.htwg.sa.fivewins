@@ -246,4 +246,5 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 	public boolean getDraw() {
 		return draw;
 	}
+
 }

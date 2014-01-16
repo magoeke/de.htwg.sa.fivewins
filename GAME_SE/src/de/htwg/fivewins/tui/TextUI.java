@@ -16,7 +16,7 @@ public class TextUI implements IObserver{
 	
 	public TextUI(IFiveWinsController controller){
 		this.controller = controller;
-		//controller.addObserver(this);
+		controller.addObserver(this);
 		scanner = new Scanner (System.in);	
 	}
 
@@ -75,7 +75,6 @@ public class TextUI implements IObserver{
 			int arg0 = Integer.parseInt(numbers[0]);
 			int arg1 = Integer.parseInt(numbers[1]);
 			boolean successfulFieldChange = controller.setValue(arg0, arg1, controller.getPlayerSign());
-			update();
 			if(successfulFieldChange) {
 				String winnerSign = controller.winRequest();
 				if(winnerSign.equals("X") || winnerSign.equals("O")) {

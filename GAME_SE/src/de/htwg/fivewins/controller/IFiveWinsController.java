@@ -1,8 +1,9 @@
 package de.htwg.fivewins.controller;
 
 import de.htwg.fivewins.field.AIAdapter;
+import de.htwg.util.observer.IObservable;
 
-public interface IFiveWinsController {
+public interface IFiveWinsController extends IObservable{
 	
 	/*
 	 * Sets the value for the field[column][row]

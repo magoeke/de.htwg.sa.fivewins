@@ -28,11 +28,9 @@ public class GameMenuBar extends JMenuBar implements ActionListener{
  
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		Object source = e.getSource();
-		if(source == restart) {
+		if(e.getSource() == restart) {
 			jf.reset();
-		} else if(source == backToMainMenu) {
+		} else if(e.getSource() == backToMainMenu) {
 			jf.backToMainMenu();
 		}
 		
