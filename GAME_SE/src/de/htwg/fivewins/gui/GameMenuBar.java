@@ -26,7 +26,7 @@ public class GameMenuBar extends JMenuBar implements ActionListener{
 		menu.add(backToMainMenu);
 		this.add(menu);
 	}
-
+ 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

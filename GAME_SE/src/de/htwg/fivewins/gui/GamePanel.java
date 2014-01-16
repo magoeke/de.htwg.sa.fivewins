@@ -8,13 +8,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
+	private static final int HEIGHT = 300;
+	private static final int WIDTH = 50;
 
 	JButton buttons[][];
 	int fieldsize;
@@ -49,7 +50,7 @@ public class GamePanel extends JPanel{
 		optionsLabel.add(turn);
 		optionsLabel.add(new JLabel("Player Turn: "));
 		optionsLabel.add(player);
-		optionsLabel.setMaximumSize(new Dimension(300, 50));
+		optionsLabel.setMaximumSize(new Dimension(HEIGHT, WIDTH));
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.add(gamefield);

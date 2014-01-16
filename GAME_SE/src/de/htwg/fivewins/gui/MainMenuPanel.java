@@ -1,16 +1,9 @@
 package de.htwg.fivewins.gui;
 
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
-import javax.imageio.IIOException;
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,8 +12,24 @@ import javax.swing.JPanel;
 public class MainMenuPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
+	private static final int HEADLINESIZE = 20;
+	private static final int HEADLINEXY = 50;
+	private static final int HEADLINEWIDTH = 300;
+	private static final int HEADLINEHEIGHT = 50;
+	private static final int FONTSTYLE = 0;
+	private static final int FONTSIZE = 50;
+	private static final int BUTTONHEIGHT = 30;
+	private static final int BUTTONNORMALWIDTH = 150;
+	private static final int BUTTONLARGEWIDTH = 180;
+	private static final int XOX = 300;
+	private static final int XOY = 240;
+	private static final int NVPX = 25;
+	private static final int NVPY = 150;
+	private static final int SILLONGX = 225;
+	private static final int SILLONGY = 160;
+	private static final int FAILURENUMBER = 0;
+	
 	private JButton pvp, npc, silly, strong, x, o;
-	private JOptionPane inputFieldSize;
 	private GameFrame jf;
 	private String strength;
 	
@@ -29,34 +38,34 @@ public class MainMenuPanel extends JPanel{
 	public MainMenuPanel(GameFrame jf) {
 		this.jf= jf;
 		JLabel headline = new JLabel("Five Wins");
-		headline.setSize(20, 20);
-		headline.setBounds(50, 50, 300, 50);
-		headline.setFont(new Font("Dialog", 0, 50));
+		headline.setSize(HEADLINESIZE, HEADLINESIZE);
+		headline.setBounds(HEADLINEXY, HEADLINEXY, HEADLINEWIDTH, HEADLINEHEIGHT);
+		headline.setFont(new Font("Dialog", FONTSTYLE, FONTSIZE));
 		
 
 		
 		x = new JButton("X");
 		x.addActionListener(new PlayerSelectionListener());
 		x.setVisible(false);
-		x.setBounds(300, 240, 150, 30);
+		x.setBounds(XOX, XOY, BUTTONNORMALWIDTH, BUTTONHEIGHT);
 		o = new JButton("O");
 		o.addActionListener(new PlayerSelectionListener());
 		o.setVisible(false);
-		o.setBounds(300, 270, 150, 30);
+		o.setBounds(XOX, (XOY+BUTTONHEIGHT), BUTTONNORMALWIDTH, BUTTONHEIGHT);
 		pvp = new JButton("Player vs. Player");
 		pvp.addActionListener(new GameSelectionListener());
-		pvp.setBounds(25, 150, 180, 30);
+		pvp.setBounds(NVPX, NVPY, BUTTONLARGEWIDTH, BUTTONHEIGHT);
 		npc = new JButton("Player vs. NPC");
 		npc.addActionListener(new GameSelectionListener());
-		npc.setBounds(25,180, 180,30);
+		npc.setBounds(NVPX,(NVPY + BUTTONHEIGHT), BUTTONLARGEWIDTH, BUTTONHEIGHT);
 		silly = new JButton("Einfach");
 		silly.setVisible(false);
 		silly.addActionListener(new levelOfDifficultyListener());
-		silly.setBounds(225, 160, 150, 30);
+		silly.setBounds(SILLONGX, SILLONGY, BUTTONNORMALWIDTH, BUTTONHEIGHT);
 		strong = new JButton("Schwer");
 		strong.setVisible(false);
 		strong.addActionListener(new levelOfDifficultyListener());
-		strong.setBounds(225, 190, 150, 30);
+		strong.setBounds(SILLONGX, (SILLONGY+BUTTONHEIGHT), BUTTONNORMALWIDTH, BUTTONHEIGHT);
 		
 		this.setLayout(null);
 		this.add(pvp);
@@ -78,7 +87,7 @@ public class MainMenuPanel extends JPanel{
 		try {
 			input = Integer.parseInt(inputValue);
 		} catch(NumberFormatException ex) {
-			input = 0;
+			input = FAILURENUMBER;
 		}
 		return input;
 	}

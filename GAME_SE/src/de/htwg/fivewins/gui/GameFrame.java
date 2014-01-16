@@ -23,12 +23,14 @@ public class GameFrame extends JFrame{
 	 */
 	
 	private static final long serialVersionUID = 1L;
+	private static final String GAMEPANEL = "GamePanel";
+	private static final String MAINMENUPANEL = "MainMenuPanel";
+	private static final int BOTTOMBORDER = 0;
+	private static final int TOPBORDER=20;
+	private static final int HEIGHT = 640;
+	private static final int WIDTH = 400;
 	
 	private IFiveWinsController controller = null;
-	private final static String GAMEPANEL = "GamePanel";
-	private final static String MAINMENUPANEL = "MainMenuPanel";
-	private final static int BOTTOMBORDER = 0;
-	private final static int TOPBORDER=20;
 	private GamePanel gamePanel;
 	private JPanel mainMenuPanel, mainPanel;
 	private TextUI textUI;
@@ -40,7 +42,7 @@ public class GameFrame extends JFrame{
 		this.controller = controller;
 		this.setTitle("FiveWins");
 		this.setLocationRelativeTo(null);
-		this.setSize( 640, 400 );
+		this.setSize( HEIGHT, WIDTH );
 		this.setJMenuBar(new GameMenuBar(this));
 		
 		mainMenuPanel = new MainMenuPanel(this);

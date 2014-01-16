@@ -3,7 +3,6 @@ package de.htwg.fivewins.tui;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
-import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.controller.IFiveWinsController;
 import de.htwg.fivewins.field.AIAdapter;
 import de.htwg.util.observer.IObserver;
