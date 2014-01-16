@@ -3,6 +3,7 @@ package de.htwg.fivewins.field;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Deque;
+import java.util.List;
 
 
 import de.htwg.fivewins.field.Field;
@@ -12,8 +13,10 @@ import de.htwg.fivewins.field.Field;
 
 public class StrongAI extends AIAdapter{
 
-	HashMap<Deque<Integer>, HashMap<Deque<Integer>, Double>> bigTree;
-	LinkedList<Integer> liste;
+	private static final int MULTIPLIER = 100;
+	
+	private HashMap<Deque<Integer>, HashMap<Deque<Integer>, Double>> bigTree;
+	private LinkedList<Integer> liste;
 
 
 	public StrongAI(String sign, Field field) {
@@ -41,17 +44,16 @@ public class StrongAI extends AIAdapter{
 	 * Sammelt alle freien Felder in einer Liste.
 	 * Dort sind sie abgespeichert zB feld(12, 7) mit 1207.
 	 */
-	private LinkedList<Integer> isFreeList(String[][] f){
+	private List<Integer> isFreeList(String[][] f){
 		liste = new LinkedList<Integer>();
 		for (int i = 0; i < field.getSize(); i++){
 			for(int j = 0; j < field.getSize(); j++){
 				if(isFree(i, j, f)){
-					int k = i*100+j;
+					int k = i*MULTIPLIER+j;
 					liste.add(k);
 				}
 			}
 		}
-		//liste.add(0);
 		return liste;
 	}
 
@@ -59,16 +61,15 @@ public class StrongAI extends AIAdapter{
 
 	@Override
 	public String calculateCommand() {
-		//bigTree initialisieren mit 0;
+		//bigTree initialisieren mit 0
 		bigTree = new HashMap<Deque<Integer>, HashMap<Deque<Integer>, Double>>();
 		
 		String tempField [][] = new String[field.getSize()][field.getSize()];
 		tempField = arrayCopy(field.getGameField(), tempField);
 		needToWin = calculateNeedToWin();
 		
-		//Liste aufbaun mit allen verbleibendenfreien Feldern;
+		//Liste aufbaun mit allen verbleibendenfreien Feldern
 		isFreeList(tempField);
-		System.out.printf("%s%n", liste.toString());
 		
 		//bigTree aufbauen.
 		buildTree(0, liste);
@@ -82,8 +83,8 @@ public class StrongAI extends AIAdapter{
 		
 		//koordinaten vom besten Weg nehmen.
 		int t = max(0);
-		int column = t/100;
-		int row = t - column*100;
+		int column = t/MULTIPLIER;
+		int row = t - column*MULTIPLIER;
 		return ++column + "," + ++row;
 	}
 
