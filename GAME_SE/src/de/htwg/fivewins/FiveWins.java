@@ -5,6 +5,7 @@ import de.htwg.fivewins.field.Field;
 import de.htwg.fivewins.gui.GameFrame;
 
 /*
+ * @author Max
  * The start class for FiveWins.
  * Singelton is used.
  */

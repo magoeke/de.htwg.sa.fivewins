@@ -1,5 +1,8 @@
 package de.htwg.fivewins.field;
 
+/*
+ * @author Max,Manuel
+ */
 public interface IField {
 	
 	/*

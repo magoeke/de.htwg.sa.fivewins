@@ -2,6 +2,9 @@ package de.htwg.fivewins.field;
 
 import java.util.Random;
 
+/*
+ * @author Max
+ */
 public class VerySillyAI extends AIAdapter {
 	
 	/*

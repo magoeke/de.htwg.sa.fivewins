@@ -11,6 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/*
+ * @author Max
+ */
 public class GamePanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;
@@ -107,9 +110,11 @@ public class GamePanel extends JPanel{
 	public void handleAITurn() {
 		String command = jf.getSecondPlayer().getCommand();
 		jf.handleAction(command);
+		System.out.print(command); //-----------------------------------------entfernen
 		String[] splitted = command.split(",");
 		int x = Integer.parseInt(splitted[0]) - 1;
 		int y = Integer.parseInt(splitted[1]) - 1;
+		System.out.println(x +y);
 		//change x and y because ai output it in the wrong order
 		buttons[y][x].setEnabled(false);
 		buttons[y][x].setText(jf.getSecondPlayer().getWhichPlayer());

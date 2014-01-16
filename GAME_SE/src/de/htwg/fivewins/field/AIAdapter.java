@@ -5,6 +5,9 @@ package de.htwg.fivewins.field;
  * Because the methods should be the same
  * only the algorithm should be different
  */
+/*
+ * @author Max, Manuel
+ */
 public abstract class AIAdapter {
 	protected String whichPlayer;
 	protected IField field;

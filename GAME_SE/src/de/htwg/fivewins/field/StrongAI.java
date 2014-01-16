@@ -3,7 +3,6 @@ package de.htwg.fivewins.field;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Deque;
-import java.util.List;
 
 import de.htwg.fivewins.field.Field;
 
@@ -59,7 +58,7 @@ public class StrongAI extends AIAdapter{
 		//bigTree initialisieren mit 0;
 		bigTree = new HashMap<Deque<Integer>, HashMap<Deque<Integer>, Double>>();
 		
-		String tempField [][] = field.getGameField();
+		String tempField [][] = field.getGameField().clone();
 		needToWin = calculateNeedToWin();
 		
 		//Liste aufbaun mit allen verbleibendenfreien Feldern;
@@ -81,6 +80,7 @@ public class StrongAI extends AIAdapter{
 		
 		//bigTree günstigsten Weg suchen. Aufaddieren.
 		sumTree(0, 0);
+		System.out.printf("%s%n", bigTree.toString());
 		
 		//koordinaten vom besten Weg nehmen.
 		int t = max(0);
@@ -126,8 +126,8 @@ public class StrongAI extends AIAdapter{
 		for(int i : l1){
 			int column = i / 100;
 			int row = i - column*100;
-			lastx = column - 1;
-			lasty = row - 1;
+			lastx = column;
+			lasty = row;
 			String tmpF[][] = f.clone();
 			String sign = getPlayerSign();
 			tmpF[column][row] = sign;
@@ -145,9 +145,9 @@ public class StrongAI extends AIAdapter{
 			if(win){
 				win = false;
 				if( getWinnerSign().equals("O")){
-					fillTree(tmpDe, l1, 1.0);
+					fillTree(tmpDe, tmpLi, 1.0);
 				} else if( getWinnerSign().equals("X")){
-					fillTree(tmpDe, l1, -1.0);
+					fillTree(tmpDe, tmpLi, -1.0);
 				}
 			} else{
 				//System.out.printf("%s%n", bigTree.toString());
@@ -181,9 +181,9 @@ public class StrongAI extends AIAdapter{
 			if(win){
 				win = false;
 				if( getWinnerSign().equals("O")){
-					fillTree(tmpDe, l1, 1.0);
+					fillTree(tmpDe, tmpLi, 1.0);
 				} else if( getWinnerSign().equals("X")){
-					fillTree(tmpDe, l1, -1.0);
+					fillTree(tmpDe, tmpLi, -1.0);
 				}
 			} else{
 				calculateTree(tmpDe, tmpLi, tmpF);
@@ -229,21 +229,18 @@ public class StrongAI extends AIAdapter{
 	 * füllt den Baum ab einem bestimmmten Knoten mit immer dem selben wert.
 	 */
 	private void fillTree(Deque<Integer> z, LinkedList<Integer> l1, double d){
-		for(int i : l1){
-			Deque<Integer> tmpDe = new LinkedList<Integer>();
-			tmpDe.addAll(z);
-			tmpDe.add(i);
-			
-			LinkedList<Integer> tmpLi = new LinkedList<Integer>();
-			tmpLi.addAll(l1);
-			tmpLi.remove(l1.indexOf(i));
-			
-			System.out.printf("%s%n", bigTree.toString());
-			System.out.printf("%s%n", z.toString());
-			System.out.printf("%s%n", tmpDe.toString());
-			
-			bigTree.get(z).put(tmpDe, d);
-			fillTree(tmpDe, tmpLi, d);
+		if(z.size() <= field.getSize()*field.getSize()){
+			for(int i : l1){
+				Deque<Integer> tmpDe = new LinkedList<Integer>();
+				tmpDe.addAll(z);
+				tmpDe.add(i);
+				bigTree.get(z).put(tmpDe, d);
+				
+				LinkedList<Integer> tmpLi = new LinkedList<Integer>();
+				tmpLi.addAll(l1);
+				tmpLi.remove(l1.indexOf(i));
+				fillTree(tmpDe, tmpLi, d);
+			}
 		}
 	}
 	
@@ -252,14 +249,16 @@ public class StrongAI extends AIAdapter{
 	
 	private int max(int z){
 		int r = -100000;
-		for(Deque<Integer> i : bigTree.get(z).keySet()){
+		Deque<Integer> tmpDe = new LinkedList<Integer>();
+		tmpDe.add(z);
+		for(Deque<Integer> i : bigTree.get(tmpDe).keySet()){
 			if(r < i.getLast()){
 				r = i.getLast();
 			}
 		}
 		return r;
 	}
-//}  
+//}
 
 	
 	

@@ -3,6 +3,9 @@ package de.htwg.fivewins.controller;
 import de.htwg.fivewins.field.AIAdapter;
 import de.htwg.util.observer.IObservable;
 
+/*
+ * @author Max, Manuel
+ */
 public interface IFiveWinsController extends IObservable{
 	
 	/*

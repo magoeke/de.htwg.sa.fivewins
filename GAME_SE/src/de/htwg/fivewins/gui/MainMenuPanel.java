@@ -9,6 +9,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+/*
+ * @author Max
+ */
 public class MainMenuPanel extends JPanel{
 
 	private static final long serialVersionUID = 1L;

@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/*
+ * @author Max
+ */
 public class Observable {
 
 	//<Iobserver >Liste

@@ -15,6 +15,9 @@ import de.htwg.fivewins.field.StrongAI;
 import de.htwg.fivewins.field.VerySillyAI;
 import de.htwg.fivewins.tui.TextUI;
 
+/*
+ * @author Max
+ */
 public class GameFrame extends JFrame{
 
 	/*

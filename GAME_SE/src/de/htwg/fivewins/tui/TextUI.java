@@ -7,6 +7,9 @@ import de.htwg.fivewins.controller.IFiveWinsController;
 import de.htwg.fivewins.field.AIAdapter;
 import de.htwg.util.observer.IObserver;
 
+/*
+ * @author Max, Manuel
+ */
 public class TextUI implements IObserver{
 	
 	private IFiveWinsController controller;

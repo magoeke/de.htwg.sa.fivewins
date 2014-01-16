@@ -4,6 +4,9 @@ import de.htwg.fivewins.field.AIAdapter;
 import de.htwg.fivewins.field.Field;
 import de.htwg.util.observer.Observable;
 
+/*
+ * @author Max
+ */
 public class FiveWinsController extends Observable implements IFiveWinsController{
 
 	public static final int FIVEWINS = 5;
