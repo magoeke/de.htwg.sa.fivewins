@@ -181,8 +181,10 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 	private int winRequestDiagonal(int value1, int value2, int n, String currentPlayer, 
 			boolean operator) {
 		int result = 0;
-		if(value1 < 0 || value1 >= field.getSize() || value2 < 0 || value2 >= field.getSize() || 
-				!field.getCellValue(value1, value2).equals(currentPlayer) ) {
+		if(value1 < 0 || value1 >= field.getSize() || value2 < 0 || value2 >= field.getSize() ) {
+			return n-1;
+		}
+		if(!field.getCellValue(value1, value2).equals(currentPlayer)) {
 			return n-1;
 		}
 		
@@ -201,8 +203,10 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 	private int winRequestDiagonalReflected(int value1, int value2, int n, String currentPlayer, 
 			boolean operator) {
 		int result = 0;
-		if(value1 < 0 || value1 >= field.getSize() || value2 < 0 || value2 >= field.getSize() || 
-				!field.getCellValue(value1, value2).equals(currentPlayer) ) {
+		if(value1 < 0 || value1 >= field.getSize() || value2 < 0 || value2 >= field.getSize() ) {
+			return n-1;
+		}
+		if(!field.getCellValue(value1, value2).equals(currentPlayer)) {
 			return n-1;
 		}
 		
