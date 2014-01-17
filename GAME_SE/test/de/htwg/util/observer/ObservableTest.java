@@ -5,6 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/*
+ * @author max
+ */
 public class ObservableTest {
 	private boolean ping=false;
 	private TestObserver testObserver;

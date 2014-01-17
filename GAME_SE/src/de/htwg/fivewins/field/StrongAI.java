@@ -12,10 +12,17 @@ import de.htwg.fivewins.field.Field;
  */
 public class StrongAI extends AIAdapter{
 
-	private HashMap<Deque<Integer>, HashMap<Deque<Integer>, Double>> bigTree;
-	private LinkedList<Integer> liste;
 	private static final int STOP = 3;
 	private static final int MULTIPLIER = 100;
+	private static final int FIVEWINS = 5;
+	private HashMap<Deque<Integer>, HashMap<Deque<Integer>, Double>> bigTree;
+	private LinkedList<Integer> liste;
+	private int needToWin = 0;
+	private boolean win = false;
+	private String winner = null;
+	private int lastx;
+	private int lasty;
+	private int turn =  0;
 	
 	public StrongAI(String sign, Field field) {
 		if(sign.equals("X") || sign.equals("O")) {
@@ -150,10 +157,6 @@ public class StrongAI extends AIAdapter{
 		}
 	}
 	
-	private void setForCalculate() {
-		
-	}
-	
 
 	private void calculateTree(Deque<Integer> z, LinkedList<Integer> l1, String[][] f, int depth){
 		if(depth <= STOP){
@@ -184,7 +187,8 @@ public class StrongAI extends AIAdapter{
 						fillTree(tmpDe, tmpLi, -1.0, depth);
 					}
 				} else{
-					calculateTree(tmpDe, tmpLi, tmpF, ++depth);
+					int depth2 = depth +1;
+					calculateTree(tmpDe, tmpLi, tmpF, depth2);
 				}
 			}
 		}
@@ -259,16 +263,6 @@ public class StrongAI extends AIAdapter{
 		}
 		return r;
 	}
-
-
-private static final int FIVEWINS = 5;
-private int needToWin = 0;
-private boolean win = false;
-private String winner = null;
-private int lastx;
-private int lasty;
-private int turn =  0;
-
 
 
 private int calculateNeedToWin() {
@@ -357,8 +351,10 @@ private int testWinVertical(int fixValue, int value, int n, String currentPlayer
 private int testWinDiagonal(int value1, int value2, int n, String currentPlayer, 
 		boolean operator) {
 	int result = 0;
-	if(value1 < 0 || value1 >= field.getSize() || value2 < 0 || value2 >= field.getSize() || 
-			!field.getCellValue(value1, value2).equals(currentPlayer) ) {
+	if(value1 < 0 || value1 >= field.getSize() || value2 < 0 || value2 >= field.getSize() ) {
+		return n-1;
+	}
+	if(!field.getCellValue(value1, value2).equals(currentPlayer) ) {
 		return n-1;
 	}
 	
@@ -376,8 +372,10 @@ private int testWinDiagonal(int value1, int value2, int n, String currentPlayer,
 	private int testWinDiagonalReflected(int value1, int value2, int n, String currentPlayer, 
 			boolean operator) {
 		int result = 0;
-		if(value1 < 0 || value1 >= field.getSize() || value2 < 0 || value2 >= field.getSize() || 
-				!field.getCellValue(value1, value2).equals(currentPlayer) ) {
+		if(value1 < 0 || value1 >= field.getSize() || value2 < 0 || value2 >= field.getSize() ) {
+			return n-1;
+		}
+		if(!field.getCellValue(value1, value2).equals(currentPlayer)) {
 			return n-1;
 		}
 		

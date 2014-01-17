@@ -9,6 +9,9 @@ import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.field.Field;
 import de.htwg.fivewins.field.VerySillyAI;
 
+/*
+ * @author max
+ */
 public class TextUITest {
 
 	private Field field, field2;

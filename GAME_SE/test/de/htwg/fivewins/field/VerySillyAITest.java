@@ -5,6 +5,9 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+/*
+ * @author max
+ */
 public class VerySillyAITest {
 	
 	VerySillyAI vs1, vs2;

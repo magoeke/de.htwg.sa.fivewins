@@ -7,6 +7,9 @@ import org.junit.Test;
 
 import de.htwg.fivewins.field.Field;
 
+/*
+ * @author max,manuel
+ */
 public class FieldTest {
 	
 	Field field1, field2, field3, field4;

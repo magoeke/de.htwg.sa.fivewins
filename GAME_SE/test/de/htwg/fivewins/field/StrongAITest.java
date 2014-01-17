@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
-
+/*
+ * @author manuel
+ */
 public class StrongAITest {
 
 	StrongAI s1, s2, s3;
@@ -15,7 +17,7 @@ public class StrongAITest {
 	public void setUp()  {
 		field1 = new Field(1);
 		s1 = new StrongAI("X", field1);
-		s3 = new StrongAI("X", new Field(2));
+		s3 = new StrongAI("X", new Field(10));
 	}
 	
 	@Test

@@ -7,7 +7,9 @@ import org.junit.Test;
 
 import de.htwg.fivewins.field.Field;
 import de.htwg.fivewins.field.VerySillyAI;
-
+/*
+ * @author max,manuel
+ */
 public class FiveWinsControllerTest {
 
 	VerySillyAI vsai;
