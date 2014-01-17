@@ -15,7 +15,7 @@ public class TextUI implements IObserver{
 	private IFiveWinsController controller;
 	private Scanner scanner;
 	
-	private Logger logger = Logger.getLogger("de.htwg.fivewins.tui");
+	private static Logger TextUIlogger = Logger.getLogger("de.htwg.fivewins.tui");
 	
 	public TextUI(IFiveWinsController controller){
 		this.controller = controller;
@@ -49,10 +49,10 @@ public class TextUI implements IObserver{
 	 * print tui on the console
 	 */
 	public void printTUI() {
-		logger.info("\n" + controller.getFieldString() + "\n");
-		logger.info(controller.getStatus() + "\n");
-		logger.info("\n");
-		logger.info("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)):\n"); 
+		TextUIlogger.info("\n" + controller.getFieldString() + "\n");
+		TextUIlogger.info(controller.getStatus() + "\n");
+		TextUIlogger.info("\n");
+		TextUIlogger.info("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)):\n"); 
 	}
 	
 	/*
@@ -81,10 +81,10 @@ public class TextUI implements IObserver{
 			if(successfulFieldChange) {
 				String winnerSign = controller.winRequest();
 				if(winnerSign.equals("X") || winnerSign.equals("O")) {
-					logger.info("Der Gewinner ist " + winnerSign + "\n");
+					TextUIlogger.info("Der Gewinner ist " + winnerSign + "\n");
 					quit = true;
 				} else if(winnerSign.equals("draw")) {
-					logger.info("It's a draw!");
+					TextUIlogger.info("It's a draw!");
 					quit = true;
 				}
 				controller.countTurn();

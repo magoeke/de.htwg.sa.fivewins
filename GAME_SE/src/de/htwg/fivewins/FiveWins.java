@@ -1,5 +1,7 @@
 package de.htwg.fivewins;
 
+import org.apache.log4j.PropertyConfigurator;
+
 import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.field.Field;
 import de.htwg.fivewins.gui.GameFrame;
@@ -18,6 +20,7 @@ public final class FiveWins {
 	
 	
 	public static void main(String[] args) {
+		PropertyConfigurator.configure("log4j.properties");
 		fivewins = getInstance();
 	}
 	
