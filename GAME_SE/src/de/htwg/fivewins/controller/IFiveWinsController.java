@@ -72,4 +72,10 @@ public interface IFiveWinsController extends IObservable{
 	 */
 	boolean getDraw();
 	
+	String[][] getField();
+	
+	boolean handleInputOrQuit(String line);
+	
+	void resizeGameField(int fieldsize);
+	
 }

@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import de.htwg.fivewins.FiveWins;
 import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.controller.IFiveWinsController;
 import de.htwg.fivewins.field.AIAdapter;
@@ -14,6 +15,7 @@ import de.htwg.fivewins.field.Field;
 import de.htwg.fivewins.field.StrongAI;
 import de.htwg.fivewins.field.VerySillyAI;
 import de.htwg.fivewins.tui.TextUI;
+import de.htwg.util.observer.IObserver;
 
 /*
  * @author Max
@@ -36,7 +38,6 @@ public class GameFrame extends JFrame{
 	private IFiveWinsController controller = null;
 	private GamePanel gamePanel;
 	private JPanel mainPanel;
-	private TextUI textUI;
 	
 	/*
 	 * initialize GameFrame with a controller
@@ -49,7 +50,7 @@ public class GameFrame extends JFrame{
 		this.setJMenuBar(new GameMenuBar(this));
 		
 		MainMenuPanel  mainMenuPanel = new MainMenuPanel(this);
-		gamePanel = new GamePanel(1, this);
+		gamePanel = new GamePanel(1, this, controller);
 				
 		mainPanel = new JPanel();
 		mainPanel.setLayout(new CardLayout());
@@ -67,10 +68,9 @@ public class GameFrame extends JFrame{
 	 */
 	public void startGamePlayer(int fieldsize) {
 		gamePanel.setPlayer("X");
-		controller = new FiveWinsController(new Field(fieldsize));
-		textUI = new TextUI(controller);
 		if(fieldsize > BOTTOMBORDER && fieldsize <= TOPBORDER) {
 			resizeGameField(fieldsize);
+			controller.resizeGameField(fieldsize);
 			CardLayout c1 = (CardLayout)(mainPanel.getLayout());
 			c1.show(mainPanel, GAMEPANEL);
 		}
@@ -87,7 +87,6 @@ public class GameFrame extends JFrame{
 		} else {
 			controller = new FiveWinsController(field, new StrongAI(sign, field));
 		}
-		textUI = new TextUI(controller);
 		if(fieldsize > BOTTOMBORDER && fieldsize <= TOPBORDER) {
 			resizeGameField(fieldsize);
 			CardLayout c1 = (CardLayout)(mainPanel.getLayout());
@@ -101,7 +100,8 @@ public class GameFrame extends JFrame{
 	 * default values
 	 */
 	public void resizeGameField(int fieldsize) {
-		gamePanel = new GamePanel(fieldsize, this);
+		controller.removeObserver(gamePanel);
+		gamePanel = new GamePanel(fieldsize, this, controller);
 		mainPanel.add(gamePanel, GAMEPANEL);
 	}
 	
@@ -143,7 +143,7 @@ public class GameFrame extends JFrame{
 	 * handle the action button pressed or ai
 	 */
 	public void handleAction(String command) {
-		textUI.handleInputOrQuit(command);
+		controller.handleInputOrQuit(command);
 		gamePanel.setTurn(controller.getTurn());
 		gamePanel.setPlayer(controller.getPlayerSign());
 		
@@ -177,5 +177,10 @@ public class GameFrame extends JFrame{
 	public boolean isWon() {
 		return controller.getWinner();
 	}
+	
+	public String[][] getGamefield() {
+		return controller.getField();
+	}
+
 	
 }

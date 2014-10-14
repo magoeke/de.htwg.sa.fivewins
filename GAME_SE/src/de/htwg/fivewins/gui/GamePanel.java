@@ -11,10 +11,14 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import de.htwg.fivewins.controller.IFiveWinsController;
+import de.htwg.fivewins.field.Field;
+import de.htwg.util.observer.IObserver;
+
 /*
  * @author Max
  */
-public class GamePanel extends JPanel{
+public class GamePanel extends JPanel implements IObserver{
 
 	private static final long serialVersionUID = 1L;
 	private static final int HEIGHT = 300;
@@ -24,10 +28,13 @@ public class GamePanel extends JPanel{
 	private int fieldsize;
 	private JLabel turn, player;
 	private GameFrame jf;
+	private IFiveWinsController controller;
 	
-	public GamePanel(int fieldsize, GameFrame jf) {
+	public GamePanel(int fieldsize, GameFrame jf, IFiveWinsController controller) {
+		this.controller = controller;
 		this.fieldsize = fieldsize;
 		this.jf = jf;
+		controller.addObserver(this);
 		JPanel gamefield = new JPanel();
 		gamefield.setLayout(new GridLayout(fieldsize, fieldsize));
 		
@@ -76,7 +83,6 @@ public class GamePanel extends JPanel{
 		}
 		
         JButton button = (JButton) evt.getSource();
-        button.setText(jf.getPlayerSign());
         int x = 0; int y = 0;
         for (int i = 0; i < fieldsize; i++) {
             for (int j = 0; j < fieldsize; j++) {
@@ -89,7 +95,7 @@ public class GamePanel extends JPanel{
         //change because the tui want it this way
         jf.handleAction((y+1)+","+(x+1));
         
-        button.setEnabled(false);
+
         
         if(!jf.isWon() && isAITurn()) {
         	handleAITurn();
@@ -152,6 +158,18 @@ public class GamePanel extends JPanel{
 		this.turn.setText(turn+"");
 	}
 	
+	public void printGui() {
+		String[][] field = controller.getField();
+		for(int i = 0; i < field.length; i++) {
+			for(int j = 0; j < field.length; j++) {
+				if(field[i][j] != "-" && buttons[j][i].isEnabled()) {
+					buttons[j][i].setText(field[i][j]);
+					buttons[j][i].setEnabled(false);
+				}
+			}
+		}
+	}
+	
 	/*
 	 * reset all buttons to default
 	 */
@@ -162,5 +180,11 @@ public class GamePanel extends JPanel{
                 buttons[i][j].setText("");
             }
         }
+	}
+
+	@Override
+	public void update() {
+		printGui();
+		
 	}
 }

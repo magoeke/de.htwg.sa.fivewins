@@ -10,17 +10,18 @@ import de.htwg.util.observer.IObserver;
 /*
  * @author Max, Manuel
  */
-public class TextUI implements IObserver{
-	
+public class TextUI implements IObserver {
+
 	private IFiveWinsController controller;
 	private Scanner scanner;
-	
-	private static Logger TextUIlogger = Logger.getLogger("de.htwg.fivewins.tui");
-	
-	public TextUI(IFiveWinsController controller){
+
+	private static Logger TextUIlogger = Logger
+			.getLogger("de.htwg.fivewins.tui");
+
+	public TextUI(IFiveWinsController controller) {
 		this.controller = controller;
 		controller.addObserver(this);
-		scanner = new Scanner (System.in);	
+		scanner = new Scanner(System.in);
 	}
 
 	/*
@@ -34,14 +35,15 @@ public class TextUI implements IObserver{
 	/*
 	 * was used when the gui wasn't implemented
 	 */
-	public boolean iterate() {
+	public boolean iterate(String line) {
 		boolean returnValue = false;
-		AIAdapter npc = controller.getSecondPlayer();
-		if(npc != null && npc.getWhichPlayer().equals(controller.getPlayerSign())) {
-			returnValue = handleInputOrQuit(npc.getCommand());
-		} else {
-			returnValue = handleInputOrQuit(scanner.next());
-		}
+//		AIAdapter npc = controller.getSecondPlayer();
+//		if (npc != null
+//				&& npc.getWhichPlayer().equals(controller.getPlayerSign())) {
+//			returnValue = controller.handleInputOrQuit(npc.getCommand());
+//		} else {
+			returnValue = controller.handleInputOrQuit(line);
+//		}
 		return returnValue;
 	}
 
@@ -52,48 +54,17 @@ public class TextUI implements IObserver{
 		TextUIlogger.info("\n" + controller.getFieldString() + "\n");
 		TextUIlogger.info(controller.getStatus() + "\n");
 		TextUIlogger.info("\n");
-		TextUIlogger.info("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)):\n"); 
+		TextUIlogger
+				.info("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)):\n");
+		String winnerSign = controller.winRequest();
+		if (winnerSign.equals("X") || winnerSign.equals("O")) {
+			TextUIlogger.info("Der Gewinner ist " + winnerSign + "\n");
+		} else if (winnerSign.equals("draw")) {
+			TextUIlogger.info("It's a draw!");
+		}
 	}
-	
-	/*
-	 * handel inputed command
-	 * reset, update or set value
-	 */
-	public boolean handleInputOrQuit(String line) {
-		boolean quit=false;
-		if (line.equalsIgnoreCase("q")) {
-			quit=true;
-		}
-		if (line.equalsIgnoreCase("u")) {
-			//Do nothing, just redraw the updated grid
-			update();
-		}
-		if (line.equalsIgnoreCase("n")) {
-			//Restart game
-			reset();
-		}
-		
-		if (line.matches("[0-9]{1,2}?,[0-9]{1,2}?")){
-			String[] numbers = line.split(",");
-			int arg0 = Integer.parseInt(numbers[0]);
-			int arg1 = Integer.parseInt(numbers[1]);
-			boolean successfulFieldChange = controller.setValue(arg0, arg1, controller.getPlayerSign());
-			if(successfulFieldChange) {
-				String winnerSign = controller.winRequest();
-				if(winnerSign.equals("X") || winnerSign.equals("O")) {
-					TextUIlogger.info("Der Gewinner ist " + winnerSign + "\n");
-					quit = true;
-				} else if(winnerSign.equals("draw")) {
-					TextUIlogger.info("It's a draw!");
-					quit = true;
-				}
-				controller.countTurn();
-			}
-			
-		}
 
-		return quit;
-	}
+	
 
 	/*
 	 * resets the controller and update the tui
@@ -102,6 +73,5 @@ public class TextUI implements IObserver{
 		controller.reset();
 		update();
 	}
-	
 
 }

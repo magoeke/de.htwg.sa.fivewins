@@ -85,6 +85,10 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 		return field.toString();
 	}
 	
+	public String[][] getField() {
+		return field.getGameField();
+	}
+	
 	public int countTurn() {
 		return turn++;
 	}
@@ -252,6 +256,45 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 	
 	public boolean getDraw() {
 		return draw;
+	}
+	
+	/*
+	 * handel inputed command reset, update or set value
+	 */
+	public boolean handleInputOrQuit(String line) {
+		boolean quit = false;
+		if (line.equalsIgnoreCase("q")) {
+			quit = true;
+		}
+		if (line.equalsIgnoreCase("u")) {
+			// Do nothing, just redraw the updated grid
+			notifyObservers();
+		}
+		if (line.equalsIgnoreCase("n")) {
+			// Restart game
+			reset();
+		}
+
+		if (line.matches("[0-9]{1,2}?,[0-9]{1,2}?")) {
+			String[] numbers = line.split(",");
+			int arg0 = Integer.parseInt(numbers[0]);
+			int arg1 = Integer.parseInt(numbers[1]);
+			boolean successfulFieldChange = setValue(arg0, arg1,
+					getPlayerSign());
+			if (successfulFieldChange) {
+				countTurn();
+			}
+
+		}
+
+		return quit;
+	}
+	
+	public void resizeGameField(int fieldsize) {
+		field = new Field(fieldsize);
+		turn = 0;
+		calculateNeedToWin();
+		notifyObservers();
 	}
 
 }

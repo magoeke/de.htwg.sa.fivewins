@@ -25,9 +25,13 @@ public class Observable {
 	}
 
 	public void notifyObservers() {
-		for ( Iterator<IObserver> iter = subscribers.iterator(); iter.hasNext();) {
-			IObserver observer = iter.next();
+		for(int i = subscribers.size()-1; i >= 0; i--) {
+			IObserver observer = subscribers.get(i);
 			observer.update();
 		}
+//		for ( Iterator<IObserver> iter = subscribers.iterator(); iter.hasNext();) {
+//			IObserver observer = iter.next();
+//			observer.update();
+//		}
 	}
 }
