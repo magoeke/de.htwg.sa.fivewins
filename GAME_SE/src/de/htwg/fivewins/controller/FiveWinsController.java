@@ -281,10 +281,14 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 			int arg1 = Integer.parseInt(numbers[1]);
 			boolean successfulFieldChange = setValue(arg0, arg1,
 					getPlayerSign());
+			
+			winRequest();
+			isItADraw();
+			
 			if (successfulFieldChange) {
 				countTurn();
 			}
-
+			
 		}
 
 		return quit;
