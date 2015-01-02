@@ -66,7 +66,6 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 		} else {
 			setStatusMessage("The cell "+column+" "+row+" is already set.");
 		}
-		notifyObservers();
 		return result;
 	}
 
@@ -288,7 +287,8 @@ public class FiveWinsController extends Observable implements IFiveWinsControlle
 			if (successfulFieldChange) {
 				countTurn();
 			}
-			
+			System.out.println(winner);
+			notifyObservers();
 		}
 
 		return quit;

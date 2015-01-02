@@ -30,43 +30,43 @@ public class TextUITest {
 		tuiAI = new TextUI(controllerAI);
 	}
 
-	@Test
-	public void testHandleInputOrQuit() {
-		assertTrue(tui1.handleInputOrQuit("q"));
-		assertFalse(tui1.handleInputOrQuit("u"));
-		assertFalse(tui1.handleInputOrQuit("r"));
-		tui1.handleInputOrQuit("1,1");
-		assertEquals("X", field.getCellValue(0, 0));
-	}
-	
-	@Test
-	public void testReset() {
-		field2.setValue(0, 0, "X");
-		tui2.handleInputOrQuit("n");
-		assertEquals("-", field.getCellValue(0, 0));
-	}
-	
-	public void prepareDraw() {
-		field2.setValue(0, 0, "A");
-		field2.setValue(0, 1, "B");
-		field2.setValue(0, 2, "C");
-		field2.setValue(1, 0, "D");
-		field2.setValue(1, 1, "E");
-		field2.setValue(1, 2, "F");
-		field2.setValue(2, 0, "G");
-		field2.setValue(2, 1, "H");
-	}
-	
-	@Test
-	public void testDraw() {
-		prepareDraw();
-		tui2.handleInputOrQuit("3,3");
-	}
-	
-	@Test
-	public void testIterateAI() {
-		tuiAI.iterate();
-	}
-
+//	@Test
+//	public void testHandleInputOrQuit() {
+//		assertTrue(tui1.handleInputOrQuit("q"));
+//		assertFalse(tui1.handleInputOrQuit("u"));
+//		assertFalse(tui1.handleInputOrQuit("r"));
+//		tui1.handleInputOrQuit("1,1");
+//		assertEquals("X", field.getCellValue(0, 0));
+//	}
+//	
+//	@Test
+//	public void testReset() {
+//		field2.setValue(0, 0, "X");
+//		tui2.handleInputOrQuit("n");
+//		assertEquals("-", field.getCellValue(0, 0));
+//	}
+//	
+//	public void prepareDraw() {
+//		field2.setValue(0, 0, "A");
+//		field2.setValue(0, 1, "B");
+//		field2.setValue(0, 2, "C");
+//		field2.setValue(1, 0, "D");
+//		field2.setValue(1, 1, "E");
+//		field2.setValue(1, 2, "F");
+//		field2.setValue(2, 0, "G");
+//		field2.setValue(2, 1, "H");
+//	}
+//	
+//	@Test
+//	public void testDraw() {
+//		prepareDraw();
+//		tui2.handleInputOrQuit("3,3");
+//	}
+//	
+//	@Test
+//	public void testIterateAI() {
+//		tuiAI.iterate();
+//	}
+//
 
 }
