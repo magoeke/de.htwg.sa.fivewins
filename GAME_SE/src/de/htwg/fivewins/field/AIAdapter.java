@@ -32,4 +32,6 @@ public abstract class AIAdapter {
 	 * this methode to the controller
 	 */
 	abstract String calculateCommand();
+	
+	abstract public void updateField(Field field);
 }

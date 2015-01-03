@@ -55,5 +55,10 @@ public class VerySillyAI extends AIAdapter {
 		}
 		return returnValue;
 	}
+
+	@Override
+	public void updateField(Field field) {
+		this.field = field;
+	}
 	
 }

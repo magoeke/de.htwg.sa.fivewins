@@ -78,9 +78,9 @@ public class GamePanel extends JPanel implements IObserver{
 	 * calls GameFrame.handelaction with the pressed coordinates
 	 */
 	public void buttonClicked(ActionEvent evt) {
-		if(isAITurn()) {
-			handleAITurn();
-		}
+//		if(isAITurn()) {
+//			handleAITurn();
+//		}
 		
         JButton button = (JButton) evt.getSource();
         int x = 0; int y = 0;
@@ -97,41 +97,41 @@ public class GamePanel extends JPanel implements IObserver{
         
 
         
-        if(!jf.isWon() && isAITurn()) {
-        	handleAITurn();
-        }
+//        if(!jf.isWon() && isAITurn()) {
+//        	handleAITurn();
+//        }
         
     }
 	
-	/*
-	 * return if it's ai turn or player
-	 */
-	public boolean isAITurn() {
-		return jf.nowSecondPlayer();
-	}
+//	/*
+//	 * return if it's ai turn or player
+//	 */
+//	public boolean isAITurn() {
+//		return jf.nowSecondPlayer();
+//	}
 	
-	/*
-	 * handel the behavior of a ai
-	 */
-	public void handleAITurn() {
-		String command = jf.getSecondPlayer().getCommand();
-		jf.handleAction(command);
-		String[] splitted = command.split(",");
-		int x = Integer.parseInt(splitted[0]) - 1;
-		int y = Integer.parseInt(splitted[1]) - 1;
-		//change x and y because ai output it in the wrong order
-		buttons[y][x].setEnabled(false);
-		buttons[y][x].setText(jf.getSecondPlayer().getWhichPlayer());
-	}
+//	/*
+//	 * handel the behavior of a ai
+//	 */
+//	public void handleAITurn() {
+//		String command = jf.getSecondPlayer().getCommand();
+//		jf.handleAction(command);
+//		String[] splitted = command.split(",");
+//		int x = Integer.parseInt(splitted[0]) - 1;
+//		int y = Integer.parseInt(splitted[1]) - 1;
+//		//change x and y because ai output it in the wrong order
+//		buttons[y][x].setEnabled(false);
+//		buttons[y][x].setText(jf.getSecondPlayer().getWhichPlayer());
+//	}
 	
-	/*
-	 * the method is needed if the ai starts
-	 */
-	public void firstAction() {
-		if(isAITurn()) {
-			handleAITurn();
-		}
-	}
+//	/*
+//	 * the method is needed if the ai starts
+//	 */
+//	public void firstAction() {
+//		if(isAITurn()) {
+//			handleAITurn();
+//		}
+//	}
 	
 	/*
 	 * disable all buttons

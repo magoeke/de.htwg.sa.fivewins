@@ -395,6 +395,14 @@ private int testWinDiagonal(int value1, int value2, int n, String currentPlayer,
 		}
 		return t;
 	}
+
+
+
+	@Override
+	public void updateField(Field field) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

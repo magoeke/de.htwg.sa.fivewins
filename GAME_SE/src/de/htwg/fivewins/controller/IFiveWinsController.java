@@ -78,4 +78,6 @@ public interface IFiveWinsController extends IObservable{
 	
 	void resizeGameField(int fieldsize);
 	
+	void createAI();
+	
 }
