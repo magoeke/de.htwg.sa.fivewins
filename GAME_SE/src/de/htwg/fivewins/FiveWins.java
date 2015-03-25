@@ -10,8 +10,7 @@ import de.htwg.fivewins.model.field.Field;
 import de.htwg.fivewins.view.gui.GameFrame;
 import de.htwg.fivewins.view.tui.TextUI;
 
-/* 
- * @author Max
+/**
  * The start class for FiveWins.
  * Singelton is used.
  */
@@ -33,10 +32,11 @@ public final class FiveWins {
 		PropertyConfigurator.configure("log4j.properties");
 		fivewins = getInstance();
 		Scanner scanner;
-        boolean continu = true;
+        boolean continu = false;
         scanner = new Scanner(System.in);
-        while (continu) {  	
+        while (!continu) {  	
             continu = tui.iterate(scanner.next());
+            System.out.println(continu);
         }
 	}
 	
