@@ -9,13 +9,12 @@ public class Field implements IField {
 	private String[][] gamefield;
 	//used for the wordwrap
 	private String newLine = System.getProperty("line.separator");
-	//min. size is 1
 	public static final int BOTTOMBORDER = 0;
-	//max. size is 20
 	public static final int TOPBORDER = 20;
 	
-	/*
-	 * initialized Object 
+	/**
+	 * Constructor.
+	 * @param size
 	 */
 	public Field(int size) {
 		if(size < BOTTOMBORDER || size > TOPBORDER) {
@@ -36,10 +35,7 @@ public class Field implements IField {
 		}
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 * 
+	/** 
 	 * @return the whole gamefield in a String ready to print out on the console
 	 */
 	@Override
@@ -57,19 +53,34 @@ public class Field implements IField {
 		return s.toString();
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.model.field.IField#getCellValue(int, int)
+	 */
     public String getCellValue(int column, int row) {
 		//input must be right
 		return gamefield[column][row];
 	}
 	
+    /*
+     * (non-Javadoc)
+     * @see de.htwg.fivewins.model.field.IField#setValue(int, int, java.lang.String)
+     */
 	public void setValue(int column, int row, String value) {
 		gamefield[column][row] = value;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.model.field.IField#getSize()
+	 */
 	public int getSize() {
 		return size;
 	}
 	
+	/**
+	 * Resets gamefield. Fills in default value. 
+	 */
 	public void reset() {		
 		//fill array with default value
 		for(int i = 0; i < size; i++) {
@@ -79,6 +90,10 @@ public class Field implements IField {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.model.field.IField#getGameField()
+	 */
 	public String[][] getGameField() {
 		return gamefield;
 	}
