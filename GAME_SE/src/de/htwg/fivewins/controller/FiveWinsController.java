@@ -394,7 +394,8 @@ public class FiveWinsController extends Observable implements
 	 * (non-Javadoc)
 	 * @see de.htwg.fivewins.controller.IFiveWinsController#createAI()
 	 */
-	public void createAI() {
+	public void createAI(String difficulty) {
+		// At the moment only the silly ai works. But it's planned that more ais work.
 		player2 = new VerySillyAI("O", field);
 	}
 

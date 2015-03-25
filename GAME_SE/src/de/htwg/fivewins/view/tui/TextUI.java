@@ -19,6 +19,7 @@ public class TextUI implements IObserver {
 
 	/**
 	 * Constructor.
+	 * 
 	 * @param controller
 	 */
 	public TextUI(IFiveWinsController controller) {
@@ -28,6 +29,7 @@ public class TextUI implements IObserver {
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.util.observer.IObserver#update()
 	 */
 	@Override
@@ -51,12 +53,16 @@ public class TextUI implements IObserver {
 		TextUIlogger.info("\n");
 		TextUIlogger
 				.info("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)):\n");
-		String winnerSign = controller.winRequest();
-		if (winnerSign.equals("X") || winnerSign.equals("O")) {
-			TextUIlogger.info("Der Gewinner ist " + winnerSign + "\n");
-		} else if (winnerSign.equals("draw")) {
+		
+		if (controller.getWinner()) {
+			TextUIlogger.info("The winner is " + controller.getWinnerSign()
+					+ "\n");
+		}
+
+		if (controller.getDraw()) {
 			TextUIlogger.info("It's a draw!");
 		}
+
 	}
 
 	/*

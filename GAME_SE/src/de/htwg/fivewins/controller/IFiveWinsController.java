@@ -93,6 +93,6 @@ public interface IFiveWinsController extends IObservable{
 	/**
 	 * Creates an AI.
 	 */
-	void createAI();
+	void createAI(String difficulty);
 	
 }

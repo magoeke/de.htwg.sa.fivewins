@@ -36,7 +36,6 @@ public final class FiveWins {
         scanner = new Scanner(System.in);
         while (!continu) {  	
             continu = tui.iterate(scanner.next());
-            System.out.println(continu);
         }
 	}
 	

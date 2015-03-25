@@ -38,8 +38,11 @@ public class GameFrame extends JFrame {
 	private GamePanel gamePanel;
 	private JPanel mainPanel;
 
-	/*
+	
+	/**
+	 * Constructor.
 	 * initialize GameFrame with a controller
+	 * @param controller
 	 */
 	public GameFrame(IFiveWinsController controller) {
 		this.controller = controller;
@@ -62,8 +65,10 @@ public class GameFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	/*
-	 * start a new Player vs. player game
+	
+	/**
+	 * start a new player vs. player game
+	 * @param fieldsize
 	 */
 	public void startGamePlayer(int fieldsize) {
 		gamePanel.setPlayer("X");
@@ -75,31 +80,28 @@ public class GameFrame extends JFrame {
 		}
 	}
 
-	/*
-	 * start a new npc vs. player game
+	
+	/**
+	 * start a new player vs. npc game
+	 * @param fieldsize
+	 * @param levelOfDifficulty
 	 */
-	public void startGameNPC(int fieldsize, String levelOfDifficulty,
-			String sign) {
+	public void startGameNPC(int fieldsize, String levelOfDifficulty) {
 		gamePanel.setPlayer("X");
-		Field field = new Field(fieldsize);
-		controller.createAI();
-		// if(levelOfDifficulty.equals("silly")) {
-//		controller = new FiveWinsController(field, new VerySillyAI(sign, field));
-		// } else {
-		// controller = new FiveWinsController(field, new StrongAI(sign,
-		// field));
-		// }
+		controller.createAI(levelOfDifficulty);
+
 		if (fieldsize > BOTTOMBORDER && fieldsize <= TOPBORDER) {
 			resizeGameField(fieldsize);
 			controller.resizeGameField(fieldsize);
 			CardLayout c1 = (CardLayout) (mainPanel.getLayout());
 			c1.show(mainPanel, GAMEPANEL);
 		}
-		// gamePanel.firstAction();
 	}
 
-	/*
-	 * Change the gamefieldsize. Because first initialize is with default values
+	
+	/**
+	 * start a new player vs. player game
+	 * @param fieldsize
 	 */
 	public void resizeGameField(int fieldsize) {
 		controller.removeObserver(gamePanel);
@@ -107,7 +109,8 @@ public class GameFrame extends JFrame {
 		mainPanel.add(gamePanel, GAMEPANEL);
 	}
 
-	/*
+	
+	/**
 	 * leave the game and go back to the main menu
 	 */
 	public void backToMainMenu() {
@@ -115,40 +118,28 @@ public class GameFrame extends JFrame {
 		c1.show(mainPanel, MAINMENUPANEL);
 	}
 
-	/*
+	/**
 	 * @return the actual player sign
 	 */
 	public String getPlayerSign() {
 		return controller.getPlayerSign();
 	}
 
-	// /*
-	// * makes the npc turn
-	// */
-	// public boolean nowSecondPlayer() {
-	// AIAdapter aia = controller.getSecondPlayer();
-	// boolean returnValue = false;
-	// if(aia != null && aia.getWhichPlayer().equals(getPlayerSign())) {
-	// returnValue = true;
-	// }
-	// return returnValue;
-	// }
-
-	// /*
-	// * @return the ai object
-	// */
-	// public AIAdapter getSecondPlayer() {
-	// return controller.getSecondPlayer();
-	// }
-
-	/*
-	 * handle the action button pressed
+	/**
+	 * Handle action when a game cell is pressed.
+	 * @param command
 	 */
 	public void handleAction(String command) {
 		controller.handleInputOrQuit(command);
 		gamePanel.setTurn(controller.getTurn());
 		gamePanel.setPlayer(controller.getPlayerSign());
+	}
 
+	
+	/*
+	 * Shows message when a game ends. Either win message or draw message.
+	 */
+	protected void displayGameOverMessages() {
 		if (controller.getWinner()) {
 			// output win message and go back to main menu
 			JOptionPane.showMessageDialog(null,
@@ -165,8 +156,8 @@ public class GameFrame extends JFrame {
 			gamePanel.allButtonsEnabled();
 		}
 	}
-
-	/*
+	
+	/**
 	 * reset the game
 	 */
 	public void reset() {
@@ -174,7 +165,7 @@ public class GameFrame extends JFrame {
 		controller.reset();
 	}
 
-	/*
+	/**
 	 * @return if game is won or not
 	 */
 	public boolean isWon() {

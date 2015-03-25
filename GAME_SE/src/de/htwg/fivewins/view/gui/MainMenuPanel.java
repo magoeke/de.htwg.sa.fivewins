@@ -24,20 +24,19 @@ public class MainMenuPanel extends JPanel{
 	private static final int BUTTONHEIGHT = 30;
 	private static final int BUTTONNORMALWIDTH = 150;
 	private static final int BUTTONLARGEWIDTH = 180;
-	private static final int XOX = 300;
-	private static final int XOY = 240;
 	private static final int NVPX = 25;
 	private static final int NVPY = 150;
 	private static final int SILLONGX = 225;
 	private static final int SILLONGY = 160;
 	private static final int FAILURENUMBER = 0;
 	
-	private JButton npc, silly, strong, x, o;
+	private JButton npc, silly, strong;
 	private GameFrame jf;
-	private String strength;
 	
-	
-	
+	/**
+	 * Constructor. Creates the main panel.
+	 * @param jf
+	 */
 	public MainMenuPanel(GameFrame jf) {
 		this.jf= jf;
 		JLabel headline = new JLabel("Five Wins");
@@ -45,16 +44,6 @@ public class MainMenuPanel extends JPanel{
 		headline.setBounds(HEADLINEXY, HEADLINEXY, HEADLINEWIDTH, HEADLINEHEIGHT);
 		headline.setFont(new Font("Dialog", FONTSTYLE, FONTSIZE));
 		
-
-		
-		x = new JButton("X");
-		x.addActionListener(new PlayerSelectionListener());
-		x.setVisible(false);
-		x.setBounds(XOX, XOY, BUTTONNORMALWIDTH, BUTTONHEIGHT);
-		o = new JButton("O");
-		o.addActionListener(new PlayerSelectionListener());
-		o.setVisible(false);
-		o.setBounds(XOX, (XOY+BUTTONHEIGHT), BUTTONNORMALWIDTH, BUTTONHEIGHT);
 		JButton pvp = new JButton("Player vs. Player");
 		pvp.addActionListener(new GameSelectionListener());
 		pvp.setBounds(NVPX, NVPY, BUTTONLARGEWIDTH, BUTTONHEIGHT);
@@ -75,8 +64,6 @@ public class MainMenuPanel extends JPanel{
 		this.add(npc);
 		this.add(silly);
 		this.add(strong);
-		this.add(x);
-		this.add(o);
 		this.add(headline);
 	}
 	
@@ -105,10 +92,7 @@ public class MainMenuPanel extends JPanel{
 				silly.setVisible(true);
 				strong.setVisible(true);
 			} else {
-				silly.setVisible(false);
-				strong.setVisible(false);
-				x.setVisible(false);
-				o.setVisible(false);
+				// starts pvp
 				jf.startGamePlayer(getFieldSize());
 			}
 		}
@@ -118,32 +102,15 @@ public class MainMenuPanel extends JPanel{
 	 * ActionListener for silly and stron button
 	 */
 	class levelOfDifficultyListener implements ActionListener {
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			if(e.getSource() == silly) {
-				strength = "silly";
-			} else {
-				strength = "strong";
-			}
-			x.setVisible(true);
-			o.setVisible(true);
-		}
-	}
-	
-	/*
-	 * ActionListener for x and o button
-	 */
-	class PlayerSelectionListener implements ActionListener {
-
+		//start player vs. npc
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int fieldSize = getFieldSize();
-			if(e.getSource() == x) {
-				jf.startGameNPC(fieldSize, strength, "X");
+			if(e.getSource() == silly) {
+				jf.startGameNPC(fieldSize, "silly");
 			} else {
-				jf.startGameNPC(fieldSize, strength, "O");
+				jf.startGameNPC(fieldSize, "strong");
 			}
 		}
-		
 	}
 }
