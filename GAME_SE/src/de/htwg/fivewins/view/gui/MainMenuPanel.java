@@ -1,4 +1,4 @@
-package de.htwg.fivewins.gui;
+package de.htwg.fivewins.view.gui;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;

@@ -1,8 +1,8 @@
 package de.htwg.fivewins.controller;
 
-import de.htwg.fivewins.field.AIAdapter;
-import de.htwg.fivewins.field.Field;
-import de.htwg.fivewins.field.VerySillyAI;
+import de.htwg.fivewins.model.ai.AIAdapter;
+import de.htwg.fivewins.model.ai.VerySillyAI;
+import de.htwg.fivewins.model.field.Field;
 import de.htwg.util.observer.Observable;
 
 /**

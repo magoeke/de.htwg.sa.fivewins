@@ -1,6 +1,6 @@
 package de.htwg.fivewins.controller;
 
-import de.htwg.fivewins.field.AIAdapter;
+import de.htwg.fivewins.model.ai.AIAdapter;
 import de.htwg.util.observer.IObservable;
 
 /**

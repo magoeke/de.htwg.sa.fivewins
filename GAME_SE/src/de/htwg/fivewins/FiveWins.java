@@ -6,9 +6,9 @@ import org.apache.log4j.PropertyConfigurator;
 
 import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.controller.IFiveWinsController;
-import de.htwg.fivewins.field.Field;
-import de.htwg.fivewins.gui.GameFrame;
-import de.htwg.fivewins.tui.TextUI;
+import de.htwg.fivewins.model.field.Field;
+import de.htwg.fivewins.view.gui.GameFrame;
+import de.htwg.fivewins.view.tui.TextUI;
 
 /* 
  * @author Max

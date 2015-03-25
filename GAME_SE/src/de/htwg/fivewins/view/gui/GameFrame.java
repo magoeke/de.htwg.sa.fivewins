@@ -1,4 +1,4 @@
-package de.htwg.fivewins.gui;
+package de.htwg.fivewins.view.gui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
@@ -10,11 +10,11 @@ import javax.swing.JPanel;
 import de.htwg.fivewins.FiveWins;
 import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.controller.IFiveWinsController;
-import de.htwg.fivewins.field.AIAdapter;
-import de.htwg.fivewins.field.Field;
-import de.htwg.fivewins.field.StrongAI;
-import de.htwg.fivewins.field.VerySillyAI;
-import de.htwg.fivewins.tui.TextUI;
+import de.htwg.fivewins.model.ai.AIAdapter;
+import de.htwg.fivewins.model.ai.StrongAI;
+import de.htwg.fivewins.model.ai.VerySillyAI;
+import de.htwg.fivewins.model.field.Field;
+import de.htwg.fivewins.view.tui.TextUI;
 import de.htwg.util.observer.IObserver;
 
 /*

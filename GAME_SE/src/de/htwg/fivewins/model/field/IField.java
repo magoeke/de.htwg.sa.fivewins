@@ -1,4 +1,4 @@
-package de.htwg.fivewins.field;
+package de.htwg.fivewins.model.field;
 
 /*
  * @author Max,Manuel

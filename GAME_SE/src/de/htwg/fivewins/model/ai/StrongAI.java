@@ -1,4 +1,4 @@
-package de.htwg.fivewins.field;
+package de.htwg.fivewins.model.ai;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -6,9 +6,10 @@ import java.util.Deque;
 import java.util.List;
 
 
-import de.htwg.fivewins.field.Field;
+
+import de.htwg.fivewins.model.field.Field;
 /*
- * @author manuel
+ * please don't use it. It's bad, because it didn't work well. 
  */
 public class StrongAI extends AIAdapter{
 

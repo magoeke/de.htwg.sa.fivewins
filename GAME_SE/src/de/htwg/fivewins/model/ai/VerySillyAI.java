@@ -1,9 +1,11 @@
-package de.htwg.fivewins.field;
+package de.htwg.fivewins.model.ai;
 
 import java.util.Random;
 
-/*
- * @author Max
+import de.htwg.fivewins.model.field.Field;
+
+/**
+ * Dumb as straw. But it works :)
  */
 public class VerySillyAI extends AIAdapter {
 	
@@ -12,6 +14,11 @@ public class VerySillyAI extends AIAdapter {
 	 */
 	private Random randomNumber = new Random();
 
+	/**
+	 * Constructor
+	 * @param sign
+	 * @param field
+	 */
 	public VerySillyAI(String sign, Field field) {
 		if(sign.equals("X") || sign.equals("O")) {
 			this.whichPlayer = sign;

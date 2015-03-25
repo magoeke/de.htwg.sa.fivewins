@@ -1,4 +1,7 @@
-package de.htwg.fivewins.field;
+package de.htwg.fivewins.model.ai;
+
+import de.htwg.fivewins.model.field.Field;
+import de.htwg.fivewins.model.field.IField;
 
 /*
  * template method pattern is used.

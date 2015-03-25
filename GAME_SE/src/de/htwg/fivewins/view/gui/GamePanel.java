@@ -1,4 +1,4 @@
-package de.htwg.fivewins.gui;
+package de.htwg.fivewins.view.gui;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import de.htwg.fivewins.controller.IFiveWinsController;
-import de.htwg.fivewins.field.Field;
+import de.htwg.fivewins.model.field.Field;
 import de.htwg.util.observer.IObserver;
 
 /*
