@@ -1,5 +1,8 @@
 package de.htwg.fivewins.model.field;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
 /*
  * @author Max, Manuel
  */
@@ -16,7 +19,8 @@ public class Field implements IField {
 	 * Constructor.
 	 * @param size
 	 */
-	public Field(int size) {
+	@Inject
+	public Field(@Named("fieldSize")int size) {
 		if(size < BOTTOMBORDER || size > TOPBORDER) {
 			throw new IllegalArgumentException("Size has to be between 1 and 20.");
 		}

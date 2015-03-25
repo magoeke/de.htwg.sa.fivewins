@@ -3,6 +3,8 @@ package de.htwg.fivewins.view.tui;
 import java.util.Scanner;
 import java.util.logging.Logger;
 
+import com.google.inject.Inject;
+
 import de.htwg.fivewins.controller.IFiveWinsController;
 import de.htwg.fivewins.model.ai.AIAdapter;
 import de.htwg.util.observer.IObserver;
@@ -22,6 +24,7 @@ public class TextUI implements IObserver {
 	 * 
 	 * @param controller
 	 */
+	@Inject
 	public TextUI(IFiveWinsController controller) {
 		this.controller = controller;
 		controller.addObserver(this);
@@ -47,7 +50,7 @@ public class TextUI implements IObserver {
 	/**
 	 * print tui on the console
 	 */
-	private void printTUI() {
+	public void printTUI() {
 		TextUIlogger.info("\n" + controller.getFieldString() + "\n");
 		TextUIlogger.info(controller.getStatus() + "\n");
 		TextUIlogger.info("\n");

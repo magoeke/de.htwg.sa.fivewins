@@ -1,5 +1,8 @@
 package de.htwg.fivewins.controller;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
 import de.htwg.fivewins.model.ai.AIAdapter;
 import de.htwg.fivewins.model.ai.VerySillyAI;
 import de.htwg.fivewins.model.field.Field;
@@ -8,6 +11,7 @@ import de.htwg.util.observer.Observable;
 /**
  * 
  */
+@Singleton
 public class FiveWinsController extends Observable implements
 		IFiveWinsController {
 
@@ -27,6 +31,7 @@ public class FiveWinsController extends Observable implements
 	/*
 	 * initialize a Controller for a Player vs. Player game
 	 */
+	@Inject
 	public FiveWinsController(Field field) {
 		this.field = field;
 		calculateNeedToWin();

@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import com.google.inject.Inject;
+
 import de.htwg.fivewins.FiveWins;
 import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.controller.IFiveWinsController;
@@ -44,6 +46,7 @@ public class GameFrame extends JFrame {
 	 * initialize GameFrame with a controller
 	 * @param controller
 	 */
+	@Inject
 	public GameFrame(IFiveWinsController controller) {
 		this.controller = controller;
 		this.setTitle("FiveWins");
