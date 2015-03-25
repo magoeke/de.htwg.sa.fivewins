@@ -5,8 +5,8 @@ import de.htwg.fivewins.field.Field;
 import de.htwg.fivewins.field.VerySillyAI;
 import de.htwg.util.observer.Observable;
 
-/*
- * @author Max
+/**
+ * 
  */
 public class FiveWinsController extends Observable implements
 		IFiveWinsController {
@@ -20,6 +20,7 @@ public class FiveWinsController extends Observable implements
 	private int lasty;
 	private boolean win = false;
 	private String winner = null;
+	// player2 possible values: pvp = null, NPC vs. Player = AI Object
 	private AIAdapter player2 = null;
 	private boolean draw = false;
 
@@ -37,6 +38,7 @@ public class FiveWinsController extends Observable implements
 	public FiveWinsController(Field field, AIAdapter ai) {
 		this.field = field;
 		calculateNeedToWin();
+		// set second player
 		this.player2 = ai;
 	}
 
@@ -55,23 +57,32 @@ public class FiveWinsController extends Observable implements
 
 	public boolean setValue(int column, int row, String value) {
 		// input must be right
+		// calculate array position from user input
 		lastx = column - 1;
 		lasty = row - 1;
+		
 		String cellVal = field.getCellValue(lastx, lasty);
 		boolean result = false;
 
 		if (cellVal.equals("-")) {
+			// cell is empty
 			field.setValue(lastx, lasty, value);
 			setStatusMessage("The cell " + column + " " + row
 					+ " was successfully set.");
 			result = true;
 		} else {
+			// cell is alreaedy set.
 			setStatusMessage("The cell " + column + " " + row
 					+ " is already set.");
 		}
+		
 		return result;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.IFiveWinsController#getStatus()
+	 */
 	public String getStatus() {
 		return statusMessage;
 	}
@@ -83,18 +94,34 @@ public class FiveWinsController extends Observable implements
 		this.statusMessage = statusMessage;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.IFiveWinsController#getFieldString()
+	 */
 	public String getFieldString() {
 		return field.toString();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.IFiveWinsController#getField()
+	 */
 	public String[][] getField() {
 		return field.getGameField();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.IFiveWinsController#countTurn()
+	 */
 	public int countTurn() {
 		return turn++;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.IFiveWinsController#getPlayerSign()
+	 */
 	public String getPlayerSign() {
 		int result = turn % 2;
 		if (result == 0) {
@@ -104,14 +131,24 @@ public class FiveWinsController extends Observable implements
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.IFiveWinsController#getWinner()
+	 */
 	public boolean getWinner() {
 		return win;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.IFiveWinsController#getWinnerSign()
+	 */
 	public String getWinnerSign() {
 		return winner;
 	}
 
+	// ---------- Win request start
+	
 	/*
 	 * for better understanding look at the picture in the readme
 	 */
@@ -251,7 +288,13 @@ public class FiveWinsController extends Observable implements
 
 		return returnValue;
 	}
+	
+	// ---------- Win request end ------------
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.IFiveWinsController#reset()
+	 */
 	public void reset() {
 		field.reset();
 		setStatusMessage("Welcome to HTWG Five Wins!");
@@ -261,14 +304,26 @@ public class FiveWinsController extends Observable implements
 		draw = false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.IFiveWinsController#getSecondPlayer()
+	 */
 	public AIAdapter getSecondPlayer() {
 		return player2;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.IFiveWinsController#getTurn()
+	 */
 	public int getTurn() {
 		return turn;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.IFiveWinsController#getDraw()
+	 */
 	public boolean getDraw() {
 		return draw;
 	}
@@ -299,6 +354,9 @@ public class FiveWinsController extends Observable implements
 		return quit;
 	}
 	
+	/*
+	 * Checks if player input is a correct turn. If the input is correct it calls the winrequest.
+	 */
 	private void handlePlayerInput(String line) {
 		if (line.matches("[0-9]{1,2}?,[0-9]{1,2}?")) {
 			String[] numbers = line.split(",");
@@ -318,16 +376,10 @@ public class FiveWinsController extends Observable implements
 		}
 	}
 
-//	private boolean handleNPCInput(String line) {
-//		boolean quit = false;
-//
-//		if (player2.getWhichPlayer().equals(getPlayerSign())) {
-//			quit = handlePlayerInput(player2.getCommand());
-//		}
-//
-//		return quit;
-//	}
-
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.IFiveWinsController#resizeGameField(int)
+	 */
 	public void resizeGameField(int fieldsize) {
 		field = new Field(fieldsize);
 		if(player2 != null) {
@@ -338,6 +390,10 @@ public class FiveWinsController extends Observable implements
 		notifyObservers();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.IFiveWinsController#createAI()
+	 */
 	public void createAI() {
 		player2 = new VerySillyAI("O", field);
 	}
