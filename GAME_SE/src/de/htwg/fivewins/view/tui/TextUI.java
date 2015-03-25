@@ -7,50 +7,45 @@ import de.htwg.fivewins.controller.IFiveWinsController;
 import de.htwg.fivewins.model.ai.AIAdapter;
 import de.htwg.util.observer.IObserver;
 
-/*
- * @author Max, Manuel
+/**
+ * TextUI implementation for FiveWins.
  */
 public class TextUI implements IObserver {
 
 	private IFiveWinsController controller;
-	private Scanner scanner;
 
 	private static Logger TextUIlogger = Logger
 			.getLogger("de.htwg.fivewins.tui");
 
+	/**
+	 * Constructor.
+	 * @param controller
+	 */
 	public TextUI(IFiveWinsController controller) {
 		this.controller = controller;
 		controller.addObserver(this);
-		scanner = new Scanner(System.in);
 	}
 
 	/*
-	 * needed for the observer
+	 * (non-Javadoc)
+	 * @see de.htwg.util.observer.IObserver#update()
 	 */
 	@Override
 	public void update() {
 		printTUI();
 	}
 
-	/*
-	 * was used when the gui wasn't implemented
+	/**
+	 * Is used for TUI inputs.
 	 */
 	public boolean iterate(String line) {
-		boolean returnValue = false;
-//		AIAdapter npc = controller.getSecondPlayer();
-//		if (npc != null
-//				&& npc.getWhichPlayer().equals(controller.getPlayerSign())) {
-//			returnValue = controller.handleInputOrQuit(npc.getCommand());
-//		} else {
-			returnValue = controller.handleInputOrQuit(line);
-//		}
-		return returnValue;
+		return controller.handleInputOrQuit(line);
 	}
 
-	/*
+	/**
 	 * print tui on the console
 	 */
-	public void printTUI() {
+	private void printTUI() {
 		TextUIlogger.info("\n" + controller.getFieldString() + "\n");
 		TextUIlogger.info(controller.getStatus() + "\n");
 		TextUIlogger.info("\n");
@@ -63,8 +58,6 @@ public class TextUI implements IObserver {
 			TextUIlogger.info("It's a draw!");
 		}
 	}
-
-	
 
 	/*
 	 * resets the controller and update the tui
