@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.htwg.fivewins.field.Field;
-import de.htwg.fivewins.field.VerySillyAI;
+import de.htwg.fivewins.model.ai.VerySillyAI;
+import de.htwg.fivewins.model.field.Field;
 /*
  * @author max,manuel
  */

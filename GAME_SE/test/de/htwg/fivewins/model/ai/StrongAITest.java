@@ -1,9 +1,12 @@
-package de.htwg.fivewins.field;
+package de.htwg.fivewins.model.ai;
 
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import de.htwg.fivewins.model.ai.StrongAI;
+import de.htwg.fivewins.model.field.Field;
 /*
  * @author manuel
  */

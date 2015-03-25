@@ -24,7 +24,7 @@ public final class FiveWins {
 		controller = new FiveWinsController(new Field(1));
 		tui = new TextUI(controller);
 		new GameFrame(controller);
-		tui.printTUI();
+		//tui.printTUI();
 	}
 	
 	
