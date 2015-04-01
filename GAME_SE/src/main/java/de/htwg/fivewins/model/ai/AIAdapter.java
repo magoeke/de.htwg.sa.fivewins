@@ -32,5 +32,5 @@ public abstract class AIAdapter {
 	 */
 	abstract String calculateCommand();
 
-	abstract public void updateField(IField field);
+	public abstract void updateField(IField field);
 }
