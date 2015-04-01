@@ -9,10 +9,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/*
- * @author Max
- */
-public class MainMenuPanel extends JPanel{
+public class MainMenuPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private static final int HEADLINESIZE = 20;
@@ -29,27 +26,30 @@ public class MainMenuPanel extends JPanel{
 	private static final int SILLONGX = 225;
 	private static final int SILLONGY = 160;
 	private static final int FAILURENUMBER = 0;
-	
+
 	private JButton npc, silly, strong;
 	private GameFrame jf;
-	
+
 	/**
 	 * Constructor. Creates the main panel.
+	 * 
 	 * @param jf
 	 */
 	public MainMenuPanel(GameFrame jf) {
-		this.jf= jf;
+		this.jf = jf;
 		JLabel headline = new JLabel("Five Wins");
 		headline.setSize(HEADLINESIZE, HEADLINESIZE);
-		headline.setBounds(HEADLINEXY, HEADLINEXY, HEADLINEWIDTH, HEADLINEHEIGHT);
+		headline.setBounds(HEADLINEXY, HEADLINEXY, HEADLINEWIDTH,
+				HEADLINEHEIGHT);
 		headline.setFont(new Font("Dialog", FONTSTYLE, FONTSIZE));
-		
+
 		JButton pvp = new JButton("Player vs. Player");
 		pvp.addActionListener(new GameSelectionListener());
 		pvp.setBounds(NVPX, NVPY, BUTTONLARGEWIDTH, BUTTONHEIGHT);
 		npc = new JButton("Player vs. NPC");
 		npc.addActionListener(new GameSelectionListener());
-		npc.setBounds(NVPX,(NVPY + BUTTONHEIGHT), BUTTONLARGEWIDTH, BUTTONHEIGHT);
+		npc.setBounds(NVPX, (NVPY + BUTTONHEIGHT), BUTTONLARGEWIDTH,
+				BUTTONHEIGHT);
 		silly = new JButton("Easy");
 		silly.setVisible(false);
 		silly.addActionListener(new levelOfDifficultyListener());
@@ -57,8 +57,9 @@ public class MainMenuPanel extends JPanel{
 		strong = new JButton("Hard");
 		strong.setVisible(false);
 		strong.addActionListener(new levelOfDifficultyListener());
-		strong.setBounds(SILLONGX, (SILLONGY+BUTTONHEIGHT), BUTTONNORMALWIDTH, BUTTONHEIGHT);
-		
+		strong.setBounds(SILLONGX, (SILLONGY + BUTTONHEIGHT),
+				BUTTONNORMALWIDTH, BUTTONHEIGHT);
+
 		this.setLayout(null);
 		this.add(pvp);
 		this.add(npc);
@@ -66,29 +67,29 @@ public class MainMenuPanel extends JPanel{
 		this.add(strong);
 		this.add(headline);
 	}
-	
+
 	/*
-	 * pop up a window which ask you
-	 * how big should the game field be
+	 * pop up a window which ask you how big should the game field be
 	 */
 	protected int getFieldSize() {
-		String inputValue = JOptionPane.showInputDialog("Please input the field size you wante(Between 1-20)");
+		String inputValue = JOptionPane
+				.showInputDialog("Please input the field size you wante(Between 1-20)");
 		int input;
 		try {
 			input = Integer.parseInt(inputValue);
-		} catch(NumberFormatException ex) {
+		} catch (NumberFormatException ex) {
 			input = FAILURENUMBER;
 		}
 		return input;
 	}
-	
+
 	/*
 	 * ActionListener für Button pvp und npc
 	 */
 	class GameSelectionListener implements ActionListener {
-		
+
 		public void actionPerformed(ActionEvent e) {
-			if(e.getSource() == npc) {
+			if (e.getSource() == npc) {
 				silly.setVisible(true);
 				strong.setVisible(true);
 			} else {
@@ -97,16 +98,16 @@ public class MainMenuPanel extends JPanel{
 			}
 		}
 	}
-	
+
 	/*
 	 * ActionListener for silly and stron button
 	 */
 	class levelOfDifficultyListener implements ActionListener {
-		//start player vs. npc
-		
+		// start player vs. npc
+
 		public void actionPerformed(ActionEvent e) {
 			int fieldSize = getFieldSize();
-			if(e.getSource() == silly) {
+			if (e.getSource() == silly) {
 				jf.startGameNPC(fieldSize, "silly");
 			} else {
 				jf.startGameNPC(fieldSize, "strong");

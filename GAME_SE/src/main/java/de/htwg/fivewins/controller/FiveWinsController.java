@@ -59,7 +59,7 @@ public class FiveWinsController extends Observable implements
 		// calculate array position from user input
 		lastx = column - 1;
 		lasty = row - 1;
-		
+
 		String cellVal = field.getCellValue(lastx, lasty);
 		boolean result = false;
 
@@ -74,12 +74,13 @@ public class FiveWinsController extends Observable implements
 			setStatusMessage("The cell " + column + " " + row
 					+ " is already set.");
 		}
-		
+
 		return result;
 	}
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.fivewins.controller.IFiveWinsController#getStatus()
 	 */
 	public String getStatus() {
@@ -95,6 +96,7 @@ public class FiveWinsController extends Observable implements
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.fivewins.controller.IFiveWinsController#getFieldString()
 	 */
 	public String getFieldString() {
@@ -103,6 +105,7 @@ public class FiveWinsController extends Observable implements
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.fivewins.controller.IFiveWinsController#getField()
 	 */
 	public String[][] getField() {
@@ -111,6 +114,7 @@ public class FiveWinsController extends Observable implements
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.fivewins.controller.IFiveWinsController#countTurn()
 	 */
 	public int countTurn() {
@@ -119,6 +123,7 @@ public class FiveWinsController extends Observable implements
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.fivewins.controller.IFiveWinsController#getPlayerSign()
 	 */
 	public String getPlayerSign() {
@@ -132,6 +137,7 @@ public class FiveWinsController extends Observable implements
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.fivewins.controller.IFiveWinsController#getWinner()
 	 */
 	public boolean getWinner() {
@@ -140,6 +146,7 @@ public class FiveWinsController extends Observable implements
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.fivewins.controller.IFiveWinsController#getWinnerSign()
 	 */
 	public String getWinnerSign() {
@@ -147,7 +154,7 @@ public class FiveWinsController extends Observable implements
 	}
 
 	// ---------- Win request start
-	
+
 	/*
 	 * for better understanding look at the picture in the readme
 	 */
@@ -287,11 +294,12 @@ public class FiveWinsController extends Observable implements
 
 		return returnValue;
 	}
-	
+
 	// ---------- Win request end ------------
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.fivewins.controller.IFiveWinsController#reset()
 	 */
 	public void reset() {
@@ -305,6 +313,7 @@ public class FiveWinsController extends Observable implements
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.fivewins.controller.IFiveWinsController#getSecondPlayer()
 	 */
 	public AIAdapter getSecondPlayer() {
@@ -313,6 +322,7 @@ public class FiveWinsController extends Observable implements
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.fivewins.controller.IFiveWinsController#getTurn()
 	 */
 	public int getTurn() {
@@ -321,6 +331,7 @@ public class FiveWinsController extends Observable implements
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.fivewins.controller.IFiveWinsController#getDraw()
 	 */
 	public boolean getDraw() {
@@ -345,16 +356,18 @@ public class FiveWinsController extends Observable implements
 		}
 
 		handlePlayerInput(line);
-		
-		if(!win && player2 != null && player2.getWhichPlayer().equals(getPlayerSign())) {
-				handlePlayerInput(player2.getCommand());
+
+		if (!win && player2 != null
+				&& player2.getWhichPlayer().equals(getPlayerSign())) {
+			handlePlayerInput(player2.getCommand());
 		}
 
 		return quit;
 	}
-	
+
 	/*
-	 * Checks if player input is a correct turn. If the input is correct it calls the winrequest.
+	 * Checks if player input is a correct turn. If the input is correct it
+	 * calls the winrequest.
 	 */
 	private void handlePlayerInput(String line) {
 		if (line.matches("[0-9]{1,2}?,[0-9]{1,2}?")) {
@@ -377,11 +390,12 @@ public class FiveWinsController extends Observable implements
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.fivewins.controller.IFiveWinsController#resizeGameField(int)
 	 */
 	public void resizeGameField(int fieldsize) {
 		field = fieldFactory.create(fieldsize);
-		if(player2 != null) {
+		if (player2 != null) {
 			player2.updateField(field);
 		}
 		turn = 0;
@@ -391,12 +405,14 @@ public class FiveWinsController extends Observable implements
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.fivewins.controller.IFiveWinsController#createAI()
 	 */
 	public void createAI(String difficulty) {
-		// At the moment only the silly ai works. But it's planned that more ais work.
+		// At the moment only the silly ai works. But it's planned that more ais
+		// work.
 		player2 = new VerySillyAI("O", field);
-		//strategy pattern?
+		// strategy pattern?
 	}
 
 }

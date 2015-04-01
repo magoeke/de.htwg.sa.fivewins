@@ -9,23 +9,13 @@ import javax.swing.JPanel;
 
 import com.google.inject.Inject;
 
-import de.htwg.fivewins.FiveWins;
-import de.htwg.fivewins.controller.FiveWinsController;
 import de.htwg.fivewins.controller.IFiveWinsController;
-import de.htwg.fivewins.model.ai.AIAdapter;
-import de.htwg.fivewins.model.ai.StrongAI;
-import de.htwg.fivewins.model.ai.VerySillyAI;
-import de.htwg.fivewins.model.field.Field;
-import de.htwg.fivewins.view.tui.TextUI;
-import de.htwg.util.observer.IObserver;
 
-/*
- * @author Max
- */
+
 public class GameFrame extends JFrame {
 
 	/*
-	 * To switch betwee GamePanel and MainMenuPanel is a cardlayout used.
+	 * To switch between GamePanel and MainMenuPanel is a cardlayout used.
 	 */
 
 	private static final long serialVersionUID = 1L;
@@ -40,10 +30,9 @@ public class GameFrame extends JFrame {
 	private GamePanel gamePanel;
 	private JPanel mainPanel;
 
-	
 	/**
-	 * Constructor.
-	 * initialize GameFrame with a controller
+	 * Constructor. initialize GameFrame with a controller
+	 * 
 	 * @param controller
 	 */
 	@Inject
@@ -68,9 +57,9 @@ public class GameFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	
 	/**
 	 * start a new player vs. player game
+	 * 
 	 * @param fieldsize
 	 */
 	public void startGamePlayer(int fieldsize) {
@@ -83,9 +72,9 @@ public class GameFrame extends JFrame {
 		}
 	}
 
-	
 	/**
 	 * start a new player vs. npc game
+	 * 
 	 * @param fieldsize
 	 * @param levelOfDifficulty
 	 */
@@ -101,9 +90,9 @@ public class GameFrame extends JFrame {
 		}
 	}
 
-	
 	/**
 	 * start a new player vs. player game
+	 * 
 	 * @param fieldsize
 	 */
 	public void resizeGameField(int fieldsize) {
@@ -112,7 +101,6 @@ public class GameFrame extends JFrame {
 		mainPanel.add(gamePanel, GAMEPANEL);
 	}
 
-	
 	/**
 	 * leave the game and go back to the main menu
 	 */
@@ -130,6 +118,7 @@ public class GameFrame extends JFrame {
 
 	/**
 	 * Handle action when a game cell is pressed.
+	 * 
 	 * @param command
 	 */
 	public void handleAction(String command) {
@@ -138,7 +127,6 @@ public class GameFrame extends JFrame {
 		gamePanel.setPlayer(controller.getPlayerSign());
 	}
 
-	
 	/*
 	 * Shows message when a game ends. Either win message or draw message.
 	 */
@@ -159,7 +147,7 @@ public class GameFrame extends JFrame {
 			gamePanel.allButtonsEnabled();
 		}
 	}
-	
+
 	/**
 	 * reset the game
 	 */

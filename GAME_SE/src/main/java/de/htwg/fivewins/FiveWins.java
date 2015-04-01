@@ -18,29 +18,29 @@ import de.htwg.fivewins.view.tui.TextUI;
  */
 public final class FiveWins {
 	private static Scanner scanner;
-	
+
 	public static void main(String[] args) {
 		// Setting up log4j
 		PropertyConfigurator.configure("log4j.properties");
-		
+
 		// Set up google guice
 		Injector injector = Guice.createInjector(new FiveWinsModule());
-		
+
 		// Build up application
 		@SuppressWarnings("unused")
-		IFiveWinsController controller = injector.getInstance(IFiveWinsController.class);
+		IFiveWinsController controller = injector
+				.getInstance(IFiveWinsController.class);
 		@SuppressWarnings("unused")
 		GameFrame gui = injector.getInstance(GameFrame.class);
 		TextUI tui = injector.getInstance(TextUI.class);
 		tui.printTUI();
-		
+
 		// continue until game ends
 		boolean continu = false;
-        scanner = new Scanner(System.in);
-        while (!continu) {  	
-            continu = tui.iterate(scanner.next());
-        }
+		scanner = new Scanner(System.in);
+		while (!continu) {
+			continu = tui.iterate(scanner.next());
+		}
 	}
-	
 
 }

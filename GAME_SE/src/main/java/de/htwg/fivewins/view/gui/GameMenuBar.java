@@ -7,9 +7,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-/*
- * @author Max
- */
 public class GameMenuBar extends JMenuBar implements ActionListener {
 
 	private static final long serialVersionUID = 1L;

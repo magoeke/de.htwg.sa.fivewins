@@ -1,12 +1,10 @@
 package de.htwg.fivewins.view.tui;
 
-import java.util.Scanner;
 import java.util.logging.Logger;
 
 import com.google.inject.Inject;
 
 import de.htwg.fivewins.controller.IFiveWinsController;
-import de.htwg.fivewins.model.ai.AIAdapter;
 import de.htwg.util.observer.IObserver;
 
 /**
@@ -55,7 +53,7 @@ public class TextUI implements IObserver {
 		TextUIlogger.info("\n");
 		TextUIlogger
 				.info("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)):\n");
-		
+
 		if (controller.getWinner()) {
 			TextUIlogger.info("The winner is " + controller.getWinnerSign()
 					+ "\n");
