@@ -7,6 +7,8 @@ import org.junit.Test;
 
 import de.htwg.fivewins.model.ai.VerySillyAI;
 import de.htwg.fivewins.model.field.Field;
+import de.htwg.fivewins.model.field.FieldFactory;
+import de.htwg.fivewins.model.field.IFieldFactory;
 /*
  * @author max,manuel
  */
@@ -15,16 +17,17 @@ public class FiveWinsControllerTest {
 	VerySillyAI vsai;
 	FiveWinsController controller, controller2, controllerAI;
 	Field field1, field3;
+	IFieldFactory fieldFactory1;
 	String newLine = System.getProperty("line.separator");
 	
 	@Before
 	public void setUp() throws Exception {
 		field1  = new Field(1);
 		field3 = new Field(3);
-		controller = new FiveWinsController(field1);
-		controller2 = new FiveWinsController(new Field(6));
+		fieldFactory1 = new FieldFactory();
+		controller = new FiveWinsController(fieldFactory1);
+		controller2 = new FiveWinsController(new FieldFactory());
 		vsai = new VerySillyAI("X", field3);
-		controllerAI = new FiveWinsController(field3, vsai);
 	}
 
 	@Test
@@ -49,6 +52,7 @@ public class FiveWinsControllerTest {
 	
 	@Test
 	public void testGetFieldString() {
+		controller.resizeGameField(1);
 		assertEquals(" -"+newLine, controller.getFieldString());
 	}
 	
@@ -64,6 +68,7 @@ public class FiveWinsControllerTest {
 	
 	@Test
 	public void testWinRequest() {
+		controller.resizeGameField(1);
 		assertEquals("", controller.winRequest());
 		controller.setValue(1, 1, "X");
 		assertEquals("X", controller.winRequest());
@@ -77,31 +82,15 @@ public class FiveWinsControllerTest {
 	
 	@Test
 	public void testGetSecondPlayer() {
-		assertEquals(vsai, controllerAI.getSecondPlayer());
+		assertEquals(null, controller.getSecondPlayer());
+		controller.createAI("silly");
+		assertNotEquals(null, controller.getSecondPlayer());
+		
 	}
 	
-	public void prepareDraw() {
-		field3.setValue(0, 0, "A");
-		field3.setValue(0, 1, "B");
-		field3.setValue(0, 2, "C");
-		field3.setValue(1, 0, "D");
-		field3.setValue(1, 1, "E");
-		field3.setValue(1, 2, "F");
-		field3.setValue(2, 0, "G");
-		field3.setValue(2, 1, "H");
-		field3.setValue(2, 2, "I");
-	}
-
 	@Test
 	public void testGetTurn() {
 		assertEquals(controller.getTurn(), 0);
 	}
 	
-	@Test
-	public void testGetDraw() {
-		assertFalse(controller.getDraw());
-		prepareDraw();
-		controllerAI.winRequest();
-		assertTrue(controllerAI.getDraw());
-	}
 }
