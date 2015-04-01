@@ -10,13 +10,13 @@ import javax.swing.JMenuItem;
 /*
  * @author Max
  */
-public class GameMenuBar extends JMenuBar implements ActionListener{
+public class GameMenuBar extends JMenuBar implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private JMenuItem restart, backToMainMenu;
 	private GameFrame jf;
-	
+
 	public GameMenuBar(GameFrame jf) {
 		JMenu menu = new JMenu("Datei");
 		this.jf = jf;
@@ -28,13 +28,13 @@ public class GameMenuBar extends JMenuBar implements ActionListener{
 		menu.add(backToMainMenu);
 		this.add(menu);
 	}
- 
+
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == restart) {
+		if (e.getSource() == restart) {
 			jf.reset();
-		} else if(e.getSource() == backToMainMenu) {
+		} else if (e.getSource() == backToMainMenu) {
 			jf.backToMainMenu();
 		}
-		
+
 	}
 }

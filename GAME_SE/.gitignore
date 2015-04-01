@@ -1,3 +1,6 @@
 /bin
 /target
 /fivewins.log
+.classpath
+.settings
+.project
