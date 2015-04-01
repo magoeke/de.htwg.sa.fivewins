@@ -82,8 +82,9 @@ public class Field implements IField {
 		return size;
 	}
 	
-	/**
-	 * Resets gamefield. Fills in default value. 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.model.field.IField#reset()
 	 */
 	public void reset() {		
 		//fill array with default value

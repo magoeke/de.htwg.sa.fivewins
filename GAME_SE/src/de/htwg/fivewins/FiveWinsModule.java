@@ -5,6 +5,7 @@ import com.google.inject.name.Names;
 
 import de.htwg.fivewins.controller.IFiveWinsController;
 import de.htwg.fivewins.model.field.IField;
+import de.htwg.fivewins.model.field.IFieldFactory;
 
 public class FiveWinsModule extends AbstractModule{
 
@@ -13,8 +14,7 @@ public class FiveWinsModule extends AbstractModule{
 	
 	@Override
 	protected void configure() {
-		bind(Integer.class).annotatedWith(Names.named("fieldSize")).toInstance(SIZE);
-		bind(IField.class).to(de.htwg.fivewins.model.field.Field.class);
+		bind(IFieldFactory.class).to(de.htwg.fivewins.model.field.FieldFactory.class);
 		bind(IFiveWinsController.class).to(de.htwg.fivewins.controller.FiveWinsController.class);
 	}
 

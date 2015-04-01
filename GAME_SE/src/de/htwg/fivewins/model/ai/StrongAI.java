@@ -7,7 +7,9 @@ import java.util.List;
 
 
 
+
 import de.htwg.fivewins.model.field.Field;
+import de.htwg.fivewins.model.field.IField;
 /*
  * please don't use it. It's bad, because it didn't work well. 
  */
@@ -25,7 +27,7 @@ public class StrongAI extends AIAdapter{
 	private int lasty;
 	private int turn =  0;
 	
-	public StrongAI(String sign, Field field) {
+	public StrongAI(String sign, IField field) {
 		if(sign.equals("X") || sign.equals("O")) {
 			this.whichPlayer = sign;
 			this.field = field;
@@ -400,7 +402,7 @@ private int testWinDiagonal(int value1, int value2, int n, String currentPlayer,
 
 
 	@Override
-	public void updateField(Field field) {
+	public void updateField(IField field) {
 		// TODO Auto-generated method stub
 		
 	}

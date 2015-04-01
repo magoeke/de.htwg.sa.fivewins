@@ -6,6 +6,8 @@ import com.google.inject.Singleton;
 import de.htwg.fivewins.model.ai.AIAdapter;
 import de.htwg.fivewins.model.ai.VerySillyAI;
 import de.htwg.fivewins.model.field.Field;
+import de.htwg.fivewins.model.field.IField;
+import de.htwg.fivewins.model.field.IFieldFactory;
 import de.htwg.util.observer.Observable;
 
 /**
@@ -17,7 +19,7 @@ public class FiveWinsController extends Observable implements
 
 	public static final int FIVEWINS = 5;
 	private String statusMessage = "Welcome to HTWG Five Wins!";
-	private Field field;
+	private IField field;
 	private int turn = 0;
 	private int needToWin;
 	private int lastx;
@@ -27,24 +29,16 @@ public class FiveWinsController extends Observable implements
 	// player2 possible values: pvp = null, NPC vs. Player = AI Object
 	private AIAdapter player2 = null;
 	private boolean draw = false;
+	private IFieldFactory fieldFactory;
 
-	/*
+	/**
 	 * initialize a Controller for a Player vs. Player game
 	 */
 	@Inject
-	public FiveWinsController(Field field) {
-		this.field = field;
+	public FiveWinsController(IFieldFactory fieldFactory) {
+		this.fieldFactory = fieldFactory;
+		this.field = fieldFactory.create(FIVEWINS);
 		calculateNeedToWin();
-	}
-
-	/*
-	 * initialize a Controller for a NPC vs. Player game
-	 */
-	public FiveWinsController(Field field, AIAdapter ai) {
-		this.field = field;
-		calculateNeedToWin();
-		// set second player
-		this.player2 = ai;
 	}
 
 	/*
@@ -386,7 +380,7 @@ public class FiveWinsController extends Observable implements
 	 * @see de.htwg.fivewins.controller.IFiveWinsController#resizeGameField(int)
 	 */
 	public void resizeGameField(int fieldsize) {
-		field = new Field(fieldsize);
+		field = fieldFactory.create(fieldsize);
 		if(player2 != null) {
 			player2.updateField(field);
 		}
@@ -402,6 +396,7 @@ public class FiveWinsController extends Observable implements
 	public void createAI(String difficulty) {
 		// At the moment only the silly ai works. But it's planned that more ais work.
 		player2 = new VerySillyAI("O", field);
+		//strategy pattern?
 	}
 
 }

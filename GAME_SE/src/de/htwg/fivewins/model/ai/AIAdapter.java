@@ -22,19 +22,19 @@ public abstract class AIAdapter {
 		return whichPlayer;
 	}
 	
-	/*
+	/**
 	 * @return the command that the game should do
 	 */
 	public String getCommand() {
 		return calculateCommand();
 	}
 	
-	/*
+	/**
 	 * the children classes should overide these method,
 	 * because the methode getcommand returns the result of
 	 * this methode to the controller
 	 */
 	abstract String calculateCommand();
 	
-	abstract public void updateField(Field field);
+	abstract public void updateField(IField field);
 }

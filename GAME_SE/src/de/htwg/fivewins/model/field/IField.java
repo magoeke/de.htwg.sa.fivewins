@@ -28,4 +28,9 @@ public interface IField {
 	 * @return the gamefield(a 2 dimensional array).
 	 */
 	String[][] getGameField();
+	
+	/**
+	 * Resets gamefield. Fills in default value. 
+	 */
+	void reset();
 }

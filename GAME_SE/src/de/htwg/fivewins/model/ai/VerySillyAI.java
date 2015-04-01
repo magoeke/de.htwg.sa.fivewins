@@ -3,6 +3,7 @@ package de.htwg.fivewins.model.ai;
 import java.util.Random;
 
 import de.htwg.fivewins.model.field.Field;
+import de.htwg.fivewins.model.field.IField;
 
 /**
  * Dumb as straw. But it works :)
@@ -19,7 +20,7 @@ public class VerySillyAI extends AIAdapter {
 	 * @param sign
 	 * @param field
 	 */
-	public VerySillyAI(String sign, Field field) {
+	public VerySillyAI(String sign, IField field) {
 		if(sign.equals("X") || sign.equals("O")) {
 			this.whichPlayer = sign;
 			this.field = field;
@@ -64,7 +65,7 @@ public class VerySillyAI extends AIAdapter {
 	}
 
 	@Override
-	public void updateField(Field field) {
+	public void updateField(IField field) {
 		this.field = field;
 	}
 	
