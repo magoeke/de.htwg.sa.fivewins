@@ -5,7 +5,6 @@ import com.google.inject.Singleton;
 
 import de.htwg.fivewins.model.ai.AIAdapter;
 import de.htwg.fivewins.model.ai.VerySillyAI;
-import de.htwg.fivewins.model.field.Field;
 import de.htwg.fivewins.model.field.IField;
 import de.htwg.fivewins.model.field.IFieldFactory;
 import de.htwg.util.observer.Observable;
@@ -18,6 +17,7 @@ public class FiveWinsController extends Observable implements
 		IFiveWinsController {
 
 	public static final int FIVEWINS = 5;
+	public static final int TWO = 2;
 	private String statusMessage = "Welcome to HTWG Five Wins!";
 	private IField field;
 	private int turn = 0;
@@ -127,7 +127,7 @@ public class FiveWinsController extends Observable implements
 	 * @see de.htwg.fivewins.controller.IFiveWinsController#getPlayerSign()
 	 */
 	public String getPlayerSign() {
-		int result = turn % 2;
+		int result = turn % TWO;
 		if (result == 0) {
 			return "X";
 		} else {

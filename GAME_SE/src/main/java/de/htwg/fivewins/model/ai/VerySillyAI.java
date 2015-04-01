@@ -2,7 +2,6 @@ package de.htwg.fivewins.model.ai;
 
 import java.util.Random;
 
-import de.htwg.fivewins.model.field.Field;
 import de.htwg.fivewins.model.field.IField;
 
 /**

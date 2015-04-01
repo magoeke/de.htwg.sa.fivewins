@@ -1,6 +1,5 @@
 package de.htwg.fivewins.model.ai;
 
-import de.htwg.fivewins.model.field.Field;
 import de.htwg.fivewins.model.field.IField;
 
 /*

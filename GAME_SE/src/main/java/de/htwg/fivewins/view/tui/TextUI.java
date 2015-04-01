@@ -68,7 +68,7 @@ public class TextUI implements IObserver {
 	/*
 	 * resets the controller and update the tui
 	 */
-	private void reset() {
+	public void reset() {
 		controller.reset();
 		update();
 	}

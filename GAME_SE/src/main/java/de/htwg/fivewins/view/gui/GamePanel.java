@@ -12,7 +12,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import de.htwg.fivewins.controller.IFiveWinsController;
-import de.htwg.fivewins.model.field.Field;
 import de.htwg.util.observer.IObserver;
 
 public class GamePanel extends JPanel implements IObserver {
@@ -21,7 +20,7 @@ public class GamePanel extends JPanel implements IObserver {
 	private static final int HEIGHT = 300;
 	private static final int WIDTH = 50;
 
-	private JButton buttons[][];
+	private JButton[][] buttons;
 	private int fieldsize;
 	private JLabel turn, player;
 	private GameFrame jf;
