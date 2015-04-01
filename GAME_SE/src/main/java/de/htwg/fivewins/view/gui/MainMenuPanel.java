@@ -52,11 +52,11 @@ public class MainMenuPanel extends JPanel {
 				BUTTONHEIGHT);
 		silly = new JButton("Easy");
 		silly.setVisible(false);
-		silly.addActionListener(new levelOfDifficultyListener());
+		silly.addActionListener(new LevelOfDifficultyListener());
 		silly.setBounds(SILLONGX, SILLONGY, BUTTONNORMALWIDTH, BUTTONHEIGHT);
 		strong = new JButton("Hard");
 		strong.setVisible(false);
-		strong.addActionListener(new levelOfDifficultyListener());
+		strong.addActionListener(new LevelOfDifficultyListener());
 		strong.setBounds(SILLONGX, (SILLONGY + BUTTONHEIGHT),
 				BUTTONNORMALWIDTH, BUTTONHEIGHT);
 
@@ -102,7 +102,7 @@ public class MainMenuPanel extends JPanel {
 	/*
 	 * ActionListener for silly and stron button
 	 */
-	class levelOfDifficultyListener implements ActionListener {
+	class LevelOfDifficultyListener implements ActionListener {
 		// start player vs. npc
 
 		public void actionPerformed(ActionEvent e) {

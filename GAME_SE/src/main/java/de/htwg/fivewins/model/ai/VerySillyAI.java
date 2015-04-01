@@ -21,7 +21,7 @@ public class VerySillyAI extends AIAdapter {
 	 * @param field
 	 */
 	public VerySillyAI(String sign, IField field) {
-		if (sign.equals("X") || sign.equals("O")) {
+		if ("X".equals(sign) || "O".equals(sign)) {
 			this.whichPlayer = sign;
 			this.field = field;
 		} else {
@@ -55,7 +55,7 @@ public class VerySillyAI extends AIAdapter {
 		boolean returnValue = false;
 		int column2 = column - 1;
 		int row2 = row - 1;
-		if (field.getCellValue(column2, row2).equals("-")) {
+		if ("-".equals(field.getCellValue(column2, row2))) {
 			returnValue = true;
 		}
 		return returnValue;

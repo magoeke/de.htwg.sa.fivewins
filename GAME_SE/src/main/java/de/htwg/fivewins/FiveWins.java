@@ -15,6 +15,9 @@ import de.htwg.fivewins.view.tui.TextUI;
  * The start class for FiveWins.
  */
 public final class FiveWins {
+	private FiveWins() {
+	}
+
 	private static Scanner scanner;
 
 	public static void main(String[] args) {

@@ -63,7 +63,7 @@ public class FiveWinsController extends Observable implements
 		String cellVal = field.getCellValue(lastx, lasty);
 		boolean result = false;
 
-		if (cellVal.equals("-")) {
+		if ("-".equals(cellVal)) {
 			// cell is empty
 			field.setValue(lastx, lasty, value);
 			setStatusMessage("The cell " + column + " " + row
@@ -383,7 +383,6 @@ public class FiveWinsController extends Observable implements
 			if (successfulFieldChange) {
 				countTurn();
 			}
-			System.out.println(winner);
 			notifyObservers();
 		}
 	}

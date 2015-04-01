@@ -14,7 +14,7 @@ public class TextUI implements IObserver {
 
 	private IFiveWinsController controller;
 
-	private static Logger TextUIlogger = Logger
+	private static final Logger TextUIlogger = Logger
 			.getLogger("de.htwg.fivewins.tui");
 
 	/**
