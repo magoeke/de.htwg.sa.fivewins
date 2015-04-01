@@ -29,7 +29,6 @@ public class GameMenuBar extends JMenuBar implements ActionListener{
 		this.add(menu);
 	}
  
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == restart) {
 			jf.reset();

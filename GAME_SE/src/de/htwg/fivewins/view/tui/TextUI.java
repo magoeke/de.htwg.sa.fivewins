@@ -35,7 +35,6 @@ public class TextUI implements IObserver {
 	 * 
 	 * @see de.htwg.util.observer.IObserver#update()
 	 */
-	@Override
 	public void update() {
 		printTUI();
 	}

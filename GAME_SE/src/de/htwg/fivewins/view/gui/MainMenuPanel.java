@@ -86,7 +86,7 @@ public class MainMenuPanel extends JPanel{
 	 * ActionListener für Button pvp und npc
 	 */
 	class GameSelectionListener implements ActionListener {
-		@Override
+		
 		public void actionPerformed(ActionEvent e) {
 			if(e.getSource() == npc) {
 				silly.setVisible(true);
@@ -103,7 +103,7 @@ public class MainMenuPanel extends JPanel{
 	 */
 	class levelOfDifficultyListener implements ActionListener {
 		//start player vs. npc
-		@Override
+		
 		public void actionPerformed(ActionEvent e) {
 			int fieldSize = getFieldSize();
 			if(e.getSource() == silly) {
