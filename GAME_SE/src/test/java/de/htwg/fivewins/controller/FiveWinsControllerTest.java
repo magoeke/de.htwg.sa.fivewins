@@ -4,30 +4,28 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 import de.htwg.fivewins.model.ai.VerySillyAI;
 import de.htwg.fivewins.model.field.Field;
 import de.htwg.fivewins.model.field.FieldFactory;
+import de.htwg.fivewins.model.field.IField;
 import de.htwg.fivewins.model.field.IFieldFactory;
 /*
  * @author max,manuel
  */
 public class FiveWinsControllerTest {
 
-	VerySillyAI vsai;
 	FiveWinsController controller, controller2, controllerAI;
-	Field field1, field3;
 	IFieldFactory fieldFactory1;
 	String newLine = System.getProperty("line.separator");
 	
 	@Before
 	public void setUp() throws Exception {
-		field1  = new Field(1);
-		field3 = new Field(3);
 		fieldFactory1 = new FieldFactory();
 		controller = new FiveWinsController(fieldFactory1);
 		controller2 = new FiveWinsController(new FieldFactory());
-		vsai = new VerySillyAI("X", field3);
+		controllerAI = new FiveWinsController(new FieldFactory());
 	}
 
 	@Test
@@ -91,6 +89,33 @@ public class FiveWinsControllerTest {
 	@Test
 	public void testGetTurn() {
 		assertEquals(controller.getTurn(), 0);
+	}
+	
+	@Test
+	public void testGetField() {
+		IField field = new Field(1);
+		IFieldFactory mockFieldFactory = Mockito.mock(IFieldFactory.class);
+		Mockito.when(mockFieldFactory.create(Mockito.anyInt())).thenReturn(field);
+		IFiveWinsController tmpController = new FiveWinsController(mockFieldFactory);
+		assertEquals(field.getGameField(), tmpController.getField());	
+	}
+	
+	@Test
+	public void testGetDraw() {
+		assertFalse(controller.getDraw());
+	}
+	
+	@Test
+	public void testHandleInputOrQuit() {
+		// quit game
+		assertTrue(controller.handleInputOrQuit("q"));
+		// set game stone
+		assertFalse(controller.handleInputOrQuit("1,1"));
+		assertFalse(controller.handleInputOrQuit("1,1"));
+		// create AI and handle input
+		controllerAI.createAI("silly");
+		assertFalse(controllerAI.handleInputOrQuit("1,1"));
+		
 	}
 	
 }
