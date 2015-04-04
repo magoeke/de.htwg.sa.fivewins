@@ -48,22 +48,4 @@ public class VerySillyAI extends AIAdapter {
 		return column + "," + row;
 	}
 
-	/*
-	 * is used for calculateCommand. It's test if the field is free or taken.
-	 */
-	private boolean isFree(int column, int row) {
-		boolean returnValue = false;
-		int column2 = column - 1;
-		int row2 = row - 1;
-		if ("-".equals(field.getCellValue(column2, row2))) {
-			returnValue = true;
-		}
-		return returnValue;
-	}
-
-	@Override
-	public void updateField(IField field) {
-		this.field = field;
-	}
-
 }

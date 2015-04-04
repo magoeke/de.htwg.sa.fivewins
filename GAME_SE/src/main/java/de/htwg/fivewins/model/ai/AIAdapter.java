@@ -8,6 +8,7 @@ import de.htwg.fivewins.model.field.IField;
  * only the algorithm should be different
  */
 public abstract class AIAdapter {
+	protected String opponent;
 	protected String whichPlayer;
 	protected IField field;
 
@@ -31,5 +32,29 @@ public abstract class AIAdapter {
 	 */
 	abstract String calculateCommand();
 
-	public abstract void updateField(IField field);
+	public void updateField(IField field) {
+		this.field = field;
+	}
+	
+	/*
+	 * is used for calculateCommand. It's test if the field is free or taken.
+	 */
+	protected boolean isFree(int column, int row) {
+		boolean returnValue = false;
+		int column2 = column - 1;
+		int row2 = row - 1;
+		if ("-".equals(field.getCellValue(column2, row2))) {
+			returnValue = true;
+		}
+		return returnValue;
+	}
+	
+	protected void setOpponent(String playerSign) {
+		if("X".equals(playerSign)) {
+			opponent = "O";
+		} else {
+			opponent = "X";
+		}
+	}
+	
 }
