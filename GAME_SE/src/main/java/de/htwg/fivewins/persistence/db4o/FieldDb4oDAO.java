@@ -25,8 +25,19 @@ public class FieldDb4oDAO implements IFieldDAO {
 	}
 
 	@Override
-	public boolean containsFieldById(String id) {
-		// TODO Auto-generated method stub
+	public boolean containsFieldById(final String id) {
+		List<IField> fields = db.query(new Predicate<IField>() {
+
+			private static final long serialVersionUID = 1L;
+
+			public boolean match(IField grid) {
+				return (id.equals(grid.getId()));
+			}
+		});
+
+		if (fields.size() > 0) {
+			return true;
+		}
 		return false;
 	}
 
@@ -50,14 +61,13 @@ public class FieldDb4oDAO implements IFieldDAO {
 
 	@Override
 	public void deleteFieldById(String id) {
-		// TODO Auto-generated method stub
+		db.delete(getFieldById(id));
 		
 	}
 
 	@Override
 	public List<IField> getAllFields() {
-		// TODO Auto-generated method stub
-		return null;
+		return db.query(IField.class);
 	}
 
 }
