@@ -38,16 +38,34 @@
 			<version>3.0</version>
 		</dependency>
 		<dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>1.9.5</version>
 			<scope>test</scope>
 		</dependency>
+
+		<!-- databases -->
+
+		<dependency>
+			<groupId>com.db4o</groupId>
+			<artifactId>db4o-core-java5</artifactId>
+			<version>8.0.184.15484</version>
+		</dependency>
+
 	</dependencies>
+
+	<!-- Additional Remote Repositories -->
+	<repositories>
+		<repository>
+			<id>sonatype-forge</id>
+			<url>https://repository.sonatype.org/content/groups/forge/</url>
+		</repository>
+	</repositories>
+
 </project>

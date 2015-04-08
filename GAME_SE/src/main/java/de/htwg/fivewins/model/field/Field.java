@@ -5,6 +5,7 @@ import com.google.inject.name.Named;
 
 public class Field implements IField {
 
+	private String id;
 	private int size;
 	private String[][] gamefield;
 	// used for the wordwrap
@@ -25,6 +26,7 @@ public class Field implements IField {
 		}
 
 		this.size = size;
+		this.id = "hallo";
 		gamefield = new String[size][size];
 
 		/*
@@ -104,5 +106,13 @@ public class Field implements IField {
 	 */
 	public String[][] getGameField() {
 		return gamefield;
+	}
+
+	public String getId() {
+		return this.id;
+	}
+	
+	public void setId(String id){
+		this.id = id;
 	}
 }

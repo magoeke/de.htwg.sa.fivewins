@@ -7,6 +7,8 @@ import de.htwg.fivewins.model.ai.AIAdapter;
 import de.htwg.fivewins.model.ai.VerySillyAI;
 import de.htwg.fivewins.model.field.IField;
 import de.htwg.fivewins.model.field.IFieldFactory;
+import de.htwg.fivewins.persistence.IFieldDAO;
+import de.htwg.fivewins.persistence.db4o.FieldDb4oDAO;
 import de.htwg.util.observer.Observable;
 
 /**
@@ -30,6 +32,7 @@ public class FiveWinsController extends Observable implements
 	private AIAdapter player2 = null;
 	private boolean draw = false;
 	private IFieldFactory fieldFactory;
+	private IFieldDAO db;
 
 	/**
 	 * initialize a Controller for a Player vs. Player game
@@ -38,6 +41,7 @@ public class FiveWinsController extends Observable implements
 	public FiveWinsController(IFieldFactory fieldFactory) {
 		this.fieldFactory = fieldFactory;
 		this.field = fieldFactory.create(FIVEWINS);
+		db = new FieldDb4oDAO();
 		calculateNeedToWin();
 	}
 
@@ -342,6 +346,8 @@ public class FiveWinsController extends Observable implements
 	 * handel inputed command reset, update or set value
 	 */
 	public boolean handleInputOrQuit(String line) {
+		db.saveField(this.field);
+		System.out.println("From DB:"+db.getFieldById("hallo"));
 		boolean quit = false;
 		if (line.equalsIgnoreCase("q")) {
 			quit = true;

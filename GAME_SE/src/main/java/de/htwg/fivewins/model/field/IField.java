@@ -34,4 +34,8 @@ public interface IField {
 	 * Resets gamefield. Fills in default value.
 	 */
 	void reset();
+
+	public String getId();
+	
+	public void setId(String id);
 }
