@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule;
 
 import de.htwg.fivewins.controller.IFiveWinsController;
 import de.htwg.fivewins.model.field.IFieldFactory;
+import de.htwg.fivewins.persistence.IFieldDAO;
 
 public class FiveWinsModule extends AbstractModule {
 
@@ -13,6 +14,7 @@ public class FiveWinsModule extends AbstractModule {
 				de.htwg.fivewins.model.field.FieldFactory.class);
 		bind(IFiveWinsController.class).to(
 				de.htwg.fivewins.controller.FiveWinsController.class);
+		bind(IFieldDAO.class).to(de.htwg.fivewins.persistence.IFieldDAO.class);
 	}
 
 }

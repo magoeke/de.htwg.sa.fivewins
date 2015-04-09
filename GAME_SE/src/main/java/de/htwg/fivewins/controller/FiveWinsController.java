@@ -7,8 +7,8 @@ import de.htwg.fivewins.model.ai.AIAdapter;
 import de.htwg.fivewins.model.ai.VerySillyAI;
 import de.htwg.fivewins.model.field.IField;
 import de.htwg.fivewins.model.field.IFieldFactory;
-//import de.htwg.fivewins.persistence.IFieldDAO;
-//import de.htwg.fivewins.persistence.db4o.FieldDb4oDAO;
+import de.htwg.fivewins.persistence.IFieldDAO;
+import de.htwg.fivewins.persistence.db4o.FieldDb4oDAO;
 import de.htwg.util.observer.Observable;
 
 /**
@@ -32,16 +32,16 @@ public class FiveWinsController extends Observable implements
 	private AIAdapter player2 = null;
 	private boolean draw = false;
 	private IFieldFactory fieldFactory;
-//	private IFieldDAO db;
+	private IFieldDAO database;
 
 	/**
 	 * initialize a Controller for a Player vs. Player game
 	 */
 	@Inject
-	public FiveWinsController(IFieldFactory fieldFactory) {
+	public FiveWinsController(IFieldFactory fieldFactory, IFieldDAO database) {
 		this.fieldFactory = fieldFactory;
 		this.field = fieldFactory.create(FIVEWINS);
-//		db = new FieldDb4oDAO();
+		this.database = database;
 		calculateNeedToWin();
 	}
 

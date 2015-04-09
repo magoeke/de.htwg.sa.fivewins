@@ -11,6 +11,7 @@ import de.htwg.fivewins.model.field.Field;
 import de.htwg.fivewins.model.field.FieldFactory;
 import de.htwg.fivewins.model.field.IField;
 import de.htwg.fivewins.model.field.IFieldFactory;
+import de.htwg.fivewins.persistence.IFieldDAO;
 /*
  * @author max,manuel
  */
@@ -19,13 +20,15 @@ public class FiveWinsControllerTest {
 	FiveWinsController controller, controller2, controllerAI;
 	IFieldFactory fieldFactory1;
 	String newLine = System.getProperty("line.separator");
+	IFieldDAO mockFieldDAO;
 	
 	@Before
 	public void setUp() throws Exception {
+		mockFieldDAO = Mockito.mock(IFieldDAO.class);
 		fieldFactory1 = new FieldFactory();
-		controller = new FiveWinsController(fieldFactory1);
-		controller2 = new FiveWinsController(new FieldFactory());
-		controllerAI = new FiveWinsController(new FieldFactory());
+		controller = new FiveWinsController(fieldFactory1, mockFieldDAO);
+		controller2 = new FiveWinsController(new FieldFactory(), mockFieldDAO);
+		controllerAI = new FiveWinsController(new FieldFactory(), mockFieldDAO);
 	}
 
 	@Test
@@ -96,7 +99,7 @@ public class FiveWinsControllerTest {
 		IField field = new Field(1);
 		IFieldFactory mockFieldFactory = Mockito.mock(IFieldFactory.class);
 		Mockito.when(mockFieldFactory.create(Mockito.anyInt())).thenReturn(field);
-		IFiveWinsController tmpController = new FiveWinsController(mockFieldFactory);
+		IFiveWinsController tmpController = new FiveWinsController(mockFieldFactory, mockFieldDAO);
 		assertEquals(field.getGameField(), tmpController.getField());	
 	}
 	
