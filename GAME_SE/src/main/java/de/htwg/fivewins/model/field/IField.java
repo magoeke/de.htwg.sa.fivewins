@@ -35,7 +35,13 @@ public interface IField {
 	 */
 	void reset();
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String getId();
 	
 	public void setId(String id);
+	
+	public void setField(String[][] field);
 }

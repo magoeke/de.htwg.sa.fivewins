@@ -115,4 +115,9 @@ public class Field implements IField {
 	public void setId(String id){
 		this.id = id;
 	}
+
+	@Override
+	public void setField(String[][] field) {
+		this.gamefield = field;
+	}
 }
