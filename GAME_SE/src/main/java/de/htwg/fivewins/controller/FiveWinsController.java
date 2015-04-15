@@ -346,8 +346,8 @@ public class FiveWinsController extends Observable implements
 	 * handel inputed command reset, update or set value
 	 */
 	public boolean handleInputOrQuit(String line) {
-//		db.saveField(this.field);
-//		System.out.println("From DB:"+db.getFieldById("hallo"));
+		database.saveField(this.field);
+		System.out.println("From DB:"+database.getFieldById("hallo"));
 		boolean quit = false;
 		if (line.equalsIgnoreCase("q")) {
 			quit = true;

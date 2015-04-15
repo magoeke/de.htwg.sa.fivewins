@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "fivewinsfield")
+@Table(name = "gamefield")
 public class PersistentField implements Serializable{
 
 	/**
