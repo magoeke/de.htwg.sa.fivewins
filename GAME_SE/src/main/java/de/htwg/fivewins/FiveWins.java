@@ -35,6 +35,7 @@ public final class FiveWins {
 		GameFrame gui = injector.getInstance(GameFrame.class);
 		TextUI tui = injector.getInstance(TextUI.class);
 		tui.printTUI();
+		tui.printPlugins();
 
 		// continue until game ends
 		boolean continu = false;

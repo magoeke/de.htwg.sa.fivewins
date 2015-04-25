@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import de.htwg.fivewins.controller.IFiveWinsController;
+import de.htwg.fivewins.plugin.IPlugin;
 import de.htwg.util.observer.IObserver;
 
 public class GamePanel extends JPanel implements IObserver {
@@ -142,5 +143,10 @@ public class GamePanel extends JPanel implements IObserver {
 	public void update() {
 		printGui();
 		jf.displayGameOverMessages();
+	}
+
+	@Override
+	public void update(IPlugin plugin) {
+		// not needed here
 	}
 }

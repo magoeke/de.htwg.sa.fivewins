@@ -1,6 +1,9 @@
 package de.htwg.fivewins.controller;
 
+import java.util.Map;
+
 import de.htwg.fivewins.model.ai.AIAdapter;
+import de.htwg.fivewins.plugin.IPlugin;
 import de.htwg.util.observer.IObservable;
 
 /**
@@ -101,5 +104,14 @@ public interface IFiveWinsController extends IObservable {
 	 * Creates an AI.
 	 */
 	void createAI(String difficulty);
+	
+	/**
+	 * Sets number of turns.
+	 * @param turn
+	 */
+	void setTurn(int turn);
 
+	void changePluginStatus(IPlugin plugin);
+	
+	Map<String, IPlugin> generatePluginMap();
 }

@@ -1,5 +1,10 @@
 package de.htwg.fivewins.controller;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -9,6 +14,7 @@ import de.htwg.fivewins.model.field.IField;
 import de.htwg.fivewins.model.field.IFieldFactory;
 import de.htwg.fivewins.persistence.IFieldDAO;
 import de.htwg.fivewins.persistence.db4o.FieldDb4oDAO;
+import de.htwg.fivewins.plugin.IPlugin;
 import de.htwg.util.observer.Observable;
 
 /**
@@ -33,15 +39,17 @@ public class FiveWinsController extends Observable implements
 	private boolean draw = false;
 	private IFieldFactory fieldFactory;
 	private IFieldDAO database;
+	private Set<IPlugin> plugins;
 
 	/**
 	 * initialize a Controller for a Player vs. Player game
 	 */
 	@Inject
-	public FiveWinsController(IFieldFactory fieldFactory, IFieldDAO database) {
+	public FiveWinsController(IFieldFactory fieldFactory, IFieldDAO database, Set<IPlugin> plugins) {
 		this.fieldFactory = fieldFactory;
 		this.field = fieldFactory.create(FIVEWINS);
 		this.database = database;
+		this.plugins = plugins;
 		calculateNeedToWin();
 	}
 
@@ -367,6 +375,16 @@ public class FiveWinsController extends Observable implements
 				&& player2.getWhichPlayer().equals(getPlayerSign())) {
 			handlePlayerInput(player2.getCommand());
 		}
+		
+		//call Plugin
+		Iterator<IPlugin> iter = plugins.iterator();
+		while (iter.hasNext()) {
+			IPlugin plugin = iter.next();
+			if(plugin.isActive()) {
+				plugin.work();
+				notifyObservers();
+			}
+		}
 
 		return quit;
 	}
@@ -418,6 +436,29 @@ public class FiveWinsController extends Observable implements
 		// work.
 		player2 = new VerySillyAI("O", field);
 		// strategy pattern?
+	}
+
+	@Override
+	public void setTurn(int turn) {
+		this.turn = turn;
+	}
+
+	@Override
+	public void changePluginStatus(IPlugin plugin) {
+		plugin.setActive(!plugin.isActive());
+		notifyObservers(plugin);
+	}
+	
+	@Override
+	public Map<String, IPlugin> generatePluginMap() {
+		Map<String, IPlugin>mapping = new HashMap<String, IPlugin>();
+		Iterator<IPlugin> iter = plugins.iterator();
+		while (iter.hasNext()) {
+			IPlugin plugin = iter.next();
+			mapping.put(plugin.getName().toLowerCase().replaceAll(" ", ""),
+					plugin);
+		}
+		return mapping;
 	}
 
 }

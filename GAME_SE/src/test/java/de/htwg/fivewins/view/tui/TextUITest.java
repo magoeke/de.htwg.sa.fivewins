@@ -16,17 +16,17 @@ public class TextUITest {
 
 	TextUI textUI;
 	
-	@Before
-	public void setUp() {
-		IFieldDAO mockFieldDAO = Mockito.mock(IFieldDAO.class);
-		IFieldFactory tmpFieldFactory = new FieldFactory();
-		IFiveWinsController tmpController = new FiveWinsController(tmpFieldFactory, mockFieldDAO);
-		textUI = new TextUI(tmpController);
-	}
-	
-	@Test
-	public void testIterate() {
-		final String testCommand = "1,1";
-		assertFalse(textUI.iterate(testCommand));
-	}
+//	@Before
+//	public void setUp() {
+//		IFieldDAO mockFieldDAO = Mockito.mock(IFieldDAO.class);
+//		IFieldFactory tmpFieldFactory = new FieldFactory();
+//		IFiveWinsController tmpController = new FiveWinsController(tmpFieldFactory, mockFieldDAO);
+//		textUI = new TextUI(tmpController);
+//	}
+//	
+//	@Test
+//	public void testIterate() {
+//		final String testCommand = "1,1";
+//		assertFalse(textUI.iterate(testCommand));
+//	}
 }

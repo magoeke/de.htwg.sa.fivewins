@@ -1,10 +1,15 @@
 package de.htwg.fivewins.view.tui;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import com.google.inject.Inject;
 
 import de.htwg.fivewins.controller.IFiveWinsController;
+import de.htwg.fivewins.plugin.IPlugin;
 import de.htwg.util.observer.IObserver;
 
 /**
@@ -16,6 +21,8 @@ public class TextUI implements IObserver {
 
 	private static final Logger TextUIlogger = Logger
 			.getLogger("de.htwg.fivewins.tui");
+	private Set<IPlugin> plugins;
+	private Map<String, IPlugin> mapping;
 
 	/**
 	 * Constructor.
@@ -23,10 +30,14 @@ public class TextUI implements IObserver {
 	 * @param controller
 	 */
 	@Inject
-	public TextUI(IFiveWinsController controller) {
+	public TextUI(IFiveWinsController controller, Set<IPlugin> plugins) {
 		this.controller = controller;
 		controller.addObserver(this);
+		this.plugins = plugins;
+		mapping = controller.generatePluginMap();
 	}
+
+	
 
 	/*
 	 * (non-Javadoc)
@@ -41,7 +52,13 @@ public class TextUI implements IObserver {
 	 * Is used for TUI inputs.
 	 */
 	public boolean iterate(String line) {
-		return controller.handleInputOrQuit(line);
+		if (line.equals("p")) {
+			return printPlugins();
+		} else if (mapping.containsKey(line.replaceFirst("p,", ""))) {
+			return activatePlugin(line.replaceFirst("p,", ""));
+		} else {
+			return controller.handleInputOrQuit(line);
+		}
 	}
 
 	/**
@@ -52,7 +69,7 @@ public class TextUI implements IObserver {
 		TextUIlogger.info(controller.getStatus() + "\n");
 		TextUIlogger.info("\n");
 		TextUIlogger
-				.info("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)):\n");
+				.info("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)), p - show plugins, p,command - (de)activate Plugin:\n");
 
 		if (controller.getWinner()) {
 			TextUIlogger.info("The winner is " + controller.getWinnerSign()
@@ -71,6 +88,33 @@ public class TextUI implements IObserver {
 	public void reset() {
 		controller.reset();
 		update();
+	}
+
+	public boolean printPlugins() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Plugins:\n");
+		sb.append("command\t\tname\t\tactive\n");
+		for (Map.Entry<String, IPlugin> e : mapping.entrySet()) {
+			String s = e.getKey();
+			IPlugin plugin = e.getValue();
+			sb.append(s + "\t" + plugin.getName() + "\t" + plugin.isActive()
+					+ "\n");
+		}
+		TextUIlogger.info(sb.toString());
+
+		return false;
+	}
+
+	private boolean activatePlugin(String key) {
+		IPlugin plugin = mapping.get(key);
+		controller.changePluginStatus(plugin);
+		return false;
+	}
+
+
+
+	public void update(IPlugin plugin) {
+		printPlugins();
 	}
 
 }
