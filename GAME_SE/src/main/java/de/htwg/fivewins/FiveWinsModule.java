@@ -15,8 +15,10 @@ public class FiveWinsModule extends AbstractModule {
 		bind(IFiveWinsController.class).to(
 				de.htwg.fivewins.controller.FiveWinsController.class);
 //		bind(IFieldDAO.class).to(de.htwg.fivewins.persistence.db4o.FieldDb4oDAO.class);
+//		bind(IFieldDAO.class).to(
+//				de.htwg.fivewins.persistence.hibernate.FieldHibernateDAO.class);
 		bind(IFieldDAO.class).to(
-				de.htwg.fivewins.persistence.hibernate.FieldHibernateDAO.class);
+				de.htwg.fivewins.persistence.couchdb.FieldCouchdbDAO.class);
 	}
 
 }
