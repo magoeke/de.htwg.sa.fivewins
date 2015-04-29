@@ -375,12 +375,14 @@ public class FiveWinsController extends Observable implements
 		}
 		
 		//call Plugin
-		Iterator<IPlugin> iter = plugins.iterator();
-		while (iter.hasNext()) {
-			IPlugin plugin = iter.next();
-			if(plugin.isActive()) {
-				plugin.work();
-				notifyObservers();
+		if(plugins != null) {
+			Iterator<IPlugin> iter = plugins.iterator();
+			while (iter.hasNext()) {
+				IPlugin plugin = iter.next();
+				if(plugin.isActive()) {
+					plugin.work();
+					notifyObservers();
+				}
 			}
 		}
 
