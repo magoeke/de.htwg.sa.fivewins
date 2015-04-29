@@ -120,7 +120,7 @@ public class GamePanel extends JPanel implements IObserver {
 		String[][] field = controller.getField();
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field.length; j++) {
-				if (field[i][j] != "-" && buttons[j][i].isEnabled()) {
+				if ((!field[i][j].equals("-")) && buttons[j][i].isEnabled()) {
 					buttons[j][i].setText(field[i][j]);
 					buttons[j][i].setEnabled(false);
 				}

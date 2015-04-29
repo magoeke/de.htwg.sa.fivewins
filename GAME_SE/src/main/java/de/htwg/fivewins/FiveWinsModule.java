@@ -18,10 +18,7 @@ public class FiveWinsModule extends AbstractModule {
 				de.htwg.fivewins.model.field.FieldFactory.class);
 		bind(IFiveWinsController.class).to(
 				de.htwg.fivewins.controller.FiveWinsController.class);
-		// All persistence methods
-//		bind(IFieldDAO.class).to(de.htwg.fivewins.persistence.db4o.FieldDb4oDAO.class);
-//		bind(IFieldDAO.class).to(
-//				de.htwg.fivewins.persistence.hibernate.FieldHibernateDAO.class);
+		// persistence method
 		bind(IFieldDAO.class).to(
 				de.htwg.fivewins.persistence.couchdb.FieldCouchdbDAO.class);
 		//Plugin

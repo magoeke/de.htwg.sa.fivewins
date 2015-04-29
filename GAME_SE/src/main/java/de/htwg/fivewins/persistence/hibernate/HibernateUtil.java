@@ -3,7 +3,7 @@ package de.htwg.fivewins.persistence.hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
-public class HibernateUtil {
+public final class HibernateUtil {
 	private static final SessionFactory sessionFactory;
 
 	static {

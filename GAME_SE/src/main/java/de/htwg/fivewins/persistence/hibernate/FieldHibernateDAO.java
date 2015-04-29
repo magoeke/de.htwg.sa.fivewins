@@ -73,8 +73,9 @@ public class FieldHibernateDAO implements IFieldDAO{
 
 			tx.commit();
 		} catch (HibernateException ex) {
-			if (tx != null)
+			if (tx != null) {
 				tx.rollback();
+			}
 			throw new RuntimeException(ex.getMessage());
 
 		}
@@ -111,8 +112,9 @@ public class FieldHibernateDAO implements IFieldDAO{
 
 			tx.commit();
 		} catch (HibernateException ex) {
-			if (tx != null)
+			if (tx != null) {
 				tx.rollback();
+			}
 			throw new RuntimeException(ex.getMessage());
 
 		}
