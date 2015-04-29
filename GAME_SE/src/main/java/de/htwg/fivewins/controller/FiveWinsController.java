@@ -13,7 +13,6 @@ import de.htwg.fivewins.model.ai.VerySillyAI;
 import de.htwg.fivewins.model.field.IField;
 import de.htwg.fivewins.model.field.IFieldFactory;
 import de.htwg.fivewins.persistence.IFieldDAO;
-import de.htwg.fivewins.persistence.db4o.FieldDb4oDAO;
 import de.htwg.fivewins.plugin.IPlugin;
 import de.htwg.util.observer.Observable;
 
@@ -354,8 +353,7 @@ public class FiveWinsController extends Observable implements
 	 * handel inputed command reset, update or set value
 	 */
 	public boolean handleInputOrQuit(String line) {
-//		database.saveField(this.field);
-//		System.out.println("From DB:"+database.getFieldById("hallo"));
+		database.saveField(this.field);
 		boolean quit = false;
 		if (line.equalsIgnoreCase("q")) {
 			quit = true;

@@ -39,9 +39,9 @@ public interface IField {
 	 * 
 	 * @return
 	 */
-	public String getId();
+	String getId();
 	
-	public void setId(String id);
+	void setId(String id);
 	
-	public void setField(String[][] field);
+	void setField(String[][] field);
 }

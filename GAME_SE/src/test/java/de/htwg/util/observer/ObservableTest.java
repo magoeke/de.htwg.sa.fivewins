@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.htwg.fivewins.plugin.IPlugin;
+
 /*
  * @author max
  */
@@ -17,6 +19,12 @@ public class ObservableTest {
 		
 		public void update() {
 			ping=true;
+		}
+
+		@Override
+		public void update(IPlugin plugin) {
+			// TODO Auto-generated method stub
+			
 		}
 		
 	}

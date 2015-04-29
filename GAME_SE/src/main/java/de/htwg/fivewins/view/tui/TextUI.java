@@ -1,7 +1,5 @@
 package de.htwg.fivewins.view.tui;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -19,9 +17,8 @@ public class TextUI implements IObserver {
 
 	private IFiveWinsController controller;
 
-	private static final Logger TextUIlogger = Logger
+	private static final Logger TEXTUILOGGER = Logger
 			.getLogger("de.htwg.fivewins.tui");
-	private Set<IPlugin> plugins;
 	private Map<String, IPlugin> mapping;
 
 	/**
@@ -33,7 +30,6 @@ public class TextUI implements IObserver {
 	public TextUI(IFiveWinsController controller, Set<IPlugin> plugins) {
 		this.controller = controller;
 		controller.addObserver(this);
-		this.plugins = plugins;
 		mapping = controller.generatePluginMap();
 	}
 
@@ -65,19 +61,19 @@ public class TextUI implements IObserver {
 	 * print tui on the console
 	 */
 	public void printTUI() {
-		TextUIlogger.info("\n" + controller.getFieldString() + "\n");
-		TextUIlogger.info(controller.getStatus() + "\n");
-		TextUIlogger.info("\n");
-		TextUIlogger
+		TEXTUILOGGER.info("\n" + controller.getFieldString() + "\n");
+		TEXTUILOGGER.info(controller.getStatus() + "\n");
+		TEXTUILOGGER.info("\n");
+		TEXTUILOGGER
 				.info("Please enter a command( q - quit, u - update, n - new, x,y - set cell(x,y)), p - show plugins, p,command - (de)activate Plugin:\n");
 
 		if (controller.getWinner()) {
-			TextUIlogger.info("The winner is " + controller.getWinnerSign()
+			TEXTUILOGGER.info("The winner is " + controller.getWinnerSign()
 					+ "\n");
 		}
 
 		if (controller.getDraw()) {
-			TextUIlogger.info("It's a draw!");
+			TEXTUILOGGER.info("It's a draw!");
 		}
 
 	}
@@ -100,7 +96,7 @@ public class TextUI implements IObserver {
 			sb.append(s + "\t" + plugin.getName() + "\t" + plugin.isActive()
 					+ "\n");
 		}
-		TextUIlogger.info(sb.toString());
+		TEXTUILOGGER.info(sb.toString());
 
 		return false;
 	}

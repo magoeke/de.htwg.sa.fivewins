@@ -1,7 +1,5 @@
 package de.htwg.fivewins.plugin;
 
-import java.util.Observable;
-
 import com.google.inject.Inject;
 
 import de.htwg.fivewins.controller.IFiveWinsController;
@@ -15,7 +13,7 @@ public class TurnPlugin implements IPlugin {
 
 	@Inject
 	public TurnPlugin(IFiveWinsController gameController) {
-		this.gameController = gameController;;
+		this.gameController = gameController;
 	}
 
 	@Override

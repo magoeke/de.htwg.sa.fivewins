@@ -30,7 +30,6 @@ public class RandomPlugin implements IPlugin{
 	@Override
 	public void work() {
 		int randNum = rand.nextInt((RANGE_TOP - RANGE_BOTTOM) + 1) + RANGE_BOTTOM;
-		System.out.println(randNum);
 		if((randNum % PROBABILITY) == 0) {
 			int randCol =1;
 			int randRow =1;
@@ -38,8 +37,6 @@ public class RandomPlugin implements IPlugin{
 				randCol =rand.nextInt((getSize()))+1;
 				randRow =rand.nextInt((getSize()))+1;
 			}
-			System.out.println(randCol);
-			System.out.println(randRow);
 			gameController.setValue(randCol, randRow, gameController.getPlayerSign());
 			gameController.setTurn(gameController.getTurn() + 1);
 		}

@@ -1,9 +1,5 @@
 package de.htwg.fivewins.plugin;
 
-import java.util.Observer;
-
-import de.htwg.util.observer.IObserver;
-
 /**
  * Plugin get call at the end of a turn.
  *

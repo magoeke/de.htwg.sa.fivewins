@@ -24,7 +24,6 @@ public class GameMenuBar extends JMenuBar implements ActionListener, IObserver {
 	private JMenuItem restart, backToMainMenu;
 	private List<JCheckBoxMenuItem> pluginMenuItems;
 	private GameFrame gameFrame;
-	private Set<IPlugin> plugins;
 	private Map<String, IPlugin> mapping;
 	private IFiveWinsController controller;
 
@@ -44,7 +43,6 @@ public class GameMenuBar extends JMenuBar implements ActionListener, IObserver {
 		// for plugin
 		this.controller = controller;
 		mapping = controller.generatePluginMap();
-		this.plugins = plugins;
 		pluginMenuItems = new LinkedList<JCheckBoxMenuItem>();
 		JMenu menuPlugin = new JMenu("Plugin");
 		JCheckBoxMenuItem buffer;
