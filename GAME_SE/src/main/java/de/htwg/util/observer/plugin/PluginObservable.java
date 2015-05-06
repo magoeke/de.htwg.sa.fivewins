@@ -1,4 +1,4 @@
-package de.htwg.util.observer;
+package de.htwg.util.observer.plugin;
 
 import java.util.ArrayList;
 import java.util.List;

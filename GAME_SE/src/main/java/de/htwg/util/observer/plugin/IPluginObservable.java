@@ -1,4 +1,4 @@
-package de.htwg.util.observer;
+package de.htwg.util.observer.plugin;
 
 import de.htwg.fivewins.plugin.IPlugin;
 

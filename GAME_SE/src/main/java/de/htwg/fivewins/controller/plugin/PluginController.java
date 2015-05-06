@@ -9,7 +9,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 import de.htwg.fivewins.plugin.IPlugin;
-import de.htwg.util.observer.PluginObservable;
+import de.htwg.util.observer.plugin.PluginObservable;
 
 @Singleton
 public class PluginController extends PluginObservable implements IPluginController{

@@ -10,7 +10,7 @@ import de.htwg.fivewins.controller.game.IFiveWinsController;
 import de.htwg.fivewins.controller.plugin.IPluginController;
 import de.htwg.fivewins.plugin.IPlugin;
 import de.htwg.util.observer.IObserver;
-import de.htwg.util.observer.IPluginObserver;
+import de.htwg.util.observer.plugin.IPluginObserver;
 
 /**
  * TextUI implementation for FiveWins.
