@@ -3,8 +3,6 @@ package de.htwg.util.observer;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.htwg.fivewins.plugin.IPlugin;
-
 public class Observable implements IObservable{
 
 	private List<IObserver> subscribers = new ArrayList<IObserver>();
