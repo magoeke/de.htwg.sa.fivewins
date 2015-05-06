@@ -144,9 +144,4 @@ public class GamePanel extends JPanel implements IObserver {
 		printGui();
 		jf.displayGameOverMessages();
 	}
-
-	@Override
-	public void update(IPlugin plugin) {
-		// not needed here
-	}
 }

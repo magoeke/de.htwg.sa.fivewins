@@ -19,14 +19,7 @@ public class ObservableTest {
 		
 		public void update() {
 			ping=true;
-		}
-
-		@Override
-		public void update(IPlugin plugin) {
-			// TODO Auto-generated method stub
-			
-		}
-		
+		}		
 	}
 
 	@Before

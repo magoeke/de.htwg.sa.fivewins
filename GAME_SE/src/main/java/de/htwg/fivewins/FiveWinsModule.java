@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.multibindings.Multibinder;
 
 import de.htwg.fivewins.controller.IFiveWinsController;
+import de.htwg.fivewins.controller.IPluginController;
 import de.htwg.fivewins.model.field.IFieldFactory;
 import de.htwg.fivewins.persistence.IFieldDAO;
 import de.htwg.fivewins.plugin.IPlugin;
@@ -21,10 +22,14 @@ public class FiveWinsModule extends AbstractModule {
 		// persistence method
 		bind(IFieldDAO.class).to(
 				de.htwg.fivewins.persistence.couchdb.FieldCouchdbDAO.class);
-		//Plugin
-		Multibinder<IPlugin> plugins = Multibinder.newSetBinder(binder(), IPlugin.class);
+		// Plugin
+		Multibinder<IPlugin> plugins = Multibinder.newSetBinder(binder(),
+				IPlugin.class);
 		plugins.addBinding().to(RandomPlugin.class);
 		plugins.addBinding().to(TurnPlugin.class);
+		// Plugin Controller
+		bind(IPluginController.class).to(
+				de.htwg.fivewins.controller.PluginController.class);
 	}
 
 }

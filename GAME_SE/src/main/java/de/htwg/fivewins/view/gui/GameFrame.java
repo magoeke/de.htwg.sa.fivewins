@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import com.google.inject.Inject;
 
 import de.htwg.fivewins.controller.IFiveWinsController;
+import de.htwg.fivewins.controller.IPluginController;
 import de.htwg.fivewins.plugin.IPlugin;
 
 
@@ -38,12 +39,12 @@ public class GameFrame extends JFrame {
 	 * @param controller
 	 */
 	@Inject
-	public GameFrame(IFiveWinsController controller, Set<IPlugin> plugins) {
+	public GameFrame(IFiveWinsController controller, IPluginController pluginController) {
 		this.controller = controller;
 		this.setTitle("FiveWins");
 		this.setLocationRelativeTo(null);
 		this.setSize(HEIGHT, WIDTH);
-		this.setJMenuBar(new GameMenuBar(this, plugins, controller));
+		this.setJMenuBar(new GameMenuBar(this, controller, pluginController));
 
 		MainMenuPanel mainMenuPanel = new MainMenuPanel(this);
 		gamePanel = new GamePanel(1, this, controller);

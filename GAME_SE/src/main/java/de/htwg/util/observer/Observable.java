@@ -7,8 +7,7 @@ import de.htwg.fivewins.plugin.IPlugin;
 
 public class Observable implements IObservable{
 
-	public static final int TWO = 2;
-	private List<IObserver> subscribers = new ArrayList<IObserver>(TWO);
+	private List<IObserver> subscribers = new ArrayList<IObserver>();
 
 	public void addObserver(IObserver s) {
 		subscribers.add(s);
@@ -29,10 +28,4 @@ public class Observable implements IObservable{
 		}
 	}
 	
-	public void notifyObservers(IPlugin plugin) {
-		for (int i = subscribers.size() - 1; i >= 0; i--) {
-			IObserver observer = subscribers.get(i);
-			observer.update(plugin);
-		}
-	}
 }

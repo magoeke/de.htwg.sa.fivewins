@@ -24,9 +24,9 @@ public class FiveWinsControllerTest {
 	public void setUp() throws Exception {
 		mockFieldDAO = Mockito.mock(IFieldDAO.class);
 		fieldFactory1 = new FieldFactory();
-		controller = new FiveWinsController(fieldFactory1, mockFieldDAO, null);
-		controller2 = new FiveWinsController(new FieldFactory(), mockFieldDAO, null);
-		controllerAI = new FiveWinsController(new FieldFactory(), mockFieldDAO, null);
+		controller = new FiveWinsController(fieldFactory1, mockFieldDAO);
+		controller2 = new FiveWinsController(new FieldFactory(), mockFieldDAO);
+		controllerAI = new FiveWinsController(new FieldFactory(), mockFieldDAO);
 	}
 
 	@Test
@@ -97,7 +97,7 @@ public class FiveWinsControllerTest {
 		IField field = new Field(1);
 		IFieldFactory mockFieldFactory = Mockito.mock(IFieldFactory.class);
 		Mockito.when(mockFieldFactory.create(Mockito.anyInt())).thenReturn(field);
-		IFiveWinsController tmpController = new FiveWinsController(mockFieldFactory, mockFieldDAO, null);
+		IFiveWinsController tmpController = new FiveWinsController(mockFieldFactory, mockFieldDAO);
 		assertEquals(field.getGameField(), tmpController.getField());	
 	}
 	

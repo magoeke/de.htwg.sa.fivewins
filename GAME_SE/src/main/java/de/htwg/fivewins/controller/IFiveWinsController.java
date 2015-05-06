@@ -110,8 +110,4 @@ public interface IFiveWinsController extends IObservable {
 	 * @param turn
 	 */
 	void setTurn(int turn);
-
-	void changePluginStatus(IPlugin plugin);
-	
-	Map<String, IPlugin> generatePluginMap();
 }

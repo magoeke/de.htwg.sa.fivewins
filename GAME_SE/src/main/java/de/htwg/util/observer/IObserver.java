@@ -4,5 +4,4 @@ import de.htwg.fivewins.plugin.IPlugin;
 
 public interface IObserver {
 	void update();
-	void update(IPlugin plugin);
 }

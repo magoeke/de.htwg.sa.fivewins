@@ -7,15 +7,18 @@ import java.util.logging.Logger;
 import com.google.inject.Inject;
 
 import de.htwg.fivewins.controller.IFiveWinsController;
+import de.htwg.fivewins.controller.IPluginController;
 import de.htwg.fivewins.plugin.IPlugin;
 import de.htwg.util.observer.IObserver;
+import de.htwg.util.observer.IPluginObserver;
 
 /**
  * TextUI implementation for FiveWins.
  */
-public class TextUI implements IObserver {
+public class TextUI implements IObserver, IPluginObserver {
 
 	private IFiveWinsController controller;
+	private IPluginController pluginController;
 
 	private static final Logger TEXTUILOGGER = Logger
 			.getLogger("de.htwg.fivewins.tui");
@@ -27,13 +30,13 @@ public class TextUI implements IObserver {
 	 * @param controller
 	 */
 	@Inject
-	public TextUI(IFiveWinsController controller, Set<IPlugin> plugins) {
+	public TextUI(IFiveWinsController controller, Set<IPlugin> plugins, IPluginController pluginController) {
 		this.controller = controller;
+		this.pluginController = pluginController;
 		controller.addObserver(this);
-		mapping = controller.generatePluginMap();
+		pluginController.addObserver(this);
+		mapping = pluginController.getMapping();
 	}
-
-	
 
 	/*
 	 * (non-Javadoc)
@@ -103,14 +106,13 @@ public class TextUI implements IObserver {
 
 	private boolean activatePlugin(String key) {
 		IPlugin plugin = mapping.get(key);
-		controller.changePluginStatus(plugin);
+		pluginController.changePluginStatus(plugin);
 		return false;
 	}
 
-
-
-	public void update(IPlugin plugin) {
-		printPlugins();
+	@Override
+	public void updatePlugin(IPlugin plugin) {
+		printPlugins();		
 	}
 
 }

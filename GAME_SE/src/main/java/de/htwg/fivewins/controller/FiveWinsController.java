@@ -38,17 +38,15 @@ public class FiveWinsController extends Observable implements
 	private boolean draw = false;
 	private IFieldFactory fieldFactory;
 	private IFieldDAO database;
-	private Set<IPlugin> plugins;
 
 	/**
 	 * initialize a Controller for a Player vs. Player game
 	 */
 	@Inject
-	public FiveWinsController(IFieldFactory fieldFactory, IFieldDAO database, Set<IPlugin> plugins) {
+	public FiveWinsController(IFieldFactory fieldFactory, IFieldDAO database) {
 		this.fieldFactory = fieldFactory;
 		this.field = fieldFactory.create(FIVEWINS);
 		this.database = database;
-		this.plugins = plugins;
 		calculateNeedToWin();
 	}
 
@@ -375,16 +373,16 @@ public class FiveWinsController extends Observable implements
 		}
 		
 		//call Plugin
-		if(plugins != null) {
-			Iterator<IPlugin> iter = plugins.iterator();
-			while (iter.hasNext()) {
-				IPlugin plugin = iter.next();
-				if(plugin.isActive()) {
-					plugin.work();
-					notifyObservers();
-				}
-			}
-		}
+//		if(plugins != null) {
+//			Iterator<IPlugin> iter = plugins.iterator();
+//			while (iter.hasNext()) {
+//				IPlugin plugin = iter.next();
+//				if(plugin.isActive()) {
+//					plugin.work();
+//					notifyObservers();
+//				}
+//			}
+//		}
 
 		return quit;
 	}
@@ -443,22 +441,6 @@ public class FiveWinsController extends Observable implements
 		this.turn = turn;
 	}
 
-	@Override
-	public void changePluginStatus(IPlugin plugin) {
-		plugin.setActive(!plugin.isActive());
-		notifyObservers(plugin);
-	}
-	
-	@Override
-	public Map<String, IPlugin> generatePluginMap() {
-		Map<String, IPlugin>mapping = new HashMap<String, IPlugin>();
-		Iterator<IPlugin> iter = plugins.iterator();
-		while (iter.hasNext()) {
-			IPlugin plugin = iter.next();
-			mapping.put(plugin.getName().toLowerCase().replaceAll(" ", ""),
-					plugin);
-		}
-		return mapping;
-	}
+
 
 }

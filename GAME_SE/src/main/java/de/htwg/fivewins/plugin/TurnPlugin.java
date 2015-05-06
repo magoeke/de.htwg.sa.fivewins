@@ -13,6 +13,7 @@ public class TurnPlugin implements IPlugin {
 
 	@Inject
 	public TurnPlugin(IFiveWinsController gameController) {
+		gameController.addObserver(this);
 		this.gameController = gameController;
 	}
 
@@ -46,6 +47,13 @@ public class TurnPlugin implements IPlugin {
 			return "X";
 		} else {
 			return "O";
+		}
+	}
+
+	@Override
+	public void update() {
+		if(active) {
+			work();
 		}
 	}
 

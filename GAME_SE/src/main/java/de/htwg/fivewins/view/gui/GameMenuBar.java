@@ -14,10 +14,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import de.htwg.fivewins.controller.IFiveWinsController;
+import de.htwg.fivewins.controller.IPluginController;
 import de.htwg.fivewins.plugin.IPlugin;
 import de.htwg.util.observer.IObserver;
+import de.htwg.util.observer.IPluginObserver;
 
-public class GameMenuBar extends JMenuBar implements ActionListener, IObserver {
+public class GameMenuBar extends JMenuBar implements ActionListener, IPluginObserver {
 
 	private static final long serialVersionUID = 1L;
 
@@ -26,10 +28,13 @@ public class GameMenuBar extends JMenuBar implements ActionListener, IObserver {
 	private GameFrame gameFrame;
 	private Map<String, IPlugin> mapping;
 	private IFiveWinsController controller;
+	private IPluginController pluginController;
 
-	public GameMenuBar(GameFrame jf, Set<IPlugin> plugins,
-			IFiveWinsController controller) {
-		controller.addObserver(this);
+	public GameMenuBar(GameFrame jf, IFiveWinsController controller, IPluginController pluginController) {
+//		controller.addObserver(this);
+		Set<IPlugin> plugins = pluginController.getPlugins();
+		pluginController.addObserver(this);
+		this.pluginController = pluginController;
 		JMenu menu = new JMenu("Datei");
 		this.gameFrame = jf;
 		restart = new JMenuItem("Restart");
@@ -42,7 +47,7 @@ public class GameMenuBar extends JMenuBar implements ActionListener, IObserver {
 
 		// for plugin
 		this.controller = controller;
-		mapping = controller.generatePluginMap();
+		mapping = pluginController.getMapping();
 		pluginMenuItems = new LinkedList<JCheckBoxMenuItem>();
 		JMenu menuPlugin = new JMenu("Plugin");
 		JCheckBoxMenuItem buffer;
@@ -70,7 +75,7 @@ public class GameMenuBar extends JMenuBar implements ActionListener, IObserver {
 
 	private void activatePlugin(JCheckBoxMenuItem menuItem) {
 		String name = menuItem.getText().toLowerCase().replaceAll(" ", "");
-		controller.changePluginStatus(mapping.get(name));
+		pluginController.changePluginStatus(mapping.get(name));
 	}
 
 	public void reset() {
@@ -78,17 +83,12 @@ public class GameMenuBar extends JMenuBar implements ActionListener, IObserver {
 	}
 
 	@Override
-	public void update() {
-		// not needed
-	}
-
-	@Override
-	public void update(IPlugin plugin) {
+	public void updatePlugin(IPlugin plugin) {
 		for (JCheckBoxMenuItem jcbm : pluginMenuItems) {
 			if (plugin.getName().equals(jcbm.getText())) {
 				jcbm.setSelected(plugin.isActive());
 				break;
 			}
-		}
+		}		
 	}
 }
