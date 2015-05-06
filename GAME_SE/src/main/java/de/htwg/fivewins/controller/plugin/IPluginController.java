@@ -5,7 +5,6 @@ import java.util.Set;
 
 import de.htwg.fivewins.plugin.IPlugin;
 import de.htwg.util.observer.plugin.IPluginObservable;
-import de.htwg.util.observer.plugin.PluginObservable;
 
 public interface IPluginController extends IPluginObservable{
 	

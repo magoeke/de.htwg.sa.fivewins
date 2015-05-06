@@ -4,18 +4,18 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AnnotationConfiguration;
 
 public final class HibernateUtil {
-	private static final SessionFactory sessionFactory;
+	private static final SessionFactory SESSION_FACTORY;
 
 	static {
 		final AnnotationConfiguration cfg = new AnnotationConfiguration();
 		cfg.configure("/hibernate.cfg.xml");
-		sessionFactory = cfg.buildSessionFactory();
+		SESSION_FACTORY = cfg.buildSessionFactory();
 	}
 
 	private HibernateUtil() {
 	}
 
 	public static SessionFactory getInstance() {
-		return sessionFactory;
+		return SESSION_FACTORY;
 	}
 }

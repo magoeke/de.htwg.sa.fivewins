@@ -29,14 +29,14 @@ public class PluginController extends PluginObservable implements IPluginControl
 	}
 	
 	private Map<String, IPlugin> generatePluginMap(Set<IPlugin> plugins) {
-		Map<String, IPlugin>mapping = new HashMap<String, IPlugin>();
+		Map<String, IPlugin> tmpMapping = new HashMap<String, IPlugin>();
 		Iterator<IPlugin> iter = plugins.iterator();
 		while (iter.hasNext()) {
 			IPlugin plugin = iter.next();
-			mapping.put(plugin.getName().toLowerCase().replaceAll(" ", ""),
+			tmpMapping.put(plugin.getName().toLowerCase().replaceAll(" ", ""),
 					plugin);
 		}
-		return mapping;
+		return tmpMapping;
 	}
 	
 	public Map<String, IPlugin> getMapping() {

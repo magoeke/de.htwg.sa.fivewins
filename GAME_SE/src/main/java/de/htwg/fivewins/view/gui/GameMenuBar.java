@@ -13,10 +13,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import de.htwg.fivewins.controller.game.IFiveWinsController;
 import de.htwg.fivewins.controller.plugin.IPluginController;
 import de.htwg.fivewins.plugin.IPlugin;
-import de.htwg.util.observer.IObserver;
 import de.htwg.util.observer.plugin.IPluginObserver;
 
 public class GameMenuBar extends JMenuBar implements ActionListener, IPluginObserver {
@@ -27,11 +25,9 @@ public class GameMenuBar extends JMenuBar implements ActionListener, IPluginObse
 	private List<JCheckBoxMenuItem> pluginMenuItems;
 	private GameFrame gameFrame;
 	private Map<String, IPlugin> mapping;
-	private IFiveWinsController controller;
 	private IPluginController pluginController;
 
-	public GameMenuBar(GameFrame jf, IFiveWinsController controller, IPluginController pluginController) {
-//		controller.addObserver(this);
+	public GameMenuBar(GameFrame jf, IPluginController pluginController) {
 		Set<IPlugin> plugins = pluginController.getPlugins();
 		pluginController.addObserver(this);
 		this.pluginController = pluginController;
@@ -46,7 +42,6 @@ public class GameMenuBar extends JMenuBar implements ActionListener, IPluginObse
 		this.add(menu);
 
 		// for plugin
-		this.controller = controller;
 		mapping = pluginController.getMapping();
 		pluginMenuItems = new LinkedList<JCheckBoxMenuItem>();
 		JMenu menuPlugin = new JMenu("Plugin");

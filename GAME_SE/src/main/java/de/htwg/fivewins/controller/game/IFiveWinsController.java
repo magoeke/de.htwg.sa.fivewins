@@ -1,9 +1,6 @@
 package de.htwg.fivewins.controller.game;
 
-import java.util.Map;
-
 import de.htwg.fivewins.model.ai.AIAdapter;
-import de.htwg.fivewins.plugin.IPlugin;
 import de.htwg.util.observer.IObservable;
 
 /**

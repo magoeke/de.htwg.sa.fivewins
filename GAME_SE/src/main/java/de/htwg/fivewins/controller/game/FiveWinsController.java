@@ -1,10 +1,5 @@
 package de.htwg.fivewins.controller.game;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -13,7 +8,6 @@ import de.htwg.fivewins.model.ai.VerySillyAI;
 import de.htwg.fivewins.model.field.IField;
 import de.htwg.fivewins.model.field.IFieldFactory;
 import de.htwg.fivewins.persistence.IFieldDAO;
-import de.htwg.fivewins.plugin.IPlugin;
 import de.htwg.util.observer.Observable;
 
 /**
@@ -371,18 +365,6 @@ public class FiveWinsController extends Observable implements
 				&& player2.getWhichPlayer().equals(getPlayerSign())) {
 			handlePlayerInput(player2.getCommand());
 		}
-		
-		//call Plugin
-//		if(plugins != null) {
-//			Iterator<IPlugin> iter = plugins.iterator();
-//			while (iter.hasNext()) {
-//				IPlugin plugin = iter.next();
-//				if(plugin.isActive()) {
-//					plugin.work();
-//					notifyObservers();
-//				}
-//			}
-//		}
 
 		return quit;
 	}

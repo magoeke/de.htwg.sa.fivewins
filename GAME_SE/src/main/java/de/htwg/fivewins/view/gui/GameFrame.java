@@ -2,7 +2,6 @@ package de.htwg.fivewins.view.gui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -12,7 +11,6 @@ import com.google.inject.Inject;
 
 import de.htwg.fivewins.controller.game.IFiveWinsController;
 import de.htwg.fivewins.controller.plugin.IPluginController;
-import de.htwg.fivewins.plugin.IPlugin;
 
 
 public class GameFrame extends JFrame {
@@ -44,7 +42,7 @@ public class GameFrame extends JFrame {
 		this.setTitle("FiveWins");
 		this.setLocationRelativeTo(null);
 		this.setSize(HEIGHT, WIDTH);
-		this.setJMenuBar(new GameMenuBar(this, controller, pluginController));
+		this.setJMenuBar(new GameMenuBar(this, pluginController));
 
 		MainMenuPanel mainMenuPanel = new MainMenuPanel(this);
 		gamePanel = new GamePanel(1, this, controller);
