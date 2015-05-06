@@ -2,7 +2,7 @@ package de.htwg.fivewins.plugin;
 
 import com.google.inject.Inject;
 
-import de.htwg.fivewins.controller.IFiveWinsController;
+import de.htwg.fivewins.controller.game.IFiveWinsController;
 
 public class TurnPlugin implements IPlugin {
 

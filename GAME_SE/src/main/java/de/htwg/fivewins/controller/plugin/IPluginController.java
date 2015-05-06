@@ -1,4 +1,4 @@
-package de.htwg.fivewins.controller;
+package de.htwg.fivewins.controller.plugin;
 
 import java.util.Map;
 import java.util.Set;

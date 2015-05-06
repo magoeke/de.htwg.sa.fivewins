@@ -13,8 +13,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import de.htwg.fivewins.controller.IFiveWinsController;
-import de.htwg.fivewins.controller.IPluginController;
+import de.htwg.fivewins.controller.game.IFiveWinsController;
+import de.htwg.fivewins.controller.plugin.IPluginController;
 import de.htwg.fivewins.plugin.IPlugin;
 import de.htwg.util.observer.IObserver;
 import de.htwg.util.observer.IPluginObserver;

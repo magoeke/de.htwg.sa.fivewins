@@ -6,8 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import de.htwg.fivewins.controller.FiveWinsController;
-import de.htwg.fivewins.controller.IFiveWinsController;
+import de.htwg.fivewins.controller.game.FiveWinsController;
+import de.htwg.fivewins.controller.game.IFiveWinsController;
 import de.htwg.fivewins.model.field.FieldFactory;
 import de.htwg.fivewins.model.field.IFieldFactory;
 import de.htwg.fivewins.persistence.IFieldDAO;

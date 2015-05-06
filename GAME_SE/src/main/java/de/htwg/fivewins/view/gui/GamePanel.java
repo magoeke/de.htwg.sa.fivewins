@@ -11,7 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import de.htwg.fivewins.controller.IFiveWinsController;
+import de.htwg.fivewins.controller.game.IFiveWinsController;
 import de.htwg.fivewins.plugin.IPlugin;
 import de.htwg.util.observer.IObserver;
 

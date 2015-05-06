@@ -10,8 +10,8 @@ import javax.swing.JPanel;
 
 import com.google.inject.Inject;
 
-import de.htwg.fivewins.controller.IFiveWinsController;
-import de.htwg.fivewins.controller.IPluginController;
+import de.htwg.fivewins.controller.game.IFiveWinsController;
+import de.htwg.fivewins.controller.plugin.IPluginController;
 import de.htwg.fivewins.plugin.IPlugin;
 
 
