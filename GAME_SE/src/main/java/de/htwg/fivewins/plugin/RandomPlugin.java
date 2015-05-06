@@ -5,7 +5,6 @@ import java.util.Random;
 import com.google.inject.Inject;
 
 import de.htwg.fivewins.controller.game.IFiveWinsController;
-import de.htwg.fivewins.controller.plugin.IPluginController;
 
 public class RandomPlugin implements IPlugin{
 
@@ -14,14 +13,12 @@ public class RandomPlugin implements IPlugin{
 	private static final int PROBABILITY = 2;
 	
 	private IFiveWinsController gameController;
-	private IPluginController pluginController;
 	private Random rand;
 	private boolean active;
 	
 	@Inject
-	public RandomPlugin(IFiveWinsController gameController, IPluginController pluginController) {
+	public RandomPlugin(IFiveWinsController gameController) {
 		this.gameController = gameController;
-		this.pluginController = pluginController;
 		gameController.addObserver(this);
 		this.rand = new Random();
 	}
