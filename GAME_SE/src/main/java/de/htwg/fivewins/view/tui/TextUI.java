@@ -30,7 +30,7 @@ public class TextUI implements IObserver, IPluginObserver {
 	 * @param controller
 	 */
 	@Inject
-	public TextUI(IFiveWinsController controller, Set<IPlugin> plugins, IPluginController pluginController) {
+	public TextUI(IFiveWinsController controller, IPluginController pluginController) {
 		this.controller = controller;
 		this.pluginController = pluginController;
 		controller.addObserver(this);
