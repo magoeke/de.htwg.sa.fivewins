@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import de.htwg.fivewins.model.ai.VerySillyAI;
 import de.htwg.fivewins.model.field.Field;
+import de.htwg.fivewins.model.field.IField;
 
 /*
  * @author max
@@ -41,6 +42,25 @@ public class VerySillyAITest {
 	@Test
 	public void testGetCommand() {
 		assertEquals("1,1", vs1.getCommand());
+	}
+	
+	// Tests for AIAdapter
+	@Test
+	public void testUpdateField() {
+		IField field = new Field(3);
+		vs1.updateField(field);
+		assertEquals(field, vs1.getField());
+	}
+	
+	@Test
+	public void testSetOpponent() {
+		// First opponent
+		vs1.setOpponent("X");
+		assertEquals("O", vs1.getOpponent());
+		
+		// Second opponent
+		vs1.setOpponent("O");
+		assertEquals("X", vs1.getOpponent());
 	}
 
 	

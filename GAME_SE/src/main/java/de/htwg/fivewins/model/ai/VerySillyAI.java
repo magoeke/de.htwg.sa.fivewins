@@ -47,5 +47,18 @@ public class VerySillyAI extends AIAdapter {
 		// Number,Number is expected
 		return column + "," + row;
 	}
+	
+	/**
+	 * Only for test purposes
+	 */
+	public IField getField() {
+		return field;
+	}
 
+	/**
+	 * Only for test purposes
+	 */
+	public String getOpponent() {
+		return opponent;
+	}
 }
