@@ -1,6 +1,9 @@
 package de.htwg.fivewins.controller.game;
 
+import java.util.List;
+
 import de.htwg.fivewins.model.ai.AIAdapter;
+import de.htwg.fivewins.model.field.IField;
 import de.htwg.util.observer.IObservable;
 
 /**
@@ -107,4 +110,15 @@ public interface IFiveWinsController extends IObservable {
 	 * @param turn
 	 */
 	void setTurn(int turn);
+	
+	/**
+	 * Sets field.
+	 * @param field
+	 */
+	void setField(IField field);
+
+	/**
+	 * get all saved games
+	 */
+    List<IField> getAllFields();
 }

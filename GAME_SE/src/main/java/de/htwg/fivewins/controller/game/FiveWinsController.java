@@ -1,5 +1,7 @@
 package de.htwg.fivewins.controller.game;
 
+import java.util.List;
+
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -421,6 +423,17 @@ public class FiveWinsController extends Observable implements
 	@Override
 	public void setTurn(int turn) {
 		this.turn = turn;
+	}
+
+	@Override
+	public void setField(IField field) {
+		this.field = field;
+		notifyObservers();
+	}
+
+	@Override
+	public List<IField> getAllFields() {
+		return database.getAllFields();
 	}
 
 

@@ -2,6 +2,7 @@ package de.htwg.fivewins.view.gui;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -11,6 +12,7 @@ import com.google.inject.Inject;
 
 import de.htwg.fivewins.controller.game.IFiveWinsController;
 import de.htwg.fivewins.controller.plugin.IPluginController;
+import de.htwg.fivewins.model.field.IField;
 
 
 public class GameFrame extends JFrame {
@@ -63,11 +65,17 @@ public class GameFrame extends JFrame {
 	 * 
 	 * @param fieldsize
 	 */
-	public void startGamePlayer(int fieldsize) {
+	public void startGamePlayer(int fieldsize, IField savedField) {
 		gamePanel.setPlayer("X");
+		
 		if (fieldsize > BOTTOMBORDER && fieldsize <= TOPBORDER) {
-			resizeGameField(fieldsize);
-			controller.resizeGameField(fieldsize);
+			if(savedField != null) {
+				resizeGameField(savedField.getSize());
+				controller.setField(savedField);
+			} else {
+				resizeGameField(fieldsize);
+				controller.resizeGameField(fieldsize);
+			}
 			CardLayout c1 = (CardLayout) (mainPanel.getLayout());
 			c1.show(mainPanel, GAMEPANEL);
 		}
@@ -79,13 +87,18 @@ public class GameFrame extends JFrame {
 	 * @param fieldsize
 	 * @param levelOfDifficulty
 	 */
-	public void startGameNPC(int fieldsize, String levelOfDifficulty) {
+	public void startGameNPC(int fieldsize, String levelOfDifficulty, IField savedField) {
 		gamePanel.setPlayer("X");
 		controller.createAI(levelOfDifficulty);
 
 		if (fieldsize > BOTTOMBORDER && fieldsize <= TOPBORDER) {
-			resizeGameField(fieldsize);
-			controller.resizeGameField(fieldsize);
+			if(savedField != null) {
+				resizeGameField(savedField.getSize());
+				controller.setField(savedField);
+			} else {
+				resizeGameField(fieldsize);
+				controller.resizeGameField(fieldsize);
+			}
 			CardLayout c1 = (CardLayout) (mainPanel.getLayout());
 			c1.show(mainPanel, GAMEPANEL);
 		}
@@ -166,6 +179,10 @@ public class GameFrame extends JFrame {
 
 	public String[][] getGamefield() {
 		return controller.getField();
+	}
+	
+	public List<IField> getAllFields() {
+		return controller.getAllFields();
 	}
 
 }
