@@ -44,7 +44,7 @@ public class GameFrame extends JFrame {
 		this.setTitle("FiveWins");
 		this.setLocationRelativeTo(null);
 		this.setSize(HEIGHT, WIDTH);
-		this.setJMenuBar(new GameMenuBar(this, pluginController));
+		this.setJMenuBar(new GameMenuBar(this, controller, pluginController));
 
 		MainMenuPanel mainMenuPanel = new MainMenuPanel(this);
 		gamePanel = new GamePanel(1, this, controller);
@@ -69,11 +69,10 @@ public class GameFrame extends JFrame {
 		gamePanel.setPlayer("X");
 		
 		if (fieldsize > BOTTOMBORDER && fieldsize <= TOPBORDER) {
+			resizeGameField(fieldsize);
 			if(savedField != null) {
-				resizeGameField(savedField.getSize());
 				controller.setField(savedField);
 			} else {
-				resizeGameField(fieldsize);
 				controller.resizeGameField(fieldsize);
 			}
 			CardLayout c1 = (CardLayout) (mainPanel.getLayout());
@@ -92,11 +91,10 @@ public class GameFrame extends JFrame {
 		controller.createAI(levelOfDifficulty);
 
 		if (fieldsize > BOTTOMBORDER && fieldsize <= TOPBORDER) {
+			resizeGameField(fieldsize);
 			if(savedField != null) {
-				resizeGameField(savedField.getSize());
 				controller.setField(savedField);
 			} else {
-				resizeGameField(fieldsize);
 				controller.resizeGameField(fieldsize);
 			}
 			CardLayout c1 = (CardLayout) (mainPanel.getLayout());

@@ -1,5 +1,7 @@
 package de.htwg.fivewins.model.field;
 
+import java.util.UUID;
+
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
@@ -26,7 +28,9 @@ public class Field implements IField {
 		}
 
 		this.size = size;
-		this.id = "hallo";
+		// generate random id
+		UUID uuid = UUID.randomUUID();
+		this.id = uuid.toString();
 		gamefield = new String[size][size];
 
 		/*

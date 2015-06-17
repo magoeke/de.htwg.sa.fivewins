@@ -94,7 +94,7 @@ public class MainMenuPanel extends JPanel {
 		//TODO: only if needed
 		IField selectedGame = getSelectedGame();
 		if(selectedGame != null) {
-			return 5;
+			return selectedGame.getSize();
 		}
 		String inputValue = JOptionPane
 				.showInputDialog("Please input the field size you wante(Between 1-20)");

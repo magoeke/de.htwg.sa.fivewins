@@ -12,7 +12,9 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
+import de.htwg.fivewins.controller.game.IFiveWinsController;
 import de.htwg.fivewins.controller.plugin.IPluginController;
 import de.htwg.fivewins.plugin.IPlugin;
 import de.htwg.util.observer.plugin.IPluginObserver;
@@ -21,24 +23,29 @@ public class GameMenuBar extends JMenuBar implements ActionListener, IPluginObse
 
 	private static final long serialVersionUID = 1L;
 
-	private JMenuItem restart, backToMainMenu;
+	private JMenuItem restart, backToMainMenu, deleteAllGames;
 	private List<JCheckBoxMenuItem> pluginMenuItems;
 	private GameFrame gameFrame;
 	private Map<String, IPlugin> mapping;
 	private IPluginController pluginController;
-
-	public GameMenuBar(GameFrame jf, IPluginController pluginController) {
+	private IFiveWinsController controller;
+	
+	public GameMenuBar(GameFrame jf, IFiveWinsController controller, IPluginController pluginController) {
+		this.controller = controller;
 		Set<IPlugin> plugins = pluginController.getPlugins();
 		pluginController.addObserver(this);
 		this.pluginController = pluginController;
-		JMenu menu = new JMenu("Datei");
+		JMenu menu = new JMenu("Data");
 		this.gameFrame = jf;
 		restart = new JMenuItem("Restart");
 		restart.addActionListener(this);
 		backToMainMenu = new JMenuItem("Back to main menu");
 		backToMainMenu.addActionListener(this);
+		deleteAllGames = new JMenuItem("Delete all saved games");
+		deleteAllGames.addActionListener(this);
 		menu.add(restart);
 		menu.add(backToMainMenu);
+		menu.add(deleteAllGames);
 		this.add(menu);
 
 		// for plugin
@@ -65,6 +72,9 @@ public class GameMenuBar extends JMenuBar implements ActionListener, IPluginObse
 			gameFrame.backToMainMenu();
 		} else if (pluginMenuItems.contains(e.getSource())) {
 			activatePlugin((JCheckBoxMenuItem) e.getSource());
+		} else if(e.getSource() == deleteAllGames) {
+			// it would be useful if their would be a dialog to ask for permission
+			controller.deleteAllGames();
 		}
 	}
 
@@ -86,4 +96,6 @@ public class GameMenuBar extends JMenuBar implements ActionListener, IPluginObse
 			}
 		}		
 	}
+	
+	
 }

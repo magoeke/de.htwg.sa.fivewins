@@ -436,6 +436,14 @@ public class FiveWinsController extends Observable implements
 		return database.getAllFields();
 	}
 
+	@Override
+	public void deleteAllGames() {
+		List<IField> savedGames = database.getAllFields();
+		for(IField savedGame : savedGames) {
+			database.deleteFieldById(savedGame.getId());
+		}
+	}
+
 
 
 }
