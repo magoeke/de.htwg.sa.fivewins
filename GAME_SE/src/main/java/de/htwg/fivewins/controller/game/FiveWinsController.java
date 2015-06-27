@@ -2,6 +2,15 @@ package de.htwg.fivewins.controller.game;
 
 import java.util.List;
 
+import scala.concurrent.Await;
+import scala.concurrent.Future;
+import scala.concurrent.duration.Duration;
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+import akka.actor.Props;
+import akka.pattern.Patterns;
+import akka.util.Timeout;
+
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -168,7 +177,45 @@ public class FiveWinsController extends Observable implements
 	 * for better understanding look at the picture in the readme
 	 */
 	public String winRequest() {
-		int horizontal = winRequestHorizontal(lastx, lasty, 0, getPlayerSign(),
+		
+		int diagonal = 0;
+		int horizontal = 0;
+		int vertical = 0;
+		int diagonalReflected = 0;
+		
+		ActorSystem system = ActorSystem.create("MySystem");
+		ActorRef diagonalWorker = system.actorOf(Props.create(Diagonal.class), "diagonalWorker");
+		ActorRef horizontalWorker = system.actorOf(Props.create(Horizontal.class), "horizontalWorker");
+		ActorRef verticalWorker = system.actorOf(Props.create(Vertical.class), "verticalWorker");
+		ActorRef diagonalReflectedWorker = system.actorOf(Props.create(DiagonalReflected.class), "diagonalReflectedWorker");
+
+		Timeout timeout = new Timeout(Duration.create(5, "seconds"));
+		Future<Object> future1 = Patterns.ask(diagonalWorker, new Work(lastx, lasty, 0, getPlayerSign(),
+				true, field), timeout);
+		Future<Object> future2 = Patterns.ask(horizontalWorker, new Work(lastx, lasty, 0, getPlayerSign(),
+				true, field), timeout);
+		Future<Object> future3 = Patterns.ask(verticalWorker, new Work(lastx, lasty, 0, getPlayerSign(),
+				true, field), timeout);
+		Future<Object> future4 = Patterns.ask(diagonalReflectedWorker, new Work(lastx, lasty, 0, getPlayerSign(),
+				true, field), timeout);
+		
+
+		
+		try {
+			Result res1 = (Result) Await.result(future1, timeout.duration());
+			Result res2 = (Result) Await.result(future2, timeout.duration());
+			Result res3 = (Result) Await.result(future3, timeout.duration());
+			Result res4 = (Result) Await.result(future4, timeout.duration());
+
+			diagonal = res1.getResult();
+			horizontal = res2.getResult();
+			vertical = res3.getResult();
+			diagonalReflected = res4.getResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		/*int horizontal = winRequestHorizontal(lastx, lasty, 0, getPlayerSign(),
 				true)
 				+ winRequestHorizontal(lastx, lasty, 0, getPlayerSign(), false)
 				+ 1;
@@ -180,10 +227,11 @@ public class FiveWinsController extends Observable implements
 				true)
 				+ winRequestDiagonal(lastx, lasty, 0, getPlayerSign(), false)
 				+ 1;
+		
 		int diagonalReflected = winRequestDiagonalReflected(lastx, lasty, 0,
 				getPlayerSign(), true)
 				+ winRequestDiagonalReflected(lastx, lasty, 0, getPlayerSign(),
-						false) + 1;
+						false) + 1;*/
 
 		if (vertical >= needToWin || horizontal >= needToWin
 				|| diagonal >= needToWin || diagonalReflected >= needToWin) {
@@ -199,95 +247,7 @@ public class FiveWinsController extends Observable implements
 		return "";
 	}
 
-	/*
-	 * test the horizontal win request if operator true use minus
-	 */
-	private int winRequestHorizontal(int value, int fixValue, int n,
-			String currentPlayer, boolean operator) {
-		int result = 0;
-		if (value < 0 || value >= field.getSize()
-				|| !field.getCellValue(value, fixValue).equals(currentPlayer)) {
-			return n - 1;
-		}
 
-		if (operator) {
-			result = winRequestHorizontal(value - 1, fixValue, n + 1,
-					currentPlayer, operator);
-		} else {
-			result = winRequestHorizontal(value + 1, fixValue, n + 1,
-					currentPlayer, operator);
-		}
-		return result;
-	}
-
-	/*
-	 * test the vertical win request if operator true use minus
-	 */
-	private int winRequestVertical(int fixValue, int value, int n,
-			String currentPlayer, boolean operator) {
-		int result = 0;
-		if (value < 0 || value >= field.getSize()
-				|| !field.getCellValue(fixValue, value).equals(currentPlayer)) {
-			return n - 1;
-		}
-
-		if (operator) {
-			result = winRequestVertical(fixValue, value - 1, n + 1,
-					currentPlayer, operator);
-		} else {
-			result = winRequestVertical(fixValue, value + 1, n + 1,
-					currentPlayer, operator);
-		}
-		return result;
-	}
-
-	/*
-	 * test the diagonal win request if operator true use double minus (- -)
-	 */
-	private int winRequestDiagonal(int value1, int value2, int n,
-			String currentPlayer, boolean operator) {
-		int result = 0;
-		if (value1 < 0 || value1 >= field.getSize() || value2 < 0
-				|| value2 >= field.getSize()) {
-			return n - 1;
-		}
-		if (!field.getCellValue(value1, value2).equals(currentPlayer)) {
-			return n - 1;
-		}
-
-		if (operator) {
-			result = winRequestDiagonal(value1 - 1, value2 - 1, n + 1,
-					currentPlayer, operator);
-		} else {
-			result = winRequestDiagonal(value1 + 1, value2 + 1, n + 1,
-					currentPlayer, operator);
-		}
-		return result;
-	}
-
-	/*
-	 * test the other diagonal win request if operator true use plus minus (+ -)
-	 */
-	private int winRequestDiagonalReflected(int value1, int value2, int n,
-			String currentPlayer, boolean operator) {
-		int result = 0;
-		if (value1 < 0 || value1 >= field.getSize() || value2 < 0
-				|| value2 >= field.getSize()) {
-			return n - 1;
-		}
-		if (!field.getCellValue(value1, value2).equals(currentPlayer)) {
-			return n - 1;
-		}
-
-		if (operator) {
-			result = winRequestDiagonalReflected(value1 + 1, value2 - 1, n + 1,
-					currentPlayer, operator);
-		} else {
-			result = winRequestDiagonalReflected(value1 - 1, value2 + 1, n + 1,
-					currentPlayer, operator);
-		}
-		return result;
-	}
 
 	/*
 	 * Checks if game is a draw.
