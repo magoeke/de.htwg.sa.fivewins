@@ -22,7 +22,7 @@ public class GameMenuBar extends JMenuBar implements ActionListener, IPluginObse
 
 	private static final long serialVersionUID = 1L;
 
-	private JMenuItem restart, backToMainMenu, deleteAllGames;
+	private JMenuItem restart, backToMainMenu, deleteAllGames, saveGame;
 	private List<JCheckBoxMenuItem> pluginMenuItems;
 	private GameFrame gameFrame;
 	private Map<String, IPlugin> mapping;
@@ -40,11 +40,14 @@ public class GameMenuBar extends JMenuBar implements ActionListener, IPluginObse
 		restart.addActionListener(this);
 		backToMainMenu = new JMenuItem("Back to main menu");
 		backToMainMenu.addActionListener(this);
+		saveGame = new JMenuItem("Save this game");
+		saveGame.addActionListener(this);
 		deleteAllGames = new JMenuItem("Delete all saved games");
 		deleteAllGames.addActionListener(this);
 		menu.add(restart);
 		menu.add(backToMainMenu);
 		menu.add(deleteAllGames);
+		menu.add(saveGame);
 		this.add(menu);
 
 		// for plugin
@@ -74,6 +77,8 @@ public class GameMenuBar extends JMenuBar implements ActionListener, IPluginObse
 		} else if(e.getSource() == deleteAllGames) {
 			// it would be useful if their would be a dialog to ask for permission
 			controller.deleteAllGames();
+		} else if(e.getSource() == saveGame) {
+			controller.saveGame();
 		}
 	}
 

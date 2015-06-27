@@ -126,4 +126,9 @@ public interface IFiveWinsController extends IObservable {
      * Deletes every saved game.
      */
     void deleteAllGames();
+    
+    /**
+     * Saves current game.
+     */
+    void saveGame();
 }

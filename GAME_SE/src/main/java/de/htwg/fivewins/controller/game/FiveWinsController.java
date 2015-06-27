@@ -354,7 +354,6 @@ public class FiveWinsController extends Observable implements
 	 * handel inputed command reset, update or set value
 	 */
 	public boolean handleInputOrQuit(String line) {
-		database.saveField(this.field);
 		boolean quit = false;
 		if (line.equalsIgnoreCase("q")) {
 			quit = true;
@@ -466,7 +465,14 @@ public class FiveWinsController extends Observable implements
 			database.deleteFieldById(savedGame.getId());
 		}
 	}
-
-
+	
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.game.IFiveWinsController#saveGame()
+	 */
+	@Override
+	public void saveGame() {
+		database.saveField(field);
+	}
 
 }
