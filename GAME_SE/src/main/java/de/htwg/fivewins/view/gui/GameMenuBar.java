@@ -78,20 +78,20 @@ public class GameMenuBar extends JMenuBar implements ActionListener,
 		} else if (pluginMenuItems.contains(e.getSource())) {
 			activatePlugin((JCheckBoxMenuItem) e.getSource());
 		} else if (e.getSource() == deleteAllGames) {
-
-			int selection = JOptionPane.showConfirmDialog(null,
-					"all saved games will be deleted!",
-					"Delete games?",
-					JOptionPane.OK_CANCEL_OPTION,
-					JOptionPane.INFORMATION_MESSAGE);
-			if (selection == JOptionPane.OK_OPTION) {
+			if (showDeleteConfirmationDialog() == JOptionPane.OK_OPTION) {
 				controller.deleteAllGames();
-
 			}
-
 		} else if (e.getSource() == saveGame) {
 			controller.saveGame();
 		}
+	}
+	
+	private int showDeleteConfirmationDialog() {
+		return JOptionPane.showConfirmDialog(null,
+				"all saved games will be deleted!",
+				"Delete games?",
+				JOptionPane.OK_CANCEL_OPTION,
+				JOptionPane.INFORMATION_MESSAGE);
 	}
 
 	private void activatePlugin(JCheckBoxMenuItem menuItem) {
