@@ -52,13 +52,13 @@ public class VerySillyAI extends AIAdapter {
 	 * Only for test purposes
 	 */
 	public IField getField() {
-		return getField();
+		return getParentField();
 	}
 
 	/**
 	 * Only for test purposes
 	 */
 	public String getOpponent() {
-		return getOpponent();
+		return getParentOpponent();
 	}
 }

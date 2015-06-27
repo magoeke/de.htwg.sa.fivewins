@@ -57,7 +57,7 @@ public abstract class AIAdapter {
 		}
 	}
 	
-	protected String getOpponent() {
+	protected String getParentOpponent() {
 		return opponent;
 	}
 	
