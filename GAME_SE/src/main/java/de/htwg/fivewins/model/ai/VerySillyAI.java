@@ -22,8 +22,8 @@ public class VerySillyAI extends AIAdapter {
 	 */
 	public VerySillyAI(String sign, IField field) {
 		if ("X".equals(sign) || "O".equals(sign)) {
-			this.whichPlayer = sign;
-			this.field = field;
+			setWhichPlayer(sign);
+			setField(field);
 		} else {
 			throw new IllegalArgumentException();
 		}
@@ -39,8 +39,8 @@ public class VerySillyAI extends AIAdapter {
 		int row = 0;
 
 		while (!quit) {
-			column = randomNumber.nextInt(field.getSize()) + 1;
-			row = randomNumber.nextInt(field.getSize()) + 1;
+			column = randomNumber.nextInt(getField().getSize()) + 1;
+			row = randomNumber.nextInt(getField().getSize()) + 1;
 			quit = isFree(column, row);
 		}
 
@@ -52,13 +52,13 @@ public class VerySillyAI extends AIAdapter {
 	 * Only for test purposes
 	 */
 	public IField getField() {
-		return field;
+		return getField();
 	}
 
 	/**
 	 * Only for test purposes
 	 */
 	public String getOpponent() {
-		return opponent;
+		return getOpponent();
 	}
 }

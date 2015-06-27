@@ -8,10 +8,10 @@ import de.htwg.fivewins.model.field.IField;
  * only the algorithm should be different
  */
 public abstract class AIAdapter {
-	protected String opponent;
-	protected String whichPlayer;
-	protected IField field;
-
+	private String opponent;
+	private String whichPlayer;
+	private IField field;
+	
 	/*
 	 * @return the play sign of the ai
 	 */
@@ -55,6 +55,22 @@ public abstract class AIAdapter {
 		} else {
 			opponent = "X";
 		}
+	}
+	
+	protected String getOpponent() {
+		return opponent;
+	}
+	
+	protected void setWhichPlayer(String whichPlayer) {
+		this.whichPlayer = whichPlayer;
+	}
+	
+	protected IField getField() {
+		return field;
+	}
+	
+	protected void setField(IField field) {
+		this.field =  field;
 	}
 	
 }
