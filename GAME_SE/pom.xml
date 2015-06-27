@@ -15,7 +15,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-				    <fork>true</fork>
+					<fork>true</fork>
 					<source>1.7</source>
 					<target>1.7</target>
 				</configuration>
@@ -112,6 +112,12 @@
 			<artifactId>org.ektorp</artifactId>
 			<version>1.2.2</version>
 		</dependency>
+		<!-- akka -->
+		<dependency>
+			<groupId>com.typesafe.akka</groupId>
+			<artifactId>akka-actor_2.11</artifactId>
+			<version>2.4-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<!-- Additional Remote Repositories -->
@@ -119,6 +125,13 @@
 		<repository>
 			<id>sonatype-forge</id>
 			<url>https://repository.sonatype.org/content/groups/forge/</url>
+		</repository>
+		<repository>
+			<id>akka-snapshots</id>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<url>http://repo.akka.io/snapshots/</url>
 		</repository>
 	</repositories>
 
