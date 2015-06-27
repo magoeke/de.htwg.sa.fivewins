@@ -207,10 +207,10 @@ public class FiveWinsController extends Observable implements
 			Result res3 = (Result) Await.result(future3, timeout.duration());
 			Result res4 = (Result) Await.result(future4, timeout.duration());
 
-			diagonal = res1.getResult();
-			horizontal = res2.getResult();
-			vertical = res3.getResult();
-			diagonalReflected = res4.getResult();
+			diagonal = res1.getResult() + 1;
+			horizontal = res2.getResult() + 1;
+			vertical = res3.getResult() + 1;
+			diagonalReflected = res4.getResult() + 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
