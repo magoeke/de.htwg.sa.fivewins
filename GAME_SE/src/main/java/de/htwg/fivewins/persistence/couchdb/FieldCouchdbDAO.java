@@ -43,6 +43,9 @@ public class FieldCouchdbDAO implements IFieldDAO{
 		db.createDatabaseIfNotExists();
 	}
 	
+	/*
+	 * Converts a PersistentField to a IField.
+	 */
 	private IField copyField(PersistentField pfield) {
 		if(pfield == null) {
 			return null;
@@ -59,6 +62,9 @@ public class FieldCouchdbDAO implements IFieldDAO{
 		return field;
 	}
 	
+	/*
+	 * Converts a IField to a PersistentField.
+	 */
 	private PersistentField copyField(IField field) {
 		if(field == null) {
 			return null;
@@ -82,7 +88,10 @@ public class FieldCouchdbDAO implements IFieldDAO{
 		return pfield;
 	}
 
-	
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.persistence.IFieldDAO#saveField(de.htwg.fivewins.model.field.IField)
+	 */
 	@Override
 	public void saveField(IField field) {
 		if (containsFieldById(field.getId())) {
@@ -92,6 +101,10 @@ public class FieldCouchdbDAO implements IFieldDAO{
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.persistence.IFieldDAO#containsFieldById(java.lang.String)
+	 */
 	@Override
 	public boolean containsFieldById(String id) {
 		if (getFieldById(id) == null) {
@@ -100,6 +113,10 @@ public class FieldCouchdbDAO implements IFieldDAO{
 		return true;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.persistence.IFieldDAO#getFieldById(java.lang.String)
+	 */
 	@Override
 	public IField getFieldById(String id) {
 		PersistentField pfield = db.find(PersistentField.class, id);
@@ -109,11 +126,19 @@ public class FieldCouchdbDAO implements IFieldDAO{
 		return copyField(pfield);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.persistence.IFieldDAO#deleteFieldById(java.lang.String)
+	 */
 	@Override
 	public void deleteFieldById(String id) {
 		db.delete(copyField(getFieldById(id)));
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.persistence.IFieldDAO#getAllFields()
+	 */
 	@Override
 	public List<IField> getAllFields() {
 		ViewQuery query = new ViewQuery().allDocs().includeDocs(true);

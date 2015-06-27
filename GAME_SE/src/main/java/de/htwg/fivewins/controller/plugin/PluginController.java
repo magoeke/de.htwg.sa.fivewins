@@ -23,11 +23,19 @@ public class PluginController extends PluginObservable implements IPluginControl
 		this.plugins = plugins;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.plugin.IPluginController#changePluginStatus(de.htwg.fivewins.plugin.IPlugin)
+	 */
+	@Override
 	public void changePluginStatus(IPlugin plugin) {
 		plugin.setActive(!plugin.isActive());
 		notifyObservers(plugin);
 	}
 	
+	/*
+	 * Creates a Map with the plugins.
+	 */
 	private Map<String, IPlugin> generatePluginMap(Set<IPlugin> plugins) {
 		Map<String, IPlugin> tmpMapping = new HashMap<String, IPlugin>();
 		Iterator<IPlugin> iter = plugins.iterator();
@@ -39,10 +47,19 @@ public class PluginController extends PluginObservable implements IPluginControl
 		return tmpMapping;
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.plugin.IPluginController#getMapping()
+	 */
+	@Override
 	public Map<String, IPlugin> getMapping() {
 		return mapping;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.plugin.IPluginController#getPlugins()
+	 */
 	@Override
 	public Set<IPlugin> getPlugins() {
 		return plugins;

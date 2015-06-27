@@ -7,6 +7,7 @@ public class FieldFactory implements IFieldFactory {
 	 * 
 	 * @see de.htwg.fivewins.model.field.IFieldFactory#create(int)
 	 */
+	@Override
 	public IField create(int fieldsize) {
 		return new Field(fieldsize);
 	}

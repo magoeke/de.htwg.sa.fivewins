@@ -13,7 +13,7 @@ import de.htwg.fivewins.persistence.IFieldDAO;
 import de.htwg.util.observer.Observable;
 
 /**
- * 
+ * This class is the game controller. e.g. which players turn
  */
 @Singleton
 public class FiveWinsController extends Observable implements
@@ -59,6 +59,10 @@ public class FiveWinsController extends Observable implements
 		needToWin = FIVEWINS;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.game.IFiveWinsController#setValue(int, int, java.lang.String)
+	 */
 	public boolean setValue(int column, int row, String value) {
 		// input must be right
 		// calculate array position from user input
@@ -285,6 +289,9 @@ public class FiveWinsController extends Observable implements
 		return result;
 	}
 
+	/*
+	 * Checks if game is a draw.
+	 */
 	private boolean isItADraw() {
 		boolean returnValue = true;
 		for (int i = 0; i < field.getSize(); i++) {
@@ -420,22 +427,38 @@ public class FiveWinsController extends Observable implements
 		// strategy pattern?
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.game.IFiveWinsController#setTurn(int)
+	 */
 	@Override
 	public void setTurn(int turn) {
 		this.turn = turn;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.game.IFiveWinsController#setField(de.htwg.fivewins.model.field.IField)
+	 */
 	@Override
 	public void setField(IField field) {
 		this.field = field;
 		notifyObservers();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.game.IFiveWinsController#getAllFields()
+	 */
 	@Override
 	public List<IField> getAllFields() {
 		return database.getAllFields();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.controller.game.IFiveWinsController#deleteAllGames()
+	 */
 	@Override
 	public void deleteAllGames() {
 		List<IField> savedGames = database.getAllFields();

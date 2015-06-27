@@ -36,6 +36,7 @@ public class PersistentField extends CouchDbDocument{
 		this.size = size;
 	}
 	
+
 	public void setField(String field) {
 		this.field = field;
 	}

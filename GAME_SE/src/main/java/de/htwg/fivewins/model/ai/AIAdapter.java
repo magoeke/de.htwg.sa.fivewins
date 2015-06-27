@@ -32,6 +32,10 @@ public abstract class AIAdapter {
 	 */
 	abstract String calculateCommand();
 
+	/**
+	 * Updates IField.
+	 * @param field
+	 */
 	public void updateField(IField field) {
 		this.field = field;
 	}
@@ -49,6 +53,9 @@ public abstract class AIAdapter {
 		return returnValue;
 	}
 	
+	/*
+	 * is needed to avoid protected variables
+	 */
 	protected void setOpponent(String playerSign) {
 		if("X".equals(playerSign)) {
 			opponent = "O";
@@ -57,18 +64,30 @@ public abstract class AIAdapter {
 		}
 	}
 	
+	/*
+	 * is needed to avoid protected variables
+	 */
 	protected String getParentOpponent() {
 		return opponent;
 	}
 	
+	/*
+	 * is needed to avoid protected variables
+	 */
 	protected void setWhichPlayer(String whichPlayer) {
 		this.whichPlayer = whichPlayer;
 	}
 	
+	/*
+	 * is needed to avoid protected variables
+	 */
 	protected IField getParentField() {
 		return field;
 	}
 	
+	/*
+	 * is needed to avoid protected variables
+	 */
 	protected void setParentField(IField field) {
 		this.field =  field;
 	}

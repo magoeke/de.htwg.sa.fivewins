@@ -13,17 +13,28 @@ public class FieldDb4oDAO implements IFieldDAO {
 	
 	private ObjectContainer db;
 	
+	/**
+	 * Constructor.
+	 */
 	public  FieldDb4oDAO() {
 		this.db = Db4oEmbedded.openFile(Db4oEmbedded.newConfiguration(),
 				"field.data");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.persistence.IFieldDAO#saveField(de.htwg.fivewins.model.field.IField)
+	 */
 	@Override
 	public void saveField(IField field) {
 		db.store(field);
 		
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.persistence.IFieldDAO#containsFieldById(java.lang.String)
+	 */
 	@Override
 	public boolean containsFieldById(final String id) {
 		List<IField> fields = db.query(new Predicate<IField>() {
@@ -41,6 +52,10 @@ public class FieldDb4oDAO implements IFieldDAO {
 		return false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.persistence.IFieldDAO#getFieldById(java.lang.String)
+	 */
 	@Override
 	public IField getFieldById(final String id) {
 
@@ -59,12 +74,20 @@ public class FieldDb4oDAO implements IFieldDAO {
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.persistence.IFieldDAO#deleteFieldById(java.lang.String)
+	 */
 	@Override
 	public void deleteFieldById(String id) {
 		db.delete(getFieldById(id));
 		
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.persistence.IFieldDAO#getAllFields()
+	 */
 	@Override
 	public List<IField> getAllFields() {
 		return db.query(IField.class);

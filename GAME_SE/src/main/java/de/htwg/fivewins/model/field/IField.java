@@ -41,7 +41,15 @@ public interface IField {
 	 */
 	String getId();
 	
+	/**
+	 * Sets id. Is needed for database.
+	 * @param id
+	 */
 	void setId(String id);
 	
+	/**
+	 * Sets field. Is needed for loading a field from database.
+	 * @param field
+	 */
 	void setField(String[][] field);
 }

@@ -14,12 +14,20 @@ public interface IPlugin extends IObserver{
 	String getName();
 	
 	/**
-	 * 
+	 * Plugin works
 	 */
 	void work();
 	
+	/**
+	 * Returns if Plugin is active.
+	 * @return
+	 */
 	boolean isActive();
 	
+	/**
+	 * Activates or deactivates plugin.
+	 * @param active
+	 */
 	void setActive(boolean active);
 	
 	

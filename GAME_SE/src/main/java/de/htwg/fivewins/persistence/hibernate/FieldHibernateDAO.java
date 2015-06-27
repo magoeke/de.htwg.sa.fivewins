@@ -17,6 +17,9 @@ import de.htwg.fivewins.persistence.IFieldDAO;
 
 public class FieldHibernateDAO implements IFieldDAO{
 	
+	/*
+	 * Converts a PersistenField to IField.
+	 */
 	private IField copyField(PersistentField pfield) {
 		if(pfield == null) {
 			return null;
@@ -33,6 +36,9 @@ public class FieldHibernateDAO implements IFieldDAO{
 		return field;
 	}
 	
+	/*
+	 * Converts a IFlied to a PersistentField.
+	 */
 	private PersistentField copyField(IField field) {
 		if(field == null) {
 			return null;
@@ -57,7 +63,10 @@ public class FieldHibernateDAO implements IFieldDAO{
 		return pfield;
 	}
 	
-	
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.persistence.IFieldDAO#saveField(de.htwg.fivewins.model.field.IField)
+	 */
 	@Override
 	public void saveField(IField field) {
 		Transaction tx = null;
@@ -80,6 +89,10 @@ public class FieldHibernateDAO implements IFieldDAO{
 		
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.persistence.IFieldDAO#containsFieldById(java.lang.String)
+	 */
 	@Override
 	public boolean containsFieldById(String id) {
 		if(getFieldById(id) != null) {
@@ -88,6 +101,10 @@ public class FieldHibernateDAO implements IFieldDAO{
 		return false;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.persistence.IFieldDAO#getFieldById(java.lang.String)
+	 */
 	@Override
 	public IField getFieldById(String id) {
 		Session session = HibernateUtil.getInstance().getCurrentSession();
@@ -96,6 +113,10 @@ public class FieldHibernateDAO implements IFieldDAO{
 		return copyField((PersistentField) session.get(PersistentField.class, id));
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.persistence.IFieldDAO#deleteFieldById(java.lang.String)
+	 */
 	@Override
 	public void deleteFieldById(String id) {
 		Transaction tx = null;
@@ -116,6 +137,10 @@ public class FieldHibernateDAO implements IFieldDAO{
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.htwg.fivewins.persistence.IFieldDAO#getAllFields()
+	 */
 	@Override
 	public List<IField> getAllFields() {
 		Session session = HibernateUtil.getInstance().getCurrentSession();
@@ -133,6 +158,4 @@ public class FieldHibernateDAO implements IFieldDAO{
 		return fields;
 	}
 
-	
-	
 }
