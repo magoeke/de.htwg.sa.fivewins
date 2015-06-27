@@ -1,13 +1,16 @@
 package de.htwg.fivewins.controller.game;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import scala.concurrent.Await;
+import scala.concurrent.ExecutionContext;
 import scala.concurrent.Future;
 import scala.concurrent.duration.Duration;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
+import akka.dispatch.Futures;
 import akka.pattern.Patterns;
 import akka.util.Timeout;
 
@@ -44,6 +47,12 @@ public class FiveWinsController extends Observable implements
 	private IFieldFactory fieldFactory;
 	private IFieldDAO database;
 
+	private ActorSystem actorSystem;
+	private ActorRef diagonalWorker;
+	private ActorRef horizontalWorker;
+	private ActorRef verticalWorker;
+	private ActorRef diagonalReflectedWorker;
+
 	/**
 	 * initialize a Controller for a Player vs. Player game
 	 */
@@ -52,7 +61,22 @@ public class FiveWinsController extends Observable implements
 		this.fieldFactory = fieldFactory;
 		this.field = fieldFactory.create(FIVEWINS);
 		this.database = database;
+
+		initActors();
 		calculateNeedToWin();
+	}
+
+	private void initActors() {
+		actorSystem = ActorSystem.create("FiveWins");
+		diagonalWorker = actorSystem.actorOf(Props.create(Diagonal.class),
+				"diagonalWorker");
+		horizontalWorker = actorSystem.actorOf(Props.create(Horizontal.class),
+				"horizontalWorker");
+		verticalWorker = actorSystem.actorOf(Props.create(Vertical.class),
+				"verticalWorker");
+		diagonalReflectedWorker = actorSystem.actorOf(
+				Props.create(DiagonalReflected.class),
+				"diagonalReflectedWorker");
 	}
 
 	/*
@@ -70,7 +94,9 @@ public class FiveWinsController extends Observable implements
 
 	/*
 	 * (non-Javadoc)
-	 * @see de.htwg.fivewins.controller.game.IFiveWinsController#setValue(int, int, java.lang.String)
+	 * 
+	 * @see de.htwg.fivewins.controller.game.IFiveWinsController#setValue(int,
+	 * int, java.lang.String)
 	 */
 	public boolean setValue(int column, int row, String value) {
 		// input must be right
@@ -177,50 +203,33 @@ public class FiveWinsController extends Observable implements
 	 * for better understanding look at the picture in the readme
 	 */
 	public String winRequest() {
-		
-		int diagonal = 0;
-		int horizontal = 0;
-		int vertical = 0;
-		int diagonalReflected = 0;
-		
-		ActorSystem system = ActorSystem.create("MySystem");
-		ActorRef diagonalWorker = system.actorOf(Props.create(Diagonal.class), "diagonalWorker");
-		ActorRef horizontalWorker = system.actorOf(Props.create(Horizontal.class), "horizontalWorker");
-		ActorRef verticalWorker = system.actorOf(Props.create(Vertical.class), "verticalWorker");
-		ActorRef diagonalReflectedWorker = system.actorOf(Props.create(DiagonalReflected.class), "diagonalReflectedWorker");
-
+				
+		ArrayList<Future<Object>> futures = new ArrayList<Future<Object>>();
+				
 		Timeout timeout = new Timeout(Duration.create(5, "seconds"));
-		Future<Object> future1 = Patterns.ask(diagonalWorker, new Work(lastx, lasty, 0, getPlayerSign(),
-				true, field), timeout);
-		Future<Object> future2 = Patterns.ask(horizontalWorker, new Work(lastx, lasty, 0, getPlayerSign(),
-				true, field), timeout);
-		Future<Object> future3 = Patterns.ask(verticalWorker, new Work(lastx, lasty, 0, getPlayerSign(),
-				true, field), timeout);
-		Future<Object> future4 = Patterns.ask(diagonalReflectedWorker, new Work(lastx, lasty, 0, getPlayerSign(),
-				true, field), timeout);
+		Work work = new Work(lastx, lasty, 0, getPlayerSign(),
+				true, field);
 		
-
-		
+		futures.add(Patterns.ask(diagonalWorker, work , timeout));
+		futures.add(Patterns.ask(horizontalWorker, work, timeout));
+		futures.add(Patterns.ask(verticalWorker, work, timeout));
+		futures.add(Patterns.ask(diagonalReflectedWorker, work, timeout));
+				
 		try {
-			Result res1 = (Result) Await.result(future1, timeout.duration());
-			Result res2 = (Result) Await.result(future2, timeout.duration());
-			Result res3 = (Result) Await.result(future3, timeout.duration());
-			Result res4 = (Result) Await.result(future4, timeout.duration());
-
-			diagonal = res1.getResult() + 1;
-			horizontal = res2.getResult() + 1;
-			vertical = res3.getResult() + 1;
-			diagonalReflected = res4.getResult() + 1;
+			// wait for worker replies
+			for(Future<Object> f : futures) {
+				Result res = (Result) Await.result(f, timeout.duration());
+				//return as soon as win is recognized
+				if(res.getResult() + 1 == needToWin) {
+					win = true;
+					winner = getPlayerSign();
+					return winner;
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		if (vertical >= needToWin || horizontal >= needToWin
-				|| diagonal >= needToWin || diagonalReflected >= needToWin) {
-			win = true;
-			winner = getPlayerSign();
-			return winner;
-		}
 		if (isItADraw()) {
 			draw = true;
 			return "draw";
@@ -228,8 +237,6 @@ public class FiveWinsController extends Observable implements
 
 		return "";
 	}
-
-
 
 	/*
 	 * Checks if game is a draw.
@@ -370,6 +377,7 @@ public class FiveWinsController extends Observable implements
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.fivewins.controller.game.IFiveWinsController#setTurn(int)
 	 */
 	@Override
@@ -379,7 +387,10 @@ public class FiveWinsController extends Observable implements
 
 	/*
 	 * (non-Javadoc)
-	 * @see de.htwg.fivewins.controller.game.IFiveWinsController#setField(de.htwg.fivewins.model.field.IField)
+	 * 
+	 * @see
+	 * de.htwg.fivewins.controller.game.IFiveWinsController#setField(de.htwg
+	 * .fivewins.model.field.IField)
 	 */
 	@Override
 	public void setField(IField field) {
@@ -389,6 +400,7 @@ public class FiveWinsController extends Observable implements
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.fivewins.controller.game.IFiveWinsController#getAllFields()
 	 */
 	@Override
@@ -398,18 +410,21 @@ public class FiveWinsController extends Observable implements
 
 	/*
 	 * (non-Javadoc)
-	 * @see de.htwg.fivewins.controller.game.IFiveWinsController#deleteAllGames()
+	 * 
+	 * @see
+	 * de.htwg.fivewins.controller.game.IFiveWinsController#deleteAllGames()
 	 */
 	@Override
 	public void deleteAllGames() {
 		List<IField> savedGames = database.getAllFields();
-		for(IField savedGame : savedGames) {
+		for (IField savedGame : savedGames) {
 			database.deleteFieldById(savedGame.getId());
 		}
 	}
-	
+
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see de.htwg.fivewins.controller.game.IFiveWinsController#saveGame()
 	 */
 	@Override
