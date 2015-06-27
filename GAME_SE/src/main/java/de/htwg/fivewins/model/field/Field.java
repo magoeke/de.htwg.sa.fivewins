@@ -122,6 +122,14 @@ public class Field implements IField {
 
 	@Override
 	public void setField(String[][] field) {
-		this.gamefield = field;
+		if(field == null) {
+			throw new IllegalArgumentException();
+		}
+		int size = field[0].length;
+		
+		this.gamefield = new String[size][size];
+		for(int i = 0; i < size; i++) {
+			gamefield[i] = field[i].clone();
+		}		
 	}
 }

@@ -12,7 +12,6 @@ import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 
 import de.htwg.fivewins.controller.game.IFiveWinsController;
 import de.htwg.fivewins.controller.plugin.IPluginController;

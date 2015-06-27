@@ -76,8 +76,6 @@ public class FieldHibernateDAO implements IFieldDAO{
 			if (tx != null) {
 				tx.rollback();
 			}
-			throw new RuntimeException(ex.getMessage());
-
 		}
 		
 	}
@@ -115,8 +113,6 @@ public class FieldHibernateDAO implements IFieldDAO{
 			if (tx != null) {
 				tx.rollback();
 			}
-			throw new RuntimeException(ex.getMessage());
-
 		}
 	}
 

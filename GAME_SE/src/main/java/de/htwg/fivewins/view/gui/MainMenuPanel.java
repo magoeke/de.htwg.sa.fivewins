@@ -155,8 +155,9 @@ public class MainMenuPanel extends JPanel {
 		result.add("new game");
 		
 		allFieldsList = jf.getAllFields();
-		if(allFieldsList == null)
+		if(allFieldsList == null) {
 			return result;
+		}
 		
 		for(IField field : allFieldsList) {
 			result.add(field.getId());
