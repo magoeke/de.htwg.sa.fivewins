@@ -125,7 +125,7 @@ public class Field implements IField {
 		if(field == null) {
 			throw new IllegalArgumentException();
 		}
-		int size = field[0].length;
+		this.size = field[0].length;
 		
 		this.gamefield = new String[size][size];
 		for(int i = 0; i < size; i++) {
