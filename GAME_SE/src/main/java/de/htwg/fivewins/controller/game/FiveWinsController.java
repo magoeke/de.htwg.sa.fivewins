@@ -215,24 +215,6 @@ public class FiveWinsController extends Observable implements
 			e.printStackTrace();
 		}
 
-		/*int horizontal = winRequestHorizontal(lastx, lasty, 0, getPlayerSign(),
-				true)
-				+ winRequestHorizontal(lastx, lasty, 0, getPlayerSign(), false)
-				+ 1;
-		int vertical = winRequestVertical(lastx, lasty, 0, getPlayerSign(),
-				true)
-				+ winRequestVertical(lastx, lasty, 0, getPlayerSign(), false)
-				+ 1;
-		int diagonal = winRequestDiagonal(lastx, lasty, 0, getPlayerSign(),
-				true)
-				+ winRequestDiagonal(lastx, lasty, 0, getPlayerSign(), false)
-				+ 1;
-		
-		int diagonalReflected = winRequestDiagonalReflected(lastx, lasty, 0,
-				getPlayerSign(), true)
-				+ winRequestDiagonalReflected(lastx, lasty, 0, getPlayerSign(),
-						false) + 1;*/
-
 		if (vertical >= needToWin || horizontal >= needToWin
 				|| diagonal >= needToWin || diagonalReflected >= needToWin) {
 			win = true;
