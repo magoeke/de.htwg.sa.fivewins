@@ -65,11 +65,11 @@ public abstract class AIAdapter {
 		this.whichPlayer = whichPlayer;
 	}
 	
-	protected IField getField() {
+	protected IField getParentField() {
 		return field;
 	}
 	
-	protected void setField(IField field) {
+	protected void setParentField(IField field) {
 		this.field =  field;
 	}
 	
