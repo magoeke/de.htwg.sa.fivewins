@@ -15,8 +15,9 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<fork>true</fork>
+					<source>1.7</source>
+					<target>1.7</target>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -114,8 +115,8 @@
 		<!-- akka -->
 		<dependency>
 			<groupId>com.typesafe.akka</groupId>
-			<artifactId>akka-actor_2.11</artifactId>
-			<version>2.4-SNAPSHOT</version>
+			<artifactId>akka-actor_2.10</artifactId>
+			<version>2.3.11</version>
 		</dependency>
 	</dependencies>
 
