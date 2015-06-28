@@ -2,6 +2,7 @@ package de.htwg.fivewins.controller.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import scala.concurrent.Await;
 import scala.concurrent.Future;
@@ -31,6 +32,7 @@ public class FiveWinsController extends Observable implements
 
 	public static final int FIVEWINS = 5;
 	public static final int TWO = 2;
+	private static final int ASK_TIMEOUT = 5;
 	private String statusMessage = "Welcome to HTWG Five Wins!";
 	private IField field;
 	private int turn = 0;
@@ -45,11 +47,13 @@ public class FiveWinsController extends Observable implements
 	private IFieldFactory fieldFactory;
 	private IFieldDAO database;
 
-	private ActorSystem actorSystem;
 	private ActorRef diagonalWorker;
 	private ActorRef horizontalWorker;
 	private ActorRef verticalWorker;
 	private ActorRef diagonalReflectedWorker;
+
+	private static final Logger LOGGER = Logger
+			.getLogger("de.htwg.fivewins.controller");
 
 	/**
 	 * initialize a Controller for a Player vs. Player game
@@ -65,7 +69,7 @@ public class FiveWinsController extends Observable implements
 	}
 
 	private void initActors() {
-		actorSystem = ActorSystem.create("FiveWins");
+		ActorSystem actorSystem = ActorSystem.create("FiveWins");
 		diagonalWorker = actorSystem.actorOf(Props.create(Diagonal.class),
 				"diagonalWorker");
 		horizontalWorker = actorSystem.actorOf(Props.create(Horizontal.class),
@@ -201,31 +205,30 @@ public class FiveWinsController extends Observable implements
 	 * for better understanding look at the picture in the readme
 	 */
 	public String winRequest() {
-				
+
 		ArrayList<Future<Object>> futures = new ArrayList<Future<Object>>();
-				
-		Timeout timeout = new Timeout(Duration.create(5, "seconds"));
-		Work work = new Work(lastx, lasty, 0, getPlayerSign(),
-				true, field);
-		
-		futures.add(Patterns.ask(diagonalWorker, work , timeout));
+
+		Timeout timeout = new Timeout(Duration.create(ASK_TIMEOUT, "seconds"));
+		Work work = new Work(lastx, lasty, 0, getPlayerSign(), true, field);
+
+		futures.add(Patterns.ask(diagonalWorker, work, timeout));
 		futures.add(Patterns.ask(horizontalWorker, work, timeout));
 		futures.add(Patterns.ask(verticalWorker, work, timeout));
 		futures.add(Patterns.ask(diagonalReflectedWorker, work, timeout));
-				
+
 		try {
 			// wait for worker replies
-			for(Future<Object> f : futures) {
+			for (Future<Object> f : futures) {
 				Result res = (Result) Await.result(f, timeout.duration());
-				//return as soon as win is recognized
-				if(res.getResult() + 1 == needToWin) {
+				// return as soon as win is recognized
+				if (res.getResult() + 1 == needToWin) {
 					win = true;
 					winner = getPlayerSign();
 					return winner;
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.info(e.toString());
 		}
 
 		if (isItADraw()) {
