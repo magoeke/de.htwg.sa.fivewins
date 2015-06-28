@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import scala.concurrent.Await;
-import scala.concurrent.ExecutionContext;
 import scala.concurrent.Future;
 import scala.concurrent.duration.Duration;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
-import akka.dispatch.Futures;
 import akka.pattern.Patterns;
 import akka.util.Timeout;
 
