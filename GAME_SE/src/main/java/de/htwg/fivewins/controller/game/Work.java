@@ -7,9 +7,9 @@ public class Work {
 	private int value1;
 	private int value2;
 	private int n;
-	String currentPlayer;
-	boolean operator;
-	IField field;
+	private String currentPlayer;
+	private boolean operator;
+	private IField field;
 
 	public Work(int value1, int value2, int n, String currentPLayer,
 			boolean operator, IField field) {
@@ -18,6 +18,7 @@ public class Work {
 		this.currentPlayer = currentPLayer;
 		this.operator = operator;
 		this.field = field;
+		this.n = n;
 	}
 
 	public int getValue1() {

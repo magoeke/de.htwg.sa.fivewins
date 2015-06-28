@@ -1,7 +1,7 @@
 package de.htwg.fivewins.controller.game;
 
 public class Result {
-	int result;
+	private int result;
 	
 	public Result(int result) {
 		this.result = result;
