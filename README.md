@@ -17,6 +17,7 @@ Before you start the Game you can choose which database and which plugins you wa
 ###Plugins
 You have the choice between 2 Plugins. 
 | Plugin Name | Function |
+| --- | --- |
 | Turn Plugin | Every player has 2 turns in a row. |
 | Random Plugin | Sets a random Stone in a random turn. |
 
@@ -25,4 +26,5 @@ You have the choice between 3 databases.
 -	db4o
 -	 MySQL
 -	couchDB
+
 The databases save the current gamefield. The gamefield gets saved before the next Players turn start.
