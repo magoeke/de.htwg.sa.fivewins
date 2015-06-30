@@ -17,13 +17,10 @@ Before you start the Game you can choose which database and which plugins you wa
 ###Plugins
 You have the choice between 2 Plugins. 
 
-| Plugin Name | Function |
-
-| --- | --- |
-
-| Turn Plugin | Every player has 2 turns in a row. |
-
-| Random Plugin | Sets a random Stone in a random turn. |
+Plugin Name | Function
+--- | ---
+Turn Plugin | Every player has 2 turns in a row.
+Random Plugin | Sets a random Stone in a random turn.
 
 ###Databases
 You have the choice between 3 databases.
