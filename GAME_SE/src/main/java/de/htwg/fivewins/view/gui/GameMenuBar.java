@@ -24,7 +24,7 @@ public class GameMenuBar extends JMenuBar implements ActionListener,
 
 	private static final long serialVersionUID = 1L;
 
-	private JMenuItem restart, backToMainMenu, deleteAllGames, saveGame;
+	private JMenuItem restart, backToMainMenu, deleteAllGames, saveGame, loadGames;
 	private List<JCheckBoxMenuItem> pluginMenuItems;
 	private GameFrame gameFrame;
 	private Map<String, IPlugin> mapping;
@@ -47,10 +47,13 @@ public class GameMenuBar extends JMenuBar implements ActionListener,
 		saveGame.addActionListener(this);
 		deleteAllGames = new JMenuItem("Delete all saved games");
 		deleteAllGames.addActionListener(this);
+		loadGames = new JMenuItem("Load all Games");
+		loadGames.addActionListener(this);
 		menu.add(restart);
 		menu.add(backToMainMenu);
 		menu.add(deleteAllGames);
 		menu.add(saveGame);
+		menu.add(loadGames);
 		this.add(menu);
 
 		// for plugin
@@ -83,6 +86,8 @@ public class GameMenuBar extends JMenuBar implements ActionListener,
 			}
 		} else if (e.getSource() == saveGame) {
 			controller.saveGame();
+		} else if (e.getSource() == loadGames) {
+			controller.getAllFields();
 		}
 	}
 	
